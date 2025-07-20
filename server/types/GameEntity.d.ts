@@ -29,4 +29,5 @@ declare interface GameEntity extends GameEntity {
         hour: number,
         minute: number
     };
+    dimension: number;
 };

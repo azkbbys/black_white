@@ -145,6 +145,7 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
         hour: 0,
         minute: -10086
     },
+    dimension: 1,//1:黑 2:白
 };
 
 /**
@@ -269,6 +270,9 @@ async function leaderBoard(type) { // 排行榜
 world.onPlayerJoin(async({ entity }) => {
     await loadPlayer(entity); // 载入玩家数据
 
+});
+world.onPlayerLeave(async({ entity }) => {
+    await savePlayer(entity); // 保存玩家数据
 });
 
 // 右键菜单
@@ -860,4 +864,13 @@ world.onPress(async({button,entity})=>{
             }
         }
     }
+})
+
+const switch_dimension= world.querySelector('#切换')
+switch_dimension.enableInteract=true
+switch_dimension.interactHint=''
+switch_dimension.interactRadius=10000
+switch_dimension.onInteract(({entity})=>{
+    entity.dimension==1?entity.position.x+=64:entity.position.x-=64
+    entity.player.directMessage(`切换维度成功`)
 })
