@@ -1,3 +1,4 @@
+console.clear()
 // 变量
 var admin:string[] = []
 var adminpro:string[] = ['阿兹卡班毕业生']
@@ -132,6 +133,9 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     x: 0,
     y: 0,
     z: 0,
+    leave_x: 0,
+    leave_y: 0,
+    leave_z: 0,
     adminlevel: 0,
     canplay: true,
     used_duihuanma: [],
@@ -269,9 +273,13 @@ async function leaderBoard(type) { // 排行榜
 
 world.onPlayerJoin(async({ entity }) => {
     await loadPlayer(entity); // 载入玩家数据
-
+    entity.position.set(entity.leave_x,entity.leave_y,entity.leave_z)
+    entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
 });
 world.onPlayerLeave(async({ entity }) => {
+    entity.leave_x = entity.position.x;
+    entity.leave_y = entity.position.y;
+    entity.leave_z = entity.position.z;
     await savePlayer(entity); // 保存玩家数据
 });
 
@@ -866,11 +874,21 @@ world.onPress(async({button,entity})=>{
     }
 })
 
+// 跌入虚空重生
+world.onPlayerJoin(({entity})=>{
+    world.onTick(({tick})=>{
+        if(entity.position.y<=1){
+            entity.player.forceRespawn()
+        }
+    })
+})
+
 const switch_dimension= world.querySelector('#切换')
 switch_dimension.enableInteract=true
 switch_dimension.interactHint=''
-switch_dimension.interactRadius=10000
+switch_dimension.interactRadius=100000000
 switch_dimension.onInteract(({entity})=>{
     entity.dimension==1?entity.position.x+=64:entity.position.x-=64
+    entity.dimension==1?entity.dimension=2:entity.dimension=1
     entity.player.directMessage(`切换维度成功`)
 })

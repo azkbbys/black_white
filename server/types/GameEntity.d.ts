@@ -16,6 +16,9 @@ declare interface GameEntity extends GameEntity {
     x: number;
     y: number;
     z: number;
+    leave_x: number;
+    leave_y: number;
+    leave_z: number;
     adminlevel: number;
     canplay: boolean;
     used_duihuanma: string[];
