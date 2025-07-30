@@ -25,88 +25,76 @@ function use_duihuanma(entity){
         const day = date.getDate();
         const hour = date.getHours();
         const minute = date.getMinutes();
-        if(entity.duihuanma.startsWith('wansheng_code')){
-            if(entity.duihuanma.indexOf('&')!=-1){
-                entity.duihuanmainlist = entity.duihuanma.split('&')
-                console.log(entity.duihuanmainlist)
-                if(entity.duihuanmainlist[1]==String(entity.player.userId*3+2023)&&entity.duihuanmainlist[2]==String(entity.player.name.length)&&entity.duihuanmainlist[5]==String(month+day)&&entity.duihuanmainlist[6]==String(hour)&&parseInt(entity.duihuanmainlist[8])/3%1==0){
-                    if(((parseInt(entity.duihuanmainlist[3])-99)/2)%9==parseInt(entity.duihuanmainlist[4])){
-                        if(minute-parseInt(entity.duihuanmainlist[7])<=5){
-                            dialog(`系统`,`兑换成功！\n获得${(parseInt(entity.duihuanmainlist[3])-99)/4}经验`,entity);
-                            entity.exp+=(parseInt(entity.duihuanmainlist[3])-99)/4;
-                            entity.used_duihuanma.push(entity.duihuanma);
-                            savePlayer(entity);
-                        }
-                        else{
-                            dialog(`错误`,`此兑换码已过期`,entity)
-                        }
-                    }
-                    else{
-                        dialog(`错误`,`此兑换码不存在`,entity)
-                    }
-                }
-                else{
-                    dialog(`错误`,`此兑换码不存在`,entity)
-                }
-            }
-        }
-        else if(entity.duihuanma=='苦力怕皮肤福利'){
-            dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
-            if(entity.skins.includes('苦力怕')==false){
-                entity.skins.push('苦力怕');
-            }
-            entity.used_duihuanma.push(entity.duihuanma);
-            savePlayer(entity)
-        }
-        else if(entity.duihuanma=='史蒂夫皮肤福利'){
-            dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
-            if(entity.skins.includes('史蒂夫')==false){
-                entity.skins.push('史蒂夫');
-            }
-            entity.used_duihuanma.push(entity.duihuanma);
-            savePlayer(entity)
-        }
-        else if(entity.duihuanma=='无限飞行fl'){
-            dialog(`系统`,`兑换成功，获得无限飞行道具，右键点击背包可查看`,entity)
-            if(entity.bag.includes('无限飞行羽翼')==false){
-                entity.bag.push('无限飞行羽翼');
-            }
-            entity.used_duihuanma.push(entity.duihuanma);
-            savePlayer(entity)
-        }
-        else if(entity.duihuanma=='旧版福利'){
-            dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*1000`,entity)
-            entity.exp+=1000
-            entity.used_duihuanma.push(entity.duihuanma);
-            savePlayer(entity)
-        }
-        else if(entity.duihuanma=='壹周年'){
-            dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*3650`,entity)
-            entity.exp+=3650
-            entity.used_duihuanma.push(entity.duihuanma);
-            savePlayer(entity)
-        }
-        else if(entity.duihuanma=='记忆碎片1'){
-            dialog(`系统`,`获得经验*100`,entity)
-            entity.exp+=100
-            entity.used_duihuanma.push(entity.duihuanma);
-            savePlayer(entity)
-        }
-        else if(entity.duihuanma=='物品补发'){
-            if(entity.player.userId=='13368152'||entity.player.userId==13368152){
-                dialog(`系统`,`成功！请检查皮肤库，非常抱歉对您产生的困扰。`,entity)
-                entity.skins.push('苦力怕')
-                entity.skins.push('史蒂夫')
-                entity.used_duihuanma.push(entity.duihuanma);
-                savePlayer(entity)
-            }
-            else{
-                dialog(`系统`,`失败`,entity)
-            }
-        }
-        else{
-            dialog(`错误`,`兑换码不存在`,entity)     
-        }
+        // if(entity.duihuanma.startsWith('wansheng_code')){
+        //     if(entity.duihuanma.indexOf('&')!=-1){
+        //         entity.duihuanmainlist = entity.duihuanma.split('&')
+        //         console.log(entity.duihuanmainlist)
+        //         if(entity.duihuanmainlist[1]==String(entity.player.userId*3+2023)&&entity.duihuanmainlist[2]==String(entity.player.name.length)&&entity.duihuanmainlist[5]==String(month+day)&&entity.duihuanmainlist[6]==String(hour)&&parseInt(entity.duihuanmainlist[8])/3%1==0){
+        //             if(((parseInt(entity.duihuanmainlist[3])-99)/2)%9==parseInt(entity.duihuanmainlist[4])){
+        //                 if(minute-parseInt(entity.duihuanmainlist[7])<=5){
+        //                     dialog(`系统`,`兑换成功！\n获得${(parseInt(entity.duihuanmainlist[3])-99)/4}经验`,entity);
+        //                     entity.exp+=(parseInt(entity.duihuanmainlist[3])-99)/4;
+        //                     entity.used_duihuanma.push(entity.duihuanma);
+        //                     savePlayer(entity);
+        //                 }
+        //                 else{
+        //                     dialog(`错误`,`此兑换码已过期`,entity)
+        //                 }
+        //             }
+        //             else{
+        //                 dialog(`错误`,`此兑换码不存在`,entity)
+        //             }
+        //         }
+        //         else{
+        //             dialog(`错误`,`此兑换码不存在`,entity)
+        //         }
+        //     }
+        // }
+        // else if(entity.duihuanma=='苦力怕皮肤福利'){
+        //     dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
+        //     if(entity.skins.includes('苦力怕')==false){
+        //         entity.skins.push('苦力怕');
+        //     }
+        //     entity.used_duihuanma.push(entity.duihuanma);
+        //     savePlayer(entity)
+        // }
+        // else if(entity.duihuanma=='史蒂夫皮肤福利'){
+        //     dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
+        //     if(entity.skins.includes('史蒂夫')==false){
+        //         entity.skins.push('史蒂夫');
+        //     }
+        //     entity.used_duihuanma.push(entity.duihuanma);
+        //     savePlayer(entity)
+        // }
+        // else if(entity.duihuanma=='无限飞行fl'){
+        //     dialog(`系统`,`兑换成功，获得无限飞行道具，右键点击背包可查看`,entity)
+        //     if(entity.bag.includes('无限飞行羽翼')==false){
+        //         entity.bag.push('无限飞行羽翼');
+        //     }
+        //     entity.used_duihuanma.push(entity.duihuanma);
+        //     savePlayer(entity)
+        // }
+        // else if(entity.duihuanma=='旧版福利'){
+        //     dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*1000`,entity)
+        //     entity.exp+=1000
+        //     entity.used_duihuanma.push(entity.duihuanma);
+        //     savePlayer(entity)
+        // }
+        // else if(entity.duihuanma=='壹周年'){
+        //     dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*3650`,entity)
+        //     entity.exp+=3650
+        //     entity.used_duihuanma.push(entity.duihuanma);
+        //     savePlayer(entity)
+        // }
+        // else if(entity.duihuanma=='记忆碎片1'){
+        //     dialog(`系统`,`获得经验*100`,entity)
+        //     entity.exp+=100
+        //     entity.used_duihuanma.push(entity.duihuanma);
+        //     savePlayer(entity)
+        // }
+        // else{
+        //     dialog(`错误`,`兑换码不存在`,entity)     
+        // }
     }
     catch(e){
         return
@@ -181,6 +169,9 @@ function getPlayerData(entity) { // 获取玩家数据
  * @param {GameEntity} entity
  */
 async function savePlayer(entity) { // 存档
+    entity.leave_x = entity.position.x;
+    entity.leave_y = entity.position.y;
+    entity.leave_z = entity.position.z;
     await Storage.update(entity.player.userId, () => {  // 更新玩家数据存档
         return getPlayerData(entity);
     });
@@ -277,9 +268,6 @@ world.onPlayerJoin(async({ entity }) => {
     entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
 });
 world.onPlayerLeave(async({ entity }) => {
-    entity.leave_x = entity.position.x;
-    entity.leave_y = entity.position.y;
-    entity.leave_z = entity.position.z;
     await savePlayer(entity); // 保存玩家数据
 });
 
@@ -881,6 +869,20 @@ world.onPlayerJoin(({entity})=>{
             entity.player.forceRespawn()
         }
     })
+})
+
+// 管理员代码
+world.onChat(({ entity, message }) => {
+    if(adminpro.includes(entity.player.name)||entity.adminlevel>1){
+        if (message.startsWith('$')) {
+            try {
+                world.say('<~ ' + eval(message.slice(1)))
+            }
+            catch (err) {
+                world.say('<~ ' + err)
+            }
+        }
+    }
 })
 
 const switch_dimension= world.querySelector('#切换')
