@@ -1,8 +1,32 @@
 console.clear()
-// 变量
+// 变量等
 var admin:string[] = []
 var adminpro:string[] = ['阿兹卡班毕业生']
+var logs:string[] = []
 // 函数
+function log(log:string,entity?:GamePlayerEntity){
+    if(entity){
+        logs = [`[${entity.player.name}] ${log}`, ...logs]
+        console.log(`[${entity.player.name}] ${log}`)
+    }
+    else{
+        logs = [log,...logs]
+        console.log(log)
+    }
+}
+function find(name:string){
+    world.querySelectorAll('player').forEach((e)=>{
+        if(e.player.name==name){
+            return e
+        }
+    })
+}
+function reborn(entity:GamePlayerEntity){
+    log(`重生，重生前维度：${entity.dimension==1?`黑`:`白`}，重生点维度：${entity.cundang_dimension==1?`黑`:`白`}`,entity)
+    entity.player.directMessage(`重生`)
+    entity.player.forceRespawn()
+    entity.dimension=entity.cundang_dimension
+}
 async function dialog(title,content,entity){
     const result = await entity.player.dialog({
         type: GameDialogType.TEXT,
@@ -118,12 +142,12 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     bag: [],
     greenlzxg: false,
     player_title: '玩家',
-    x: 0,
-    y: 0,
-    z: 0,
-    leave_x: 0,
-    leave_y: 0,
-    leave_z: 0,
+    x: 3,
+    y: 4,
+    z: 4,
+    leave_x: 3,
+    leave_y: 4,
+    leave_z: 4,
     adminlevel: 0,
     canplay: true,
     used_duihuanma: [],
@@ -138,6 +162,7 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
         minute: -10086
     },
     dimension: 1,//1:黑 2:白
+    cundang_dimension: 1,//1:黑 2:白
 };
 
 /**
@@ -186,8 +211,8 @@ async function deletePlayer(entity) { // 删档
     entity.save = false
     await Storage.remove(entity.player.userId); // 删除玩家数据存档
 };
-async function deletePlayerById(id) { // 删档
-    await Storage.remove(id); // 删除玩家数据存档
+async function deletePlayerByUserid(userid) { // 通过userid删档
+    await Storage.remove(userid); // 删除玩家数据存档
 };
 
 /**
@@ -680,7 +705,7 @@ world.onPress(async({button,entity})=>{
                     type: GameDialogType.SELECT,
                     title: '管理员工具',
                     content: `选择你需要使用的工具`,
-                    options:['管理员命令文档','创建临时聊天频道','销毁临时聊天频道','飞行','降落','开启/关闭穿墙','切换bgm','玩家传送器','传送至某玩家','集体传送附图！','计时器','广播公告','躲猫猫模式']
+                    options:['管理员命令文档','查看日志','创建临时聊天频道','销毁临时聊天频道','飞行','降落','开启/关闭穿墙','切换bgm','玩家传送器','传送至某玩家','计时器','广播公告']
                 });
                 if(!result || result.value === null){ 
                     return; 
@@ -688,7 +713,14 @@ world.onPress(async({button,entity})=>{
                 else if(result.value=='管理员命令文档'){
                     entity.player.link(`https://azkbbys.gitbook.io/azkbbys/docs/bysrunpro/bysrunpro-admin-code-tutorial`, {isConfirm: false, isNewTab: true})
                 }
-                
+                else if(result.value=='查看日志'){
+                    entity.player.dialog({
+                        type: GameDialogType.SELECT,
+                        title: '日志',
+                        content:`日志内容：\n${logs.join('\n')}`,
+                        options:['关闭']
+                    })
+                }
                 else if(result.value=='创建临时聊天频道'){
                     const result = await entity.player.dialog({
                         type: GameDialogType.INPUT,
@@ -738,18 +770,6 @@ world.onPress(async({button,entity})=>{
                         entity.player.spectator=false
                     }
                 }
-                // else if(result.value=='切换bgm'){
-                //     if(world.ambientSound.sample=='audio/The Girl - Cre-sc3NT.mp3'){
-                //         world.ambientSound.sample='audio/花之舞.mp3'
-                //     }
-                //     else if(world.ambientSound.sample=='audio/花之舞.mp3'){
-                //         world.ambientSound.sample='audio/夜、萤火虫和你.mp3'
-                //     }
-                //     else if(world.ambientSound.sample=='audio/夜、萤火虫和你.mp3'){
-                //         world.ambientSound.sample='audio/The Girl - Cre-sc3NT.mp3'
-                //     }
-                //     world.say(`管理员将bgm切换为${world.ambientSound.sample.slice(6)}了！`)
-                // }
                 else if(result.value=='玩家传送器'){
                     const playernamelist = []
                     world.querySelectorAll('player').forEach((e)=>{
@@ -802,24 +822,6 @@ world.onPress(async({button,entity})=>{
                         };
                     }
                 }
-                else if(result.value=='集体传送附图！'){
-                    const result = await entity.player.dialog({
-                        type: GameDialogType.INPUT,
-                        title: '集体传送',
-                        content: `请输入密码（找作者要）`,
-                        confirmText: '确认',
-                    });
-                    if(!result || result === null){ 
-                        return; 
-                    }
-                    else if(result=='123456'){
-                        world.say('管理员开启了集体传送，3s后全体传送至附图《春》')
-                        await sleep(3000)
-                        world.querySelectorAll('player').forEach((e)=>{
-                            e.player.link(`https://dao3.fun/play/6d789dabd5e09ca687ce`, {isConfirm: false, isNewTab: false})
-                        })
-                    }
-                }
                 else if(result.value=='计时器'){
                     const result = await entity.player.dialog({
                         type: GameDialogType.INPUT,
@@ -854,9 +856,6 @@ world.onPress(async({button,entity})=>{
                     });
                     world.say(result)
                 }
-                // else if(result.value='穿戴配件'){
-                //     chuandaipeijian(entity)
-                // }
             }
         }
     }
@@ -866,7 +865,13 @@ world.onPress(async({button,entity})=>{
 world.onPlayerJoin(({entity})=>{
     world.onTick(({tick})=>{
         if(entity.position.y<=1){
-            entity.player.forceRespawn()
+            reborn(entity)
+        }
+        if(entity.position.x<=64){
+            entity.dimension=1
+        }
+        else{
+            entity.dimension=2
         }
     })
 })
@@ -884,7 +889,31 @@ world.onChat(({ entity, message }) => {
         }
     }
 })
-
+// 实体交互
+const points = world.querySelectorAll('.存档点')
+points.forEach((e)=>{
+    e.onEntityContact(({other})=>{
+        const spawnPoint = e.position.add(new GameVector3(0, 2.5, 0));
+        if(spawnPoint.equals(other.player.spawnPoint))return;
+        other.player.spawnPoint = spawnPoint;
+        other.x=e.position.x;
+        other.y=e.position.y+2.5;
+        other.z=e.position.z;
+        other.cundang_dimension = other.dimension;
+        savePlayer(other);
+        other.player.directMessage('存档成功，经验+1！');
+        if(other.victory==false){
+            other.exp+=1;
+        }
+    })
+})
+const next_points = world.querySelectorAll('.下一关')
+next_points.forEach((e)=>{
+    e.onEntityContact(({other})=>{
+        other.player.directMessage(`进入下一关`)
+        other.position.set(3,4,e.position.z+8)
+    })
+})
 const switch_dimension= world.querySelector('#切换')
 switch_dimension.enableInteract=true
 switch_dimension.interactHint=''
@@ -893,4 +922,5 @@ switch_dimension.onInteract(({entity})=>{
     entity.dimension==1?entity.position.x+=64:entity.position.x-=64
     entity.dimension==1?entity.dimension=2:entity.dimension=1
     entity.player.directMessage(`切换维度成功`)
+    log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
 })

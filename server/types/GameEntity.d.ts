@@ -33,4 +33,5 @@ declare interface GameEntity extends GameEntity {
         minute: number
     };
     dimension: number;
+    cundang_dimension: number;
 };
