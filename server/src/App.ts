@@ -14,6 +14,51 @@ function log(log:string,entity?:GamePlayerEntity){
         console.log(log)
     }
 }
+async function dialog_with_button(entity:GamePlayerEntity,title:string,content:string,options:string[]){
+    let ret = await entity.player.dialog({
+        type: GameDialogType.SELECT,
+        title: title,
+        content: content,
+        options: options,
+    })
+    return ret
+}
+function reminder(entity:GamePlayerEntity){
+    if(entity.position.z<=8){
+        dialog_with_button(entity,
+            '教程',
+`关卡：教程1
+hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教程
+这个跑酷并不是一个普通的跑酷，在这个跑酷中，世界被分为了两个维度：黑与白。维度由四周墙体的颜色决定，电脑端按下E键即可切换维度。切换前后在两个维度中的相对位置不变。
+现在就试试切换维度吧！`,
+            ['知道了'])
+    }
+    else if(entity.position.z<=16){
+        dialog_with_button(entity,
+            '教程',
+`关卡：教程2
+现在，你已经知道了如何切换维度。
+我要告诉你：两个维度中的地形可能不同！比如这个关卡正是如此。
+现在，切换维度，思考一下如何过关吧！`,
+            ['知道了'])
+    }
+    else if(entity.position.z<=24){
+        dialog_with_button(entity,
+            '教程',
+`关卡：教程3
+在这个关卡中，出现了新的东西——草莓酱！碰到它你就知道会发生什么了）））
+合理切换维度过关！`,
+            ['知道了'])
+    }
+    else if(entity.position.z<=32){
+        dialog_with_button(entity,
+            '教程',
+`关卡：1
+看来你应该掌握了这个游戏的玩法，接下来就要靠你自己摸索辣！
+如果你觉得这个地图不错，记得点赞收藏哦~`,
+            ['知道了'])
+    }
+}
 function find(name:string){
     world.querySelectorAll('player').forEach((e)=>{
         if(e.player.name==name){
@@ -861,7 +906,7 @@ world.onPress(async({button,entity})=>{
     }
 })
 
-// 跌入虚空重生
+// 重生
 world.onPlayerJoin(({entity})=>{
     world.onTick(({tick})=>{
         if(entity.position.y<=1){
@@ -874,6 +919,13 @@ world.onPlayerJoin(({entity})=>{
             entity.dimension=2
         }
     })
+})
+world.onFluidEnter(({entity, tick, voxel}) => {
+    const voxelName = voxels.name(voxel)
+    if (voxelName=='water'){
+        entity.player.forceRespawn()
+        entity.player.directMessage(`落水重生`)
+    }
 })
 
 // 管理员代码
@@ -893,18 +945,21 @@ world.onChat(({ entity, message }) => {
 const points = world.querySelectorAll('.存档点')
 points.forEach((e)=>{
     e.onEntityContact(({other})=>{
+        if(!other.player)return;
+        const entity = other as GamePlayerEntity
         const spawnPoint = e.position.add(new GameVector3(0, 2.5, 0));
         if(spawnPoint.equals(other.player.spawnPoint))return;
-        other.player.spawnPoint = spawnPoint;
-        other.x=e.position.x;
-        other.y=e.position.y+2.5;
-        other.z=e.position.z;
-        other.cundang_dimension = other.dimension;
+        entity.player.spawnPoint = spawnPoint;
+        entity.x=e.position.x;
+        entity.y=e.position.y+2.5;
+        entity.z=e.position.z;
+        entity.cundang_dimension = other.dimension;
         savePlayer(other);
-        other.player.directMessage('存档成功，经验+1！');
-        if(other.victory==false){
-            other.exp+=1;
+        entity.player.directMessage('存档成功，经验+1！');
+        if(entity.victory==false){
+            entity.exp+=1;
         }
+        reminder(entity)
     })
 })
 const next_points = world.querySelectorAll('.下一关')
