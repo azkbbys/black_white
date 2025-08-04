@@ -15,6 +15,16 @@ for(let x=0;x<=127;x++){
     }
 }
 // 函数
+function check_player(entity:GamePlayerEntity){
+    if(32<=entity.position.z&&entity.position.z<=40&&entity.position.y<=5){
+        entity.player.jumpPower = Infinity
+        entity.player.enableDoubleJump = false
+    }
+    else{
+        entity.player.jumpPower = 0.9
+        entity.player.enableDoubleJump = true
+    }
+}
 function log(log:string,entity?:GamePlayerEntity){
     if(entity){
         logs = [`[${entity.player.name}] ${log}`, ...logs]
@@ -67,6 +77,13 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
 `关卡：1
 看来你应该掌握了这个游戏的玩法，接下来就要靠你自己摸索辣！
 如果你觉得这个地图不错，记得点赞收藏哦~`,
+            ['知道了'])
+    }
+    else if(entity.position.z<=40){
+        dialog_with_button(entity,
+            '提示',
+`关卡：2
+这个关卡...似乎...不能跳跃？！`,
             ['知道了'])
     }
 }
@@ -344,6 +361,7 @@ async function leaderBoard(type) { // 排行榜
 };
 
 world.onPlayerJoin(async({ entity }) => {
+    log(`加入`,entity)
     await loadPlayer(entity); // 载入玩家数据
     entity.position.set(entity.leave_x,entity.leave_y,entity.leave_z)
     entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
@@ -917,9 +935,10 @@ world.onPress(async({button,entity})=>{
     }
 })
 
-// 重生
+// 重生和检测
 world.onPlayerJoin(({entity})=>{
     world.onTick(({tick})=>{
+        check_player(entity)
         if(entity.position.y<=1){
             reborn(entity)
         }
