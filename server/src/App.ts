@@ -1042,6 +1042,7 @@ const wcbl = {
         new GameRGBColor(0, 1, 1),
         new GameRGBColor(1, 1, 1)
     ],
+    particleNoise:2
 }
 world.onPlayerJoin(async({entity})=>{
     await loadPlayer(entity)
