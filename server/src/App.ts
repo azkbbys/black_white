@@ -1,8 +1,19 @@
 console.clear()
 // 变量等
 var admin:string[] = []
-var adminpro:string[] = ['阿兹卡班毕业生']
+var adminpro:string[] = ['阿兹卡班毕业生','奶油a']
 var logs:string[] = []
+var lzxglist:string[] = []
+// 处理建造时出现的冗余地形 backslash
+for(let x=0;x<=127;x++){
+    for(let y=0;y<=127;y++){
+        for(let z=0;z<=127;z++){
+            if(voxels.getVoxelId(x,y,z) == 491){
+                voxels.setVoxel(x,y,z,0)
+            }
+        }
+    }
+}
 // 函数
 function log(log:string,entity?:GamePlayerEntity){
     if(entity){
@@ -922,7 +933,7 @@ world.onPlayerJoin(({entity})=>{
 })
 world.onFluidEnter(({entity, tick, voxel}) => {
     const voxelName = voxels.name(voxel)
-    if (voxelName=='water'){
+    if (voxelName=='strawberry_juice'){
         entity.player.forceRespawn()
         entity.player.directMessage(`落水重生`)
     }
@@ -941,6 +952,10 @@ world.onChat(({ entity, message }) => {
         }
     }
 })
+
+// 碰撞过滤
+world.addCollisionFilter('player','player')
+
 // 实体交互
 const points = world.querySelectorAll('.存档点')
 points.forEach((e)=>{
@@ -978,4 +993,82 @@ switch_dimension.onInteract(({entity})=>{
     entity.dimension==1?entity.dimension=2:entity.dimension=1
     entity.player.directMessage(`切换维度成功`)
     log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
+})
+
+const particle_greenCrystal = {
+    particleRate: 500,
+    particleLifetime: 0.4,
+    particleSize: [4, 3, 2, 1, 0.25],
+    particleColor: [
+        new GameRGBColor(1, 1, 0),
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(1, 1, 1)
+    ],
+}
+const test_green = {
+    particleRate: 500,
+    particleLifetime: 999,
+    particleSize: [4, 3, 2, 1, 0.25],
+    particleColor: [
+        new GameRGBColor(1, 1, 0),
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(1, 1, 1)
+    ],
+}
+const particle_purpleCrystal = {
+    particleRate: 500,
+    particleLifetime: 0.4,
+    particleSize: [4, 3, 2, 1, 0.25],
+    particleColor: [
+        new GameRGBColor(0, 0, 1),
+        new GameRGBColor(0, 0, 1),
+        new GameRGBColor(1, 0, 1),
+        new GameRGBColor(1, 0, 1),
+        new GameRGBColor(1, 1, 1)
+    ],
+}
+const wcbl = {
+    particleRate: 700,
+    particleLifetime: 1.5,
+    particleSize: [1.5, 1.5, 1.5, 1.5, 1.5],
+    particleColor: [
+        new GameRGBColor(0, 1, 0),
+        new GameRGBColor(0, 0, 1),
+        new GameRGBColor(1, 0, 1),
+        new GameRGBColor(0, 1, 1),
+        new GameRGBColor(1, 1, 1)
+    ],
+}
+world.onPlayerJoin(async({entity})=>{
+    await loadPlayer(entity)
+    if(entity.player.name=='阿兹卡班毕业生'){
+        entity.player.color=new GameRGBColor(1,0,1)
+        Object.assign(entity, wcbl)
+    }
+    else if(admin.includes(entity.player.name)||adminpro.includes(entity.player.name)||entity.adminlevel>0){
+        Object.assign(entity, particle_purpleCrystal)
+    }
+    else if(entity.greenlzxg==true||lzxglist.includes(entity.player.userKey)||lzxglist.includes(entity.player.name)){
+        Object.assign(entity, particle_greenCrystal)
+    }
+    // 管理员sql与地图管理员列表同步
+    // if(admin.includes(entity.player.name)){
+    //     entity.isadmin=true;
+    // }
+    // if(entity.isPlayer==true&&admin.includes(entity.player.name)==false){
+    //     admin.push(entity.player.name)
+    // }
+    // 检测网址中是否含有兑换码，如含有则使用
+    var playerurl_string = entity.player.url;
+    var playerurl  = new URL(playerurl_string);
+    entity.duihuanma = playerurl.searchParams.get('code')
+    use_duihuanma(entity)
+    // 更换皮肤
+    if(entity.usingskin!='原版'){
+        entity.player.setSkinByName(entity.usingskin);
+    }
 })
