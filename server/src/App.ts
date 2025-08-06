@@ -1,7 +1,7 @@
 console.clear()
 // 变量等
 var admin:string[] = []
-var adminpro:string[] = ['阿兹卡班毕业生','奶油a','羽岚.龍族[原]:Aoken']
+var adminpro:string[] = ['阿兹卡班毕业生','奶油a','羽岚.龍族[原]:Aoken','烤得酥脆的笨鼠','蓝鱼I恒星']
 var logs:string[] = []
 var lzxglist:string[] = []
 // 处理建造时出现的冗余地形 backslash
@@ -1074,18 +1074,19 @@ switch_dimension.onInteract(({entity})=>{
     log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
 })
 const win= world.querySelector('#终点')
-win.enableInteract=true
-win.interactHint='终点'
-win.interactRadius=3
-win.onInteract(({entity})=>{
-    if(entity.victory==true)return
-    world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
-    entity.victory = true
-    entity.player.spectator=true
-    entity.player.color = new GameRGBColor(0, 1, 0)
-    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限`, ['确定'])
-    log(`到达终点，用时${entity.time}`)
-})
+// win.enableInteract=true
+// win.interactHint='终点'
+// win.interactRadius=3
+// win.onInteract(({entity})=>{
+//     if(entity.victory==true)return
+//     world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
+//     entity.victory = true
+//     entity.player.spectator=true
+//     entity.player.color = new GameRGBColor(0, 1, 0)
+//     entity.exp+=100
+//     dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
+//     log(`到达终点，用时${entity.time}`)
+// })
 win.onEntityContact(({other})=>{
     if(!other.player)return;
     let entity = other as GamePlayerEntity
@@ -1094,7 +1095,8 @@ win.onEntityContact(({other})=>{
     entity.victory = true
     entity.player.spectator=true
     entity.player.color = new GameRGBColor(0, 1, 0)
-    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限`, ['确定'])
+    entity.exp+=100
+    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
     log(`到达终点，用时${entity.time}`)
 })
 // 粒子效果
