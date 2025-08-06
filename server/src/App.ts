@@ -1,7 +1,7 @@
 console.clear()
 // 变量等
 var admin:string[] = []
-var adminpro:string[] = ['阿兹卡班毕业生','奶油a']
+var adminpro:string[] = ['阿兹卡班毕业生','奶油a','羽岚.龍族[原]:Aoken']
 var logs:string[] = []
 var lzxglist:string[] = []
 // 处理建造时出现的冗余地形 backslash
@@ -15,14 +15,45 @@ for(let x=0;x<=127;x++){
     }
 }
 // 函数
+function init_player_ablity(entity:GamePlayerEntity){
+    entity.player.jumpPower = 0.9
+    entity.player.enableDoubleJump = true
+    entity.player.walkSpeed = 0.22
+    entity.player.runSpeed = 0.4
+    entity.player.walkAcceleration = 0.19
+    entity.player.crouchSpeed = 0.1;
+    entity.player.crouchAcceleration = 0.09;
+    entity.player.reverseInputDirection = GameInputDirection.NONE
+}
 function check_player(entity:GamePlayerEntity){
     if(32<=entity.position.z&&entity.position.z<=40&&entity.position.y<=5){
+        init_player_ablity(entity)
+        entity.player.jumpPower = Infinity
+        entity.player.enableDoubleJump = false
+    }
+    else if(80<=entity.position.z&&entity.position.z<=88&&entity.position.y<=8){
+        init_player_ablity(entity)
+        entity.player.walkSpeed = 5
+        entity.player.runSpeed = 5
+        entity.player.walkAcceleration = 1
+        entity.player.crouchSpeed = 0;
+        entity.player.crouchAcceleration = 0;
+        entity.player.jumpPower = Infinity
+        entity.player.enableDoubleJump = false
+    }
+    else if(88<=entity.position.z&&entity.position.z<=96&&entity.position.y<=8&&entity.position.x>=64&&entity.player.spectator==false){
+        init_player_ablity(entity)
+        entity.player.reverseInputDirection = GameInputDirection.BOTH;
+        entity.player.jumpPower = Infinity
+        entity.player.enableDoubleJump = false
+    }
+    else if(88<=entity.position.z&&entity.position.z<=96&&entity.position.y<=8&&entity.player.spectator==false){
+        init_player_ablity(entity)
         entity.player.jumpPower = Infinity
         entity.player.enableDoubleJump = false
     }
     else{
-        entity.player.jumpPower = 0.9
-        entity.player.enableDoubleJump = true
+        init_player_ablity(entity)
     }
 }
 function log(log:string,entity?:GamePlayerEntity){
@@ -84,6 +115,23 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
             '提示',
 `关卡：2
 这个关卡...似乎...不能跳跃？！`,
+            ['知道了'])
+    }else if(entity.position.z<=80){}
+    else if(entity.position.z<=88){
+        dialog_with_button(entity,
+            '提示',
+`关卡：7
+没错！！！这个关卡又是特殊关卡
+在本关你的移动速度快的飞起！
+什么你说你可以潜行？不好意思你潜行速度是0
+当然，为了防止你信仰之跃，跳跃自然也是禁用了哒~`,
+            ['知道了'])
+    }
+    else if(entity.position.z<=96){
+        dialog_with_button(entity,
+            '提示',
+`关卡：8
+你羽整了个花活，在这个关卡，当处在“黑”维度时正常，处在“白”维度时方向键反向！`,
             ['知道了'])
     }
 }
@@ -236,6 +284,7 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     },
     dimension: 1,//1:黑 2:白
     cundang_dimension: 1,//1:黑 2:白
+    time: 0
 };
 
 /**
@@ -370,20 +419,20 @@ world.onPlayerLeave(async({ entity }) => {
     await savePlayer(entity); // 保存玩家数据
 });
 
-// 右键菜单
+// 右键菜单&左键切换维度
 world.onPress(async({button,entity})=>{
     if(button==='action1'){
         const result = await entity.player.dialog({
             type: GameDialogType.SELECT,
             title: '游戏菜单',
-            content:`你有${entity.exp}经验\n`+ `你的血量：`+entity.hp+`/`+entity.maxHp+`\n你的坐标：`+entity.position,
-            options:['✨赞助毕业生，得顶级福利��','选择附图','关于gameUi','兑换码','数据相关','经验排行榜','皮肤库','商店','背包','重来','脱离卡点','进入/离开挂机房','进入/退出俯视全图','切换人称','bug反馈','禁言玩家说话','管理员工具']
+            content:`你有${entity.exp}经验\n你已用时${entity.time}秒\n`+ `你的血量：`+entity.hp+`/`+entity.maxHp+`\n你的坐标：`+entity.position,
+            options:['兑换码','数据相关','经验排行榜','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
         });
         if(!result || result.value === null){ 
             return; 
         }
-        else if(result.value=='✨赞助毕业生，得顶级福利��'){
-            entity.player.link(`https://azkbbys.gitbook.io/azkbbys/zzbys`, {isConfirm: false, isNewTab: true})
+        else if(result.value=='✨用爱，发电！'){
+            entity.player.link(`https://afdian.com/a/azkbbys`, {isConfirm: false, isNewTab: true})
         }
         else if(result.value=='选择附图'){
             entity.position.set(97,40,74);
@@ -700,12 +749,14 @@ world.onPress(async({button,entity})=>{
             }
             else{
                 entity.player.spectator=false;
-                entity.player.directMessage(`重来`)
+                entity.player.directMessage(`重新开始，已重置计时器！`)
                 entity.victory = false
                 entity.player.canFly=false
+                entity.time = 0
                 entity.hp=100
                 entity.player.color = new GameRGBColor(1,1,1)
-                entity.position.set(4,5,4)
+                entity.position.set(savedData.x,savedData.y,savedData.z)
+                savePlayer(entity);
                 // entity.ingjf=false;
             }
         }
@@ -933,11 +984,20 @@ world.onPress(async({button,entity})=>{
             }
         }
     }
+    else if(button=='action0'){
+        entity.dimension==1?entity.position.x+=64:entity.position.x-=64
+        entity.dimension==1?entity.dimension=2:entity.dimension=1
+        entity.player.directMessage(`切换维度成功`)
+        log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
+    }
 })
 
 // 重生和检测
 world.onPlayerJoin(({entity})=>{
     world.onTick(({tick})=>{
+        if(tick%16==0){
+            entity.time+=1
+        }
         check_player(entity)
         if(entity.position.y<=1){
             reborn(entity)
@@ -1013,7 +1073,31 @@ switch_dimension.onInteract(({entity})=>{
     entity.player.directMessage(`切换维度成功`)
     log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
 })
-
+const win= world.querySelector('#终点')
+win.enableInteract=true
+win.interactHint='终点'
+win.interactRadius=3
+win.onInteract(({entity})=>{
+    if(entity.victory==true)return
+    world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
+    entity.victory = true
+    entity.player.spectator=true
+    entity.player.color = new GameRGBColor(0, 1, 0)
+    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限`, ['确定'])
+    log(`到达终点，用时${entity.time}`)
+})
+win.onEntityContact(({other})=>{
+    if(!other.player)return;
+    let entity = other as GamePlayerEntity
+    if(entity.victory==true)return
+    world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
+    entity.victory = true
+    entity.player.spectator=true
+    entity.player.color = new GameRGBColor(0, 1, 0)
+    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限`, ['确定'])
+    log(`到达终点，用时${entity.time}`)
+})
+// 粒子效果
 const particle_greenCrystal = {
     particleRate: 500,
     particleLifetime: 0.4,
@@ -1091,4 +1175,31 @@ world.onPlayerJoin(async({entity})=>{
     if(entity.usingskin!='原版'){
         entity.player.setSkinByName(entity.usingskin);
     }
+})
+// 商城
+world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
+    console.log(tick,userId,productId,orderId)
+    if(productId==383036030006633){
+        world.querySelectorAll('player').forEach((e)=>{
+            if(e.player.userId==userId){
+                world.say(`${e.player.name} 购买了一次性绿色粒子效果体验！`)
+                Object.assign(e, particle_greenCrystal)
+                dialog(`提示`,`购买成功！粒子效果已生效`,e)
+            }
+        })
+    }
+    else if(productId==383030300586724){
+        world.querySelectorAll('player').forEach((e)=>{
+            if(e.player.userId==userId){
+                world.say(`${e.player.name} 购买了永久绿色粒子效果！`)
+                e.greenlzxg=true;
+                dialog(`提示`,`购买成功！请手动点击保存后重进地图，粒子效果就会生效啦~`,e)
+            }
+        })
+    }
+    world.querySelectorAll('player').forEach((e)=>{
+        if(e.player.userId==userId){
+            dialog(`提示`,`请自行点击保存，否则数据丢失作者不负责任`,e)
+        }
+    })
 })
