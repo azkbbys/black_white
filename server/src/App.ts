@@ -21,6 +21,7 @@ function init_player_ablity(entity:GamePlayerEntity){
     entity.player.walkSpeed = 0.22
     entity.player.runSpeed = 0.4
     entity.player.walkAcceleration = 0.19
+    entity.player.runAcceleration = 0.35
     entity.player.crouchSpeed = 0.1;
     entity.player.crouchAcceleration = 0.09;
     entity.player.reverseInputDirection = GameInputDirection.NONE
@@ -36,6 +37,7 @@ function check_player(entity:GamePlayerEntity){
         entity.player.walkSpeed = 5
         entity.player.runSpeed = 5
         entity.player.walkAcceleration = 1
+        entity.player.runAcceleration = 1
         entity.player.crouchSpeed = 0;
         entity.player.crouchAcceleration = 0;
         entity.player.jumpPower = Infinity
@@ -51,6 +53,20 @@ function check_player(entity:GamePlayerEntity){
         init_player_ablity(entity)
         entity.player.jumpPower = Infinity
         entity.player.enableDoubleJump = false
+    }
+    else if(104<=entity.position.z&&entity.position.z<=112&&entity.position.y<=11&&entity.player.spectator==false){
+        init_player_ablity(entity)
+        if(entity.position.x>=64){
+            entity.player.reverseInputDirection = GameInputDirection.BOTH;
+        }
+        entity.player.jumpPower = Infinity
+        entity.player.enableDoubleJump = false
+        entity.player.walkSpeed = 5
+        entity.player.runSpeed = 5
+        entity.player.walkAcceleration = 1
+        entity.player.runAcceleration = 1
+        entity.player.crouchSpeed = 0;
+        entity.player.crouchAcceleration = 0;
     }
     else{
         init_player_ablity(entity)
@@ -133,6 +149,14 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
 `关卡：8
 你羽整了个花活，在这个关卡，当处在“黑”维度时正常，处在“白”维度时方向键反向！`,
             ['知道了'])
+    }else if(entity.position.z<=104){}
+    else if(entity.position.z<=112){
+        dialog_with_button(entity,
+            '提示',
+`关卡：10
+鸣谢：创意提供：乘风的小晚（50477944）
+结合前2、3关：加速+白反向+禁跳+禁潜行`,
+            ['知道了'])
     }
 }
 function find(name:string){
@@ -143,7 +167,7 @@ function find(name:string){
     })
 }
 function reborn(entity:GamePlayerEntity){
-    log(`重生，重生前维度：${entity.dimension==1?`黑`:`白`}，重生点维度：${entity.cundang_dimension==1?`黑`:`白`}`,entity)
+    // log(`重生，重生前维度：${entity.dimension==1?`黑`:`白`}，重生点维度：${entity.cundang_dimension==1?`黑`:`白`}`,entity)
     entity.player.directMessage(`重生`)
     entity.player.forceRespawn()
     entity.dimension=entity.cundang_dimension
@@ -195,30 +219,28 @@ function use_duihuanma(entity){
         //         }
         //     }
         // }
-        // else if(entity.duihuanma=='苦力怕皮肤福利'){
-        //     dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
-        //     if(entity.skins.includes('苦力怕')==false){
-        //         entity.skins.push('苦力怕');
-        //     }
-        //     entity.used_duihuanma.push(entity.duihuanma);
-        //     savePlayer(entity)
-        // }
-        // else if(entity.duihuanma=='史蒂夫皮肤福利'){
-        //     dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
-        //     if(entity.skins.includes('史蒂夫')==false){
-        //         entity.skins.push('史蒂夫');
-        //     }
-        //     entity.used_duihuanma.push(entity.duihuanma);
-        //     savePlayer(entity)
-        // }
-        // else if(entity.duihuanma=='无限飞行fl'){
-        //     dialog(`系统`,`兑换成功，获得无限飞行道具，右键点击背包可查看`,entity)
-        //     if(entity.bag.includes('无限飞行羽翼')==false){
-        //         entity.bag.push('无限飞行羽翼');
-        //     }
-        //     entity.used_duihuanma.push(entity.duihuanma);
-        //     savePlayer(entity)
-        // }
+        if(entity.duihuanma=='苦力怕'){
+            dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
+            if(entity.skins.includes('苦力怕')==false){
+                entity.skins.push('苦力怕');
+            }
+            entity.used_duihuanma.push(entity.duihuanma);
+            savePlayer(entity)
+        }
+        else if(entity.duihuanma=='史蒂夫'){
+            dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
+            if(entity.skins.includes('史蒂夫')==false){
+                entity.skins.push('史蒂夫');
+            }
+            entity.used_duihuanma.push(entity.duihuanma);
+            savePlayer(entity)
+        }
+        else if(entity.duihuanma=='新图限时福利'){
+            dialog(`系统`,`兑换成功，获得100经验`,entity)
+            entity.exp+=100 
+            entity.used_duihuanma.push(entity.duihuanma);
+            savePlayer(entity)
+        }
         // else if(entity.duihuanma=='旧版福利'){
         //     dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*1000`,entity)
         //     entity.exp+=1000
@@ -988,7 +1010,7 @@ world.onPress(async({button,entity})=>{
         entity.dimension==1?entity.position.x+=64:entity.position.x-=64
         entity.dimension==1?entity.dimension=2:entity.dimension=1
         entity.player.directMessage(`切换维度成功`)
-        log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
+        // log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
     }
 })
 
@@ -1014,7 +1036,7 @@ world.onFluidEnter(({entity, tick, voxel}) => {
     const voxelName = voxels.name(voxel)
     if (voxelName=='strawberry_juice'){
         entity.player.forceRespawn()
-        entity.player.directMessage(`落水重生`)
+        entity.player.directMessage(`你落入了草莓酱！`)
     }
 })
 
@@ -1059,8 +1081,11 @@ points.forEach((e)=>{
 const next_points = world.querySelectorAll('.下一关')
 next_points.forEach((e)=>{
     e.onEntityContact(({other})=>{
-        other.player.directMessage(`进入下一关`)
-        other.position.set(3,4,e.position.z+8)
+        if(!other.player)return;
+        const entity = other as GamePlayerEntity
+        entity.player.directMessage(`进入下一关`)
+        entity.position.set(3,4,e.position.z+8)
+        log(`进入下一关`,entity)
     })
 })
 const switch_dimension= world.querySelector('#切换')
@@ -1091,13 +1116,19 @@ win.onEntityContact(({other})=>{
     if(!other.player)return;
     let entity = other as GamePlayerEntity
     if(entity.victory==true)return
+    if(entity.adminlevel>=1&&entity.time<=250){
+        entity.adminlevel=0
+        savePlayer(entity)
+        dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
+        return
+    }
     world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
     entity.victory = true
     entity.player.spectator=true
     entity.player.color = new GameRGBColor(0, 1, 0)
     entity.exp+=100
     dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
-    log(`到达终点，用时${entity.time}`)
+    log(`到达终点，用时${entity.time}`,entity)
 })
 // 粒子效果
 const particle_greenCrystal = {
@@ -1185,6 +1216,7 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
                 world.say(`${e.player.name} 购买了一次性绿色粒子效果体验！`)
+                log(`购买了一次性绿色粒子效果体验`,e)
                 Object.assign(e, particle_greenCrystal)
                 dialog(`提示`,`购买成功！粒子效果已生效`,e)
             }
@@ -1194,8 +1226,29 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
                 world.say(`${e.player.name} 购买了永久绿色粒子效果！`)
+                log(`购买了永久绿色粒子效果`,e)
                 e.greenlzxg=true;
                 dialog(`提示`,`购买成功！请手动点击保存后重进地图，粒子效果就会生效啦~`,e)
+            }
+        })
+    }
+    else if(productId==383030715822999){
+        world.querySelectorAll('player').forEach((e)=>{
+            if(e.player.userId==userId){
+                world.say(`${e.player.name} 购买了200经验！`)
+                log(`购买了200经验`,e)
+                e.exp+=200;
+                dialog(`提示`,`购买成功！`,e)
+            }
+        })
+    }
+    else if(productId==383030715823005){
+        world.querySelectorAll('player').forEach((e)=>{
+            if(e.player.userId==userId){
+                world.say(`${e.player.name} 购买了500经验！`)
+                e.exp+=500;
+                log(`购买了500经验`,e)
+                dialog(`提示`,`购买成功！`,e)
             }
         })
     }
