@@ -1216,6 +1216,7 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
                 world.say(`${e.player.name} 购买了一次性绿色粒子效果体验！`)
+                log(`购买了一次性绿色粒子效果体验`,e)
                 Object.assign(e, particle_greenCrystal)
                 dialog(`提示`,`购买成功！粒子效果已生效`,e)
             }
@@ -1225,6 +1226,7 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
                 world.say(`${e.player.name} 购买了永久绿色粒子效果！`)
+                log(`购买了永久绿色粒子效果`,e)
                 e.greenlzxg=true;
                 dialog(`提示`,`购买成功！请手动点击保存后重进地图，粒子效果就会生效啦~`,e)
             }
@@ -1234,6 +1236,7 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
                 world.say(`${e.player.name} 购买了200经验！`)
+                log(`购买了200经验`,e)
                 e.exp+=200;
                 dialog(`提示`,`购买成功！`,e)
             }
@@ -1244,6 +1247,7 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
             if(e.player.userId==userId){
                 world.say(`${e.player.name} 购买了500经验！`)
                 e.exp+=500;
+                log(`购买了500经验`,e)
                 dialog(`提示`,`购买成功！`,e)
             }
         })
