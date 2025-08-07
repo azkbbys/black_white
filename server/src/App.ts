@@ -167,7 +167,7 @@ function find(name:string){
     })
 }
 function reborn(entity:GamePlayerEntity){
-    log(`重生，重生前维度：${entity.dimension==1?`黑`:`白`}，重生点维度：${entity.cundang_dimension==1?`黑`:`白`}`,entity)
+    // log(`重生，重生前维度：${entity.dimension==1?`黑`:`白`}，重生点维度：${entity.cundang_dimension==1?`黑`:`白`}`,entity)
     entity.player.directMessage(`重生`)
     entity.player.forceRespawn()
     entity.dimension=entity.cundang_dimension
@@ -1010,7 +1010,7 @@ world.onPress(async({button,entity})=>{
         entity.dimension==1?entity.position.x+=64:entity.position.x-=64
         entity.dimension==1?entity.dimension=2:entity.dimension=1
         entity.player.directMessage(`切换维度成功`)
-        log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
+        // log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
     }
 })
 
@@ -1036,7 +1036,7 @@ world.onFluidEnter(({entity, tick, voxel}) => {
     const voxelName = voxels.name(voxel)
     if (voxelName=='strawberry_juice'){
         entity.player.forceRespawn()
-        entity.player.directMessage(`落水重生`)
+        entity.player.directMessage(`你落入了草莓酱！`)
     }
 })
 
@@ -1081,8 +1081,11 @@ points.forEach((e)=>{
 const next_points = world.querySelectorAll('.下一关')
 next_points.forEach((e)=>{
     e.onEntityContact(({other})=>{
-        other.player.directMessage(`进入下一关`)
-        other.position.set(3,4,e.position.z+8)
+        if(!other.player)return;
+        const entity = other as GamePlayerEntity
+        entity.player.directMessage(`进入下一关`)
+        entity.position.set(3,4,e.position.z+8)
+        log(`进入下一关`,entity)
     })
 })
 const switch_dimension= world.querySelector('#切换')
@@ -1113,13 +1116,19 @@ win.onEntityContact(({other})=>{
     if(!other.player)return;
     let entity = other as GamePlayerEntity
     if(entity.victory==true)return
+    if(entity.adminlevel>=1&&entity.time<=250){
+        entity.adminlevel=0
+        savePlayer(entity)
+        dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
+        return
+    }
     world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
     entity.victory = true
     entity.player.spectator=true
     entity.player.color = new GameRGBColor(0, 1, 0)
     entity.exp+=100
     dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
-    log(`到达终点，用时${entity.time}`)
+    log(`到达终点，用时${entity.time}`,entity)
 })
 // 粒子效果
 const particle_greenCrystal = {
@@ -1218,6 +1227,24 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
                 world.say(`${e.player.name} 购买了永久绿色粒子效果！`)
                 e.greenlzxg=true;
                 dialog(`提示`,`购买成功！请手动点击保存后重进地图，粒子效果就会生效啦~`,e)
+            }
+        })
+    }
+    else if(productId==383030715822999){
+        world.querySelectorAll('player').forEach((e)=>{
+            if(e.player.userId==userId){
+                world.say(`${e.player.name} 购买了200经验！`)
+                e.exp+=200;
+                dialog(`提示`,`购买成功！`,e)
+            }
+        })
+    }
+    else if(productId==383030715823005){
+        world.querySelectorAll('player').forEach((e)=>{
+            if(e.player.userId==userId){
+                world.say(`${e.player.name} 购买了500经验！`)
+                e.exp+=500;
+                dialog(`提示`,`购买成功！`,e)
             }
         })
     }
