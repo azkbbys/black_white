@@ -21,6 +21,7 @@ function init_player_ablity(entity:GamePlayerEntity){
     entity.player.walkSpeed = 0.22
     entity.player.runSpeed = 0.4
     entity.player.walkAcceleration = 0.19
+    entity.player.runAcceleration = 0.35
     entity.player.crouchSpeed = 0.1;
     entity.player.crouchAcceleration = 0.09;
     entity.player.reverseInputDirection = GameInputDirection.NONE
@@ -36,6 +37,7 @@ function check_player(entity:GamePlayerEntity){
         entity.player.walkSpeed = 5
         entity.player.runSpeed = 5
         entity.player.walkAcceleration = 1
+        entity.player.runAcceleration = 1
         entity.player.crouchSpeed = 0;
         entity.player.crouchAcceleration = 0;
         entity.player.jumpPower = Infinity
@@ -51,6 +53,20 @@ function check_player(entity:GamePlayerEntity){
         init_player_ablity(entity)
         entity.player.jumpPower = Infinity
         entity.player.enableDoubleJump = false
+    }
+    else if(104<=entity.position.z&&entity.position.z<=112&&entity.position.y<=11&&entity.player.spectator==false){
+        init_player_ablity(entity)
+        if(entity.position.x>=64){
+            entity.player.reverseInputDirection = GameInputDirection.BOTH;
+        }
+        entity.player.jumpPower = Infinity
+        entity.player.enableDoubleJump = false
+        entity.player.walkSpeed = 5
+        entity.player.runSpeed = 5
+        entity.player.walkAcceleration = 1
+        entity.player.runAcceleration = 1
+        entity.player.crouchSpeed = 0;
+        entity.player.crouchAcceleration = 0;
     }
     else{
         init_player_ablity(entity)
@@ -133,6 +149,14 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
 `关卡：8
 你羽整了个花活，在这个关卡，当处在“黑”维度时正常，处在“白”维度时方向键反向！`,
             ['知道了'])
+    }else if(entity.position.z<=104){}
+    else if(entity.position.z<=112){
+        dialog_with_button(entity,
+            '提示',
+`关卡：10
+鸣谢：创意提供：乘风的小晚（50477944）
+结合前2、3关：加速+白反向+禁跳+禁潜行`,
+            ['知道了'])
     }
 }
 function find(name:string){
@@ -195,30 +219,28 @@ function use_duihuanma(entity){
         //         }
         //     }
         // }
-        // else if(entity.duihuanma=='苦力怕皮肤福利'){
-        //     dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
-        //     if(entity.skins.includes('苦力怕')==false){
-        //         entity.skins.push('苦力怕');
-        //     }
-        //     entity.used_duihuanma.push(entity.duihuanma);
-        //     savePlayer(entity)
-        // }
-        // else if(entity.duihuanma=='史蒂夫皮肤福利'){
-        //     dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
-        //     if(entity.skins.includes('史蒂夫')==false){
-        //         entity.skins.push('史蒂夫');
-        //     }
-        //     entity.used_duihuanma.push(entity.duihuanma);
-        //     savePlayer(entity)
-        // }
-        // else if(entity.duihuanma=='无限飞行fl'){
-        //     dialog(`系统`,`兑换成功，获得无限飞行道具，右键点击背包可查看`,entity)
-        //     if(entity.bag.includes('无限飞行羽翼')==false){
-        //         entity.bag.push('无限飞行羽翼');
-        //     }
-        //     entity.used_duihuanma.push(entity.duihuanma);
-        //     savePlayer(entity)
-        // }
+        if(entity.duihuanma=='苦力怕'){
+            dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
+            if(entity.skins.includes('苦力怕')==false){
+                entity.skins.push('苦力怕');
+            }
+            entity.used_duihuanma.push(entity.duihuanma);
+            savePlayer(entity)
+        }
+        else if(entity.duihuanma=='史蒂夫'){
+            dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
+            if(entity.skins.includes('史蒂夫')==false){
+                entity.skins.push('史蒂夫');
+            }
+            entity.used_duihuanma.push(entity.duihuanma);
+            savePlayer(entity)
+        }
+        else if(entity.duihuanma=='新图限时福利'){
+            dialog(`系统`,`兑换成功，获得100经验`,entity)
+            entity.exp+=100 
+            entity.used_duihuanma.push(entity.duihuanma);
+            savePlayer(entity)
+        }
         // else if(entity.duihuanma=='旧版福利'){
         //     dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*1000`,entity)
         //     entity.exp+=1000
