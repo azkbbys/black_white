@@ -433,6 +433,15 @@ async function leaderBoard(type) { // 排行榜
 
 world.onPlayerJoin(async({ entity }) => {
     log(`加入`,entity)
+    dialog_with_button(entity, '欢迎', `
+${entity.player.name}，欢迎来到黑白维度！
+跑酷分为两个维度：黑与白。
+黑维度的场景以黑色为主题色，白维度的场景以白色为主题色。玩家按下E键或左（A）键即可黑→白或白→黑。
+黑、白维度的地形不同，按下E键或左（A）键切换维度后与两维度原点的相对位置不变
+你需要在黑、白维度之间灵活切换，完成跑酷
+鸣谢名单：
+1. 尧（383025200313334）
+2. 严肃的力士甲虫-fC7（13151057）`,['知道了'])
     await loadPlayer(entity); // 载入玩家数据
     entity.position.set(entity.leave_x,entity.leave_y,entity.leave_z)
     entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
@@ -641,11 +650,11 @@ world.onPress(async({button,entity})=>{
                 }
             }
             else if(result.value=='一次性飞行特权（70exp）（开启飞行权限，仅能在一个地图使用！有效期：2s）'){
-                if(entity.exp>=80){
-                    entity.exp-=80;
+                if(entity.exp>=70){
+                    entity.exp-=70;
                     entity.bag.push('一次性飞行特权')
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包`)
+                    entity.player.directMessage(`购买成功，已放入背包；感谢@严肃的力士甲虫-fC7（13151057）反馈的bug`)
                 }
                 else{
                     dialog(`错误`,`经验不够！`,entity)
@@ -1121,13 +1130,20 @@ win.onEntityContact(({other})=>{
         savePlayer(entity)
         dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
         return
+    }else if(entity.time<=250){
+        entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
+        entity.player.forceRespawn()
+        dialog_with_button(entity, ``, `过关这么快是不是开了？不算！`, ['知道了'])
+        return
     }
     world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
     entity.victory = true
     entity.player.spectator=true
     entity.player.color = new GameRGBColor(0, 1, 0)
     entity.exp+=100
-    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
+    entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
+    savePlayer(entity)
+    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验\n感谢@尧（383025200313334）反馈的bug`, ['确定'])
     log(`到达终点，用时${entity.time}`,entity)
 })
 // 粒子效果
