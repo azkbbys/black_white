@@ -4,6 +4,7 @@ var admin:string[] = []
 var adminpro:string[] = ['阿兹卡班毕业生','奶油a','羽岚.龍族[原]:Aoken','烤得酥脆的笨鼠','蓝鱼I恒星']
 var logs:string[] = []
 var lzxglist:string[] = []
+var lastmsg:string = ''
 // 处理建造时出现的冗余地形 backslash
 for(let x=0;x<=127;x++){
     for(let y=0;y<=127;y++){
@@ -92,71 +93,84 @@ async function dialog_with_button(entity:GamePlayerEntity,title:string,content:s
     return ret
 }
 function reminder(entity:GamePlayerEntity){
-    if(entity.position.z<=8){
-        dialog_with_button(entity,
-            '教程',
+    if(entity.position.y<=30){
+        if(entity.position.z<=8){
+            dialog_with_button(entity,
+                '教程',
 `关卡：教程1
 hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教程
 这个跑酷并不是一个普通的跑酷，在这个跑酷中，世界被分为了两个维度：黑与白。维度由四周墙体的颜色决定，电脑端按下E键即可切换维度。切换前后在两个维度中的相对位置不变。
 现在就试试切换维度吧！`,
-            ['知道了'])
-    }
-    else if(entity.position.z<=16){
-        dialog_with_button(entity,
-            '教程',
+                ['知道了'])
+        }
+        else if(entity.position.z<=16){
+            dialog_with_button(entity,
+                '教程',
 `关卡：教程2
 现在，你已经知道了如何切换维度。
 我要告诉你：两个维度中的地形可能不同！比如这个关卡正是如此。
 现在，切换维度，思考一下如何过关吧！`,
-            ['知道了'])
-    }
-    else if(entity.position.z<=24){
-        dialog_with_button(entity,
-            '教程',
+                ['知道了'])
+        }
+        else if(entity.position.z<=24){
+            dialog_with_button(entity,
+                '教程',
 `关卡：教程3
 在这个关卡中，出现了新的东西——草莓酱！碰到它你就知道会发生什么了）））
 合理切换维度过关！`,
-            ['知道了'])
-    }
-    else if(entity.position.z<=32){
-        dialog_with_button(entity,
-            '教程',
+                ['知道了'])
+        }
+        else if(entity.position.z<=32){
+            dialog_with_button(entity,
+                '教程',
 `关卡：1
 看来你应该掌握了这个游戏的玩法，接下来就要靠你自己摸索辣！
 如果你觉得这个地图不错，记得点赞收藏哦~`,
-            ['知道了'])
-    }
-    else if(entity.position.z<=40){
-        dialog_with_button(entity,
-            '提示',
+                ['知道了'])
+        }
+        else if(entity.position.z<=40){
+            dialog_with_button(entity,
+                '提示',
 `关卡：2
 这个关卡...似乎...不能跳跃？！`,
-            ['知道了'])
-    }else if(entity.position.z<=80){}
-    else if(entity.position.z<=88){
-        dialog_with_button(entity,
-            '提示',
+                ['知道了'])
+        }else if(entity.position.z<=80){}
+        else if(entity.position.z<=88){
+            dialog_with_button(entity,
+                '提示',
 `关卡：7
 没错！！！这个关卡又是特殊关卡
 在本关你的移动速度快的飞起！
 什么你说你可以潜行？不好意思你潜行速度是0
-当然，为了防止你信仰之跃，跳跃自然也是禁用了哒~`,
-            ['知道了'])
-    }
-    else if(entity.position.z<=96){
-        dialog_with_button(entity,
-            '提示',
+当然，为了防止你信仰之跃，跳跃自然也是禁用了哒~
+感谢@坦率的血翼蝠5801（12823830）反馈的偷鸡点位！`,
+                ['知道了'])
+        }
+        else if(entity.position.z<=96){
+            dialog_with_button(entity,
+                '提示',
 `关卡：8
 你羽整了个花活，在这个关卡，当处在“黑”维度时正常，处在“白”维度时方向键反向！`,
-            ['知道了'])
-    }else if(entity.position.z<=104){}
-    else if(entity.position.z<=112){
-        dialog_with_button(entity,
-            '提示',
+                ['知道了'])
+        }else if(entity.position.z<=104){}
+        else if(entity.position.z<=112){
+            dialog_with_button(entity,
+                '提示',
 `关卡：10
-鸣谢：创意提供：乘风的小晚（50477944）
+鸣谢：创意贡献：乘风的小晚（50477944）
 结合前2、3关：加速+白反向+禁跳+禁潜行`,
-            ['知道了'])
+                ['知道了'])
+        }
+    }
+    else if(entity.position.y<=79){
+        if(entity.position.z<=8){
+            dialog_with_button(entity,
+            '教程',
+`关卡：15
+新的东西出现辣：跳板！
+蓝色跳板可以让你跳高；紫色跳板可以让你跳更高！`,
+                ['知道了'])
+        }
     }
 }
 function find(name:string){
@@ -271,7 +285,8 @@ function use_duihuanma(entity){
 var Storage = storage.getGroupStorage('cundang'); // 获取数据库，名称为 cundang
 
 const CorrespondingName = { // 在此添加排行榜对应的单位和名称（无名称 则表示不显示名称）
-    'exp': ['经验', '无名称']
+    'exp': ['经验', '无名称'],
+    'fastest_time': ['', '无名称'],
 };
 
 const unsavedData = { // 玩家初始无需保存的数据，可增添或删除
@@ -280,7 +295,6 @@ const unsavedData = { // 玩家初始无需保存的数据，可增添或删除
 };
 
 const savedData = { // 玩家初始需要保存的数据，可增添或删除
-    jindu: 100,
     exp: 50,
     bag: [],
     greenlzxg: false,
@@ -306,7 +320,8 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     },
     dimension: 1,//1:黑 2:白
     cundang_dimension: 1,//1:黑 2:白
-    time: 0
+    time: 0,
+    fastest_time: 0, // 最快通关时间
 };
 
 /**
@@ -338,9 +353,11 @@ function getPlayerData(entity) { // 获取玩家数据
  * @param {GameEntity} entity
  */
 async function savePlayer(entity) { // 存档
-    entity.leave_x = entity.position.x;
-    entity.leave_y = entity.position.y;
-    entity.leave_z = entity.position.z;
+    if(entity.victory==false){
+        entity.leave_x = entity.position.x;
+        entity.leave_y = entity.position.y;
+        entity.leave_z = entity.position.z;
+    }
     await Storage.update(entity.player.userId, () => {  // 更新玩家数据存档
         return getPlayerData(entity);
     });
@@ -426,16 +443,53 @@ async function leaderBoard(type) { // 排行榜
         if (sqlDataList.isLastPage) break; // 如果已经是最后一页，退出循环
         await sqlDataList.nextPage(); // 下一页
     };
-    return list.map((value, num) => // 将列表里的所有项依次替换成字符串
+    return list.filter(value => value[1] !== undefined).map((value, num) => // 将列表里的所有项依次替换成字符串
         `第${num + 1}名 | ${value[0]} | ${value[1]} ${CorrespondingName[type][0]}${CorrespondingName[type][1] != '无名称' ? CorrespondingName[type][1] : ''}`
-    ).join("\n"); // 按照 换行 的间隔组合成字符串
+    ).join('\n');
 };
 
 world.onPlayerJoin(async({ entity }) => {
     log(`加入`,entity)
+    dialog_with_button(entity, '欢迎', `
+${entity.player.name}，欢迎来到黑白维度！
+跑酷分为两个维度：黑与白。
+黑维度的场景以黑色为主题色，白维度的场景以白色为主题色。玩家按下E键或左（A）键即可黑→白或白→黑。
+黑、白维度的地形不同，按下E键或左（A）键切换维度后与两维度原点的相对位置不变
+你需要在黑、白维度之间灵活切换，完成跑酷
+鸣谢名单：
+1. 尧（383025200313334）
+2. 严肃的力士甲虫-fC7（13151057）
+3. 乘风的小晚（50477944）
+4. 坦率的血翼蝠5801（12823830）`,['知道了'])
     await loadPlayer(entity); // 载入玩家数据
+    if(entity.fastest_time==undefined){
+        entity.fastest_time = 0; // 如果没有最快通关时间，则设置为0
+    }
+    if(entity.canplay==false){
+        entity.player.cancelDialogs()
+        dialog(`封禁`,`你已被封禁，无法进入游戏！10秒后自动踢出\n如有疑问请联系管理员`,entity)
+        await sleep(10000)
+        entity.player.kick()
+        return
+    }
+    if(entity.player_title=='玩家'&&entity.adminlevel==1){
+        entity.player_title='管理员'
+    }else if(entity.player_title=='玩家'&&entity.adminlevel==2){
+        entity.player_title='高级管理员'
+    }
+    if(entity.player_title=='管理员'&&entity.adminlevel!=1&&!admin.includes(entity.player.name)){
+        entity.player_title='玩家'
+    }
+    else if(entity.player_title=='高级管理员'&&entity.adminlevel<=2&&!adminpro.includes(entity.player.name)){
+        entity.player_title='玩家'
+    }
+    if(entity.adminlevel>=2||adminpro.includes(entity.player.name)){
+        remoteChannel.sendClientEvent(entity, {type:'command',args:'opencmd'})
+    }
+    world.say(`欢迎${entity.player_title=='玩家'?' ':' ['+entity.player_title+'] '}${entity.player.name} 加入黑白维度！\n当前在线：${world.querySelectorAll('player').length}人`)
     entity.position.set(entity.leave_x,entity.leave_y,entity.leave_z)
     entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
+    remoteChannel.sendClientEvent(entity, { type: 'basicinfo', args: [entity.player.name, entity.player_title, entity.player.avatar] });
 });
 world.onPlayerLeave(async({ entity }) => {
     await savePlayer(entity); // 保存玩家数据
@@ -448,7 +502,7 @@ world.onPress(async({button,entity})=>{
             type: GameDialogType.SELECT,
             title: '游戏菜单',
             content:`你有${entity.exp}经验\n你已用时${entity.time}秒\n`+ `你的血量：`+entity.hp+`/`+entity.maxHp+`\n你的坐标：`+entity.position,
-            options:['兑换码','数据相关','经验排行榜','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
+            options:['兑换码','数据相关','经验排行榜','时间排行榜','关于gameUi','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
         });
         if(!result || result.value === null){ 
             return; 
@@ -485,7 +539,7 @@ world.onPress(async({button,entity})=>{
                 type: GameDialogType.SELECT,
                 title: 'gameUi',
                 content:`选择你要进行的操作`,
-                options:['取消操作','关闭gameUi','刷新gameUi内容/开启gameUi','刷新gameUi大小']
+                options:['取消操作','关闭gameUi','开启gameUi','刷新gameUi大小']
             });
             if(!result || result.value === null){ 
                 return; 
@@ -494,7 +548,7 @@ world.onPress(async({button,entity})=>{
                 remoteChannel.sendClientEvent(entity, {type:'command',args:'close'})
                 entity.player.directMessage(`已关闭`)
             }
-            else if(result.value=='刷新gameUi内容/开启gameUi'){
+            else if(result.value=='开启gameUi'){
                 remoteChannel.sendClientEvent(entity, {
                     type:'command',
                     args:'open'
@@ -507,7 +561,7 @@ world.onPress(async({button,entity})=>{
                         player_title:entity.player_title
                     }
                 })
-                entity.player.directMessage(`刷新/开启成功`)
+                entity.player.directMessage('开启成功')
             }
             else if(result.value=='刷新gameUi大小'){
                 remoteChannel.sendClientEvent(entity, {
@@ -535,7 +589,7 @@ world.onPress(async({button,entity})=>{
             const result = await entity.player.dialog({
                 type: GameDialogType.SELECT,
                 title: 'sql相关',
-                content:`这里是有关sql的功能，请选择：`,
+                content:`这里是有关Storage的功能，请选择：`,
                 options:['✔存档','❌删档']
             });
             if(!result || result.value === null){ 
@@ -549,7 +603,7 @@ world.onPress(async({button,entity})=>{
                 const result = await entity.player.dialog({
                     type: GameDialogType.SELECT,
                     title: '你确定要删档吗？',
-                    content:`你确定要删档吗？\n删档后一切数据将消失！\n不能后悔！`,
+                    content:`你确定要删档吗？\n删档后一切数据将消失！\n不能反悔！`,
                     options:['不确定','算了','没想好','不删','删了吧']
                 });
                 if(result.value=='删了吧'){
@@ -564,6 +618,15 @@ world.onPress(async({button,entity})=>{
                 type: GameDialogType.SELECT,
                 title: '排行',
                 content: await leaderBoard('exp'),
+                options: ['确认']
+            });
+        }
+        else if(result.value=='时间排行榜'){
+            await dialog_with_button(entity, '排行', `注意：为了保证正确排序，10000-排行榜显示数据为真实用时`, ['我已知晓'])
+            await entity.player.dialog({
+                type: GameDialogType.SELECT,
+                title: '排行',
+                content: await leaderBoard('fastest_time'),
                 options: ['确认']
             });
         }
@@ -641,11 +704,11 @@ world.onPress(async({button,entity})=>{
                 }
             }
             else if(result.value=='一次性飞行特权（70exp）（开启飞行权限，仅能在一个地图使用！有效期：2s）'){
-                if(entity.exp>=80){
-                    entity.exp-=80;
+                if(entity.exp>=70){
+                    entity.exp-=70;
                     entity.bag.push('一次性飞行特权')
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包`)
+                    entity.player.directMessage(`购买成功，已放入背包；感谢@严肃的力士甲虫-fC7（13151057）反馈的bug`)
                 }
                 else{
                     dialog(`错误`,`经验不够！`,entity)
@@ -905,9 +968,6 @@ world.onPress(async({button,entity})=>{
                     entity.player.canFly=false
                     entity.player.directMessage('降落成功')
                     const allWearables = entity.player.wearables();
-                    // allWearables.forEach((item) => {
-                    //     item.remove();
-                    // });
                 }
                 else if(result.value=='开启/关闭穿墙'){
                     if(entity.player.spectator==false){
@@ -1017,8 +1077,15 @@ world.onPress(async({button,entity})=>{
 // 重生和检测
 world.onPlayerJoin(({entity})=>{
     world.onTick(({tick})=>{
-        if(tick%16==0){
+        if(tick%16==0&&!entity.victory){
             entity.time+=1
+        }
+        if(voxels.getVoxelId(entity.position.x,entity.position.y-(entity.player.scale==1?2:1),entity.position.z)==170&&entity.victory==false&&entity.player.spectator==false){
+            entity.player.forceRespawn()
+            entity.player.directMessage(`重生`)
+        }
+        if(voxels.getVoxelId(entity.position.x,entity.position.y-(entity.player.scale==1?2:1),entity.position.z)==679&&entity.victory==false&&entity.player.spectator==false){
+            entity.velocity.y=1
         }
         check_player(entity)
         if(entity.position.y<=1){
@@ -1030,8 +1097,17 @@ world.onPlayerJoin(({entity})=>{
         else{
             entity.dimension=2
         }
+        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?'黑':'白',entity.time,lastmsg,entity.adminlevel,entity.exp] });
     })
 })
+world.onVoxelContact(({ entity, voxel, x, y, z, axis }) => {
+    if (!entity.player) return; // 如果碰到方块的不是玩家，则跳过
+    if (voxel === 679 && axis.y === 1) {
+        entity.velocity.y=1
+    }else if(voxel === 667 && axis.y === 1) {
+        entity.velocity.y=2
+    }
+});
 world.onFluidEnter(({entity, tick, voxel}) => {
     const voxelName = voxels.name(voxel)
     if (voxelName=='strawberry_juice'){
@@ -1084,9 +1160,24 @@ next_points.forEach((e)=>{
         if(!other.player)return;
         const entity = other as GamePlayerEntity
         entity.player.directMessage(`进入下一关`)
-        entity.position.set(3,4,e.position.z+8)
+        entity.position.set(3,entity.position.y,e.position.z+8)
         log(`进入下一关`,entity)
     })
+})
+const upstairs = world.querySelectorAll('.上楼')[0]
+upstairs.onEntityContact(({other})=>{
+    if(!other.player)return;
+    const entity = other as GamePlayerEntity
+    entity.player.directMessage(`进入下一关`)
+    entity.position.set(3,upstairs.position.y+=44,4)
+    log(`进入下一关`,entity)
+})
+const retime = world.querySelector('#时间重置')
+retime.onEntityContact(({other})=>{
+    if(!other.player)return;
+    const entity = other as GamePlayerEntity
+    entity.time=0
+    entity.player.directMessage(`开始计时`)
 })
 const switch_dimension= world.querySelector('#切换')
 switch_dimension.enableInteract=true
@@ -1116,10 +1207,15 @@ win.onEntityContact(({other})=>{
     if(!other.player)return;
     let entity = other as GamePlayerEntity
     if(entity.victory==true)return
-    if(entity.adminlevel>=1&&entity.time<=250){
+    if(entity.adminlevel>=1&&entity.time<=350){
         entity.adminlevel=0
         savePlayer(entity)
         dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
+        return
+    }else if(entity.time<=350){
+        entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
+        entity.player.forceRespawn()
+        dialog_with_button(entity, ``, `过关这么快是不是开了？不算！`, ['知道了'])
         return
     }
     world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
@@ -1127,7 +1223,15 @@ win.onEntityContact(({other})=>{
     entity.player.spectator=true
     entity.player.color = new GameRGBColor(0, 1, 0)
     entity.exp+=100
-    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
+    entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
+    entity.leave_x=savedData.x
+    entity.leave_y=savedData.y
+    entity.leave_z=savedData.z
+    if(entity.time<10000&&10000-entity.fastest_time>entity.time){
+        entity.fastest_time = 10000 - entity.time
+    }
+    savePlayer(entity)
+    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！可在右键菜单查看时间排行\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验\n只有时间小于10000秒才会计入排行！\n感谢@尧（383025200313334）反馈的bug`, ['确定'])
     log(`到达终点，用时${entity.time}`,entity)
 })
 // 粒子效果
@@ -1170,7 +1274,7 @@ const particle_purpleCrystal = {
 const wcbl = {
     particleRate: 700,
     particleLifetime: 1.5,
-    particleSize: [1.5, 1.5, 1.5, 1.5, 1.5],
+    particleSize: [1.3, 1.3, 1.2, 1.1, 1],
     particleColor: [
         new GameRGBColor(0, 1, 0),
         new GameRGBColor(0, 0, 1),
@@ -1257,4 +1361,21 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
             dialog(`提示`,`请自行点击保存，否则数据丢失作者不负责任`,e)
         }
     })
+})
+// 收到客户端消息
+remoteChannel.onServerEvent(({entity, args, tick})=>{
+    if(args.type=='zxcommand'){
+        try {
+            world.say('<~ ' + eval(args.cmd))
+        }
+        catch (err) {
+            world.say('<~ ' + err)
+        }
+    }
+})
+// 消息预览
+world.onChat(({entity, message})=>{
+    if(message.startsWith('$'))return
+    world.say(`${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player.name}：` + message)
+    lastmsg = `${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player.name}：` + message
 })
