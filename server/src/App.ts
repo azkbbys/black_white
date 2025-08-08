@@ -502,7 +502,7 @@ world.onPress(async({button,entity})=>{
             type: GameDialogType.SELECT,
             title: '游戏菜单',
             content:`你有${entity.exp}经验\n你已用时${entity.time}秒\n`+ `你的血量：`+entity.hp+`/`+entity.maxHp+`\n你的坐标：`+entity.position,
-            options:['兑换码','数据相关','经验排行榜','时间排行榜','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
+            options:['兑换码','数据相关','经验排行榜','时间排行榜','关于gameUi','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
         });
         if(!result || result.value === null){ 
             return; 
@@ -539,7 +539,7 @@ world.onPress(async({button,entity})=>{
                 type: GameDialogType.SELECT,
                 title: 'gameUi',
                 content:`选择你要进行的操作`,
-                options:['取消操作','关闭gameUi','刷新gameUi内容/开启gameUi','刷新gameUi大小']
+                options:['取消操作','关闭gameUi','开启gameUi','刷新gameUi大小']
             });
             if(!result || result.value === null){ 
                 return; 
@@ -548,7 +548,7 @@ world.onPress(async({button,entity})=>{
                 remoteChannel.sendClientEvent(entity, {type:'command',args:'close'})
                 entity.player.directMessage(`已关闭`)
             }
-            else if(result.value=='刷新gameUi内容/开启gameUi'){
+            else if(result.value=='开启gameUi'){
                 remoteChannel.sendClientEvent(entity, {
                     type:'command',
                     args:'open'
@@ -561,7 +561,7 @@ world.onPress(async({button,entity})=>{
                         player_title:entity.player_title
                     }
                 })
-                entity.player.directMessage(`刷新/开启成功`)
+                entity.player.directMessage('开启成功')
             }
             else if(result.value=='刷新gameUi大小'){
                 remoteChannel.sendClientEvent(entity, {
@@ -603,7 +603,7 @@ world.onPress(async({button,entity})=>{
                 const result = await entity.player.dialog({
                     type: GameDialogType.SELECT,
                     title: '你确定要删档吗？',
-                    content:`你确定要删档吗？\n删档后一切数据将消失！\n不能后悔！`,
+                    content:`你确定要删档吗？\n删档后一切数据将消失！\n不能反悔！`,
                     options:['不确定','算了','没想好','不删','删了吧']
                 });
                 if(result.value=='删了吧'){
@@ -967,9 +967,6 @@ world.onPress(async({button,entity})=>{
                     entity.player.canFly=false
                     entity.player.directMessage('降落成功')
                     const allWearables = entity.player.wearables();
-                    // allWearables.forEach((item) => {
-                    //     item.remove();
-                    // });
                 }
                 else if(result.value=='开启/关闭穿墙'){
                     if(entity.player.spectator==false){
@@ -1099,7 +1096,7 @@ world.onPlayerJoin(({entity})=>{
         else{
             entity.dimension=2
         }
-        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?'黑':'白',entity.time,lastmsg,entity.adminlevel] });
+        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?'黑':'白',entity.time,lastmsg,entity.adminlevel,entity.exp] });
     })
 })
 world.onVoxelContact(({ entity, voxel, x, y, z, axis }) => {
