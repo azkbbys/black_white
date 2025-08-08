@@ -1206,12 +1206,12 @@ win.onEntityContact(({other})=>{
     if(!other.player)return;
     let entity = other as GamePlayerEntity
     if(entity.victory==true)return
-    if(entity.adminlevel>=1&&entity.time<=300){
+    if(entity.adminlevel>=1&&entity.time<=350){
         entity.adminlevel=0
         savePlayer(entity)
         dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
         return
-    }else if(entity.time<=300){
+    }else if(entity.time<=350){
         entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
         entity.player.forceRespawn()
         dialog_with_button(entity, ``, `过关这么快是不是开了？不算！`, ['知道了'])
