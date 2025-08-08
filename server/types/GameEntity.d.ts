@@ -5,7 +5,6 @@
 declare interface GameEntity extends GameEntity {
     duihuanma: string;
     count: boolean;
-    jindu: number;
     save: boolean;
     victory: boolean;
     cankick: boolean;
