@@ -12,8 +12,9 @@ const text2 = bg.findChildByName('text-2') as UiText
 const text4 = bg.findChildByName('text-4') as UiText
 const text6 = bg.findChildByName('text-6') as UiText
 const text8 = bg.findChildByName('text-8') as UiText
-const img1 = bg.findChildByName('image-1') as UiImage
+const text10 = bg.findChildByName('text-10') as UiText
 const text11 = arrow.findChildByName('text-11') as UiText
+const img1 = bg.findChildByName('image-1') as UiImage
 const zxcommand = command.findChildByName('image-2') as UiImage
 const cmdneirong = command.findChildByName('commandinput') as UiInput
 async function sendandclear(cmdneirong,zxcommand,ok){
@@ -91,5 +92,6 @@ remoteChannel.events.on("client",(arg)=>{
         text4.textContent = arg.args[0]
         text6.textContent = String(arg.args[1])
         text8.textContent = arg.args[2]
+        text10.textContent = String(arg.args[3])+'(不包含代码管理员)'
     }
 })

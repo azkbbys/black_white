@@ -34,4 +34,5 @@ declare interface GameEntity extends GameEntity {
     dimension: number;
     cundang_dimension: number;
     time: 0;
+    fastest_time: number;
 };

@@ -285,7 +285,8 @@ function use_duihuanma(entity){
 var Storage = storage.getGroupStorage('cundang'); // 获取数据库，名称为 cundang
 
 const CorrespondingName = { // 在此添加排行榜对应的单位和名称（无名称 则表示不显示名称）
-    'exp': ['经验', '无名称']
+    'exp': ['经验', '无名称'],
+    'fastest_time': ['', '无名称'],
 };
 
 const unsavedData = { // 玩家初始无需保存的数据，可增添或删除
@@ -319,7 +320,8 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     },
     dimension: 1,//1:黑 2:白
     cundang_dimension: 1,//1:黑 2:白
-    time: 0
+    time: 0,
+    fastest_time: 0, // 最快通关时间
 };
 
 /**
@@ -441,9 +443,9 @@ async function leaderBoard(type) { // 排行榜
         if (sqlDataList.isLastPage) break; // 如果已经是最后一页，退出循环
         await sqlDataList.nextPage(); // 下一页
     };
-    return list.map((value, num) => // 将列表里的所有项依次替换成字符串
+    return list.filter(value => value[1] !== undefined).map((value, num) => // 将列表里的所有项依次替换成字符串
         `第${num + 1}名 | ${value[0]} | ${value[1]} ${CorrespondingName[type][0]}${CorrespondingName[type][1] != '无名称' ? CorrespondingName[type][1] : ''}`
-    ).join("\n"); // 按照 换行 的间隔组合成字符串
+    ).join('\n');
 };
 
 world.onPlayerJoin(async({ entity }) => {
@@ -460,6 +462,9 @@ ${entity.player.name}，欢迎来到黑白维度！
 3. 乘风的小晚（50477944）
 4. 坦率的血翼蝠5801（12823830）`,['知道了'])
     await loadPlayer(entity); // 载入玩家数据
+    if(entity.fastest_time==undefined){
+        entity.fastest_time = 0; // 如果没有最快通关时间，则设置为0
+    }
     if(entity.canplay==false){
         entity.player.cancelDialogs()
         dialog(`封禁`,`你已被封禁，无法进入游戏！10秒后自动踢出\n如有疑问请联系管理员`,entity)
@@ -497,7 +502,7 @@ world.onPress(async({button,entity})=>{
             type: GameDialogType.SELECT,
             title: '游戏菜单',
             content:`你有${entity.exp}经验\n你已用时${entity.time}秒\n`+ `你的血量：`+entity.hp+`/`+entity.maxHp+`\n你的坐标：`+entity.position,
-            options:['兑换码','数据相关','经验排行榜','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
+            options:['兑换码','数据相关','经验排行榜','时间排行榜','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
         });
         if(!result || result.value === null){ 
             return; 
@@ -613,6 +618,14 @@ world.onPress(async({button,entity})=>{
                 type: GameDialogType.SELECT,
                 title: '排行',
                 content: await leaderBoard('exp'),
+                options: ['确认']
+            });
+        }
+        else if(result.value=='时间排行榜'){
+            await entity.player.dialog({
+                type: GameDialogType.SELECT,
+                title: '排行',
+                content: await leaderBoard('fastest_time'),
                 options: ['确认']
             });
         }
@@ -1086,7 +1099,7 @@ world.onPlayerJoin(({entity})=>{
         else{
             entity.dimension=2
         }
-        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?'黑':'白',entity.time,lastmsg] });
+        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?'黑':'白',entity.time,lastmsg,entity.adminlevel] });
     })
 })
 world.onVoxelContact(({ entity, voxel, x, y, z, axis }) => {
@@ -1196,12 +1209,12 @@ win.onEntityContact(({other})=>{
     if(!other.player)return;
     let entity = other as GamePlayerEntity
     if(entity.victory==true)return
-    if(entity.adminlevel>=1&&entity.time<=250){
+    if(entity.adminlevel>=1&&entity.time<=300){
         entity.adminlevel=0
         savePlayer(entity)
         dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
         return
-    }else if(entity.time<=250){
+    }else if(entity.time<=300){
         entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
         entity.player.forceRespawn()
         dialog_with_button(entity, ``, `过关这么快是不是开了？不算！`, ['知道了'])
@@ -1216,8 +1229,11 @@ win.onEntityContact(({other})=>{
     entity.leave_x=savedData.x
     entity.leave_y=savedData.y
     entity.leave_z=savedData.z
+    if(entity.time<10000&&10000-entity.fastest_time>entity.time){
+        entity.fastest_time = 10000 - entity.time
+    }
     savePlayer(entity)
-    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验\n感谢@尧（383025200313334）反馈的bug`, ['确定'])
+    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！可在右键菜单查看时间排行\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验\n只有时间小于10000秒才会计入排行！\n感谢@尧（383025200313334）反馈的bug`, ['确定'])
     log(`到达终点，用时${entity.time}`,entity)
 })
 // 粒子效果
