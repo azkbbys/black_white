@@ -622,6 +622,7 @@ world.onPress(async({button,entity})=>{
             });
         }
         else if(result.value=='时间排行榜'){
+            await dialog_with_button(entity, '排行', `注意：为了保证正确排序，10000-排行榜显示数据为真实用时`, ['我已知晓'])
             await entity.player.dialog({
                 type: GameDialogType.SELECT,
                 title: '排行',
