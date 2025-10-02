@@ -103,80 +103,59 @@ function reminder(entity:GamePlayerEntity){
     if(entity.position.y<=30){
         if(entity.position.z<=8){
             dialog_with_button(entity,
-                i18n.t('tutorial', { lng: entity.lang }),
-`关卡：教程1
-hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教程
-这个跑酷并不是一个普通的跑酷，在这个跑酷中，世界被分为了两个维度：黑与白。维度由四周墙体的颜色决定，电脑端按下E键即可切换维度。切换前后在两个维度中的相对位置不变。
-现在就试试切换维度吧！`,
-                ['知道了'])
+                i18n.t('tutorial.tutorial', { lng: entity.lang }),
+                i18n.t('tutorial.tutorial1', { lng: entity.lang, name: entity.player.name }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
         else if(entity.position.z<=16){
             dialog_with_button(entity,
-                i18n.t('tutorial', { lng: entity.lang }),
-`关卡：教程2
-现在，你已经知道了如何切换维度。
-我要告诉你：两个维度中的地形可能不同！比如这个关卡正是如此。
-现在，切换维度，思考一下如何过关吧！`,
-                ['知道了'])
+                i18n.t('tutorial.tutorial', { lng: entity.lang }),
+                i18n.t('tutorial.tutorial2', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
         else if(entity.position.z<=24){
             dialog_with_button(entity,
-                i18n.t('tutorial', { lng: entity.lang }),
-`关卡：教程3
-在这个关卡中，出现了新的东西——草莓酱！碰到它你就知道会发生什么了）））
-合理切换维度过关！`,
-                ['知道了'])
+                i18n.t('tutorial.tutorial', { lng: entity.lang }),
+                i18n.t('tutorial.tutorial3', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
         else if(entity.position.z<=32){
             dialog_with_button(entity,
-                i18n.t('tutorial', { lng: entity.lang }),
-`关卡：1
-看来你应该掌握了这个游戏的玩法，接下来就要靠你自己摸索辣！
-如果你觉得这个地图不错，记得点赞收藏哦~`,
-                ['知道了'])
+                i18n.t('level_reminder.reminder', { lng: entity.lang }),
+                i18n.t('level_reminder.level1', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
         else if(entity.position.z<=40){
             dialog_with_button(entity,
-                '提示',
-`关卡：2
-这个关卡...似乎...不能跳跃？！`,
-                ['知道了'])
+                i18n.t('level_reminder.reminder', { lng: entity.lang }),
+                i18n.t('level_reminder.level2', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }else if(entity.position.z<=80){}
         else if(entity.position.z<=88){
             dialog_with_button(entity,
-                '提示',
-`关卡：7
-没错！！！这个关卡又是特殊关卡
-在本关你的移动速度快的飞起！
-什么你说你可以潜行？不好意思你潜行速度是0
-当然，为了防止你信仰之跃，跳跃自然也是禁用了哒~
-感谢@坦率的血翼蝠5801（12823830）反馈的偷鸡点位！`,
-                ['知道了'])
+                i18n.t('level_reminder.reminder', { lng: entity.lang }),
+                i18n.t('level_reminder.level7', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
         else if(entity.position.z<=96){
             dialog_with_button(entity,
-                '提示',
-`关卡：8
-你羽整了个花活，在这个关卡，当处在“黑”维度时正常，处在“白”维度时方向键反向！`,
-                ['知道了'])
+                i18n.t('level_reminder.reminder', { lng: entity.lang }),
+                i18n.t('level_reminder.level8', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }else if(entity.position.z<=104){}
         else if(entity.position.z<=112){
             dialog_with_button(entity,
-                '提示',
-`关卡：10
-鸣谢：创意贡献：乘风的小晚（50477944）
-结合前2、3关：加速+白反向+禁跳+禁潜行`,
-                ['知道了'])
+                i18n.t('level_reminder.reminder', { lng: entity.lang }),
+                i18n.t('level_reminder.level10', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
     }
     else if(entity.position.y<=79){
         if(entity.position.z<=8){
             dialog_with_button(entity,
-            i18n.t('tutorial', { lng: entity.lang }),
-`关卡：15
-新的东西出现辣：跳板！
-蓝色跳板可以让你跳高；紫色跳板可以让你跳更高！`,
-                ['知道了'])
+                i18n.t('level_reminder.reminder', { lng: entity.lang }),
+                i18n.t('level_reminder.level15', { lng: entity.lang }),
+                [i18n.t('tutorial.know', { lng: entity.lang })])
         }
     }
 }
@@ -189,7 +168,7 @@ function find(name:string){
 }
 function reborn(entity:GamePlayerEntity){
     // log(`重生，重生前维度：${entity.dimension==1?`黑`:`白`}，重生点维度：${entity.cundang_dimension==1?`黑`:`白`}`,entity)
-    entity.player.directMessage(`重生`)
+    entity.player.directMessage(i18n.t('directmsgs.respawn', { lng: entity.lang }))
     entity.player.forceRespawn()
     entity.dimension=entity.cundang_dimension
 }
@@ -202,7 +181,7 @@ async function dialog(title:string,content:string,entity:GamePlayerEntity){
 }
 function use_duihuanma(entity:GamePlayerEntity){
     if(entity.used_duihuanma.includes(entity.duihuanma)==true){
-        dialog(`错误`,`这个兑换码已经使用过了`,entity)
+        dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.dhm_already_used', {lng : entity.lang }),entity)
         return
     }
     try{
@@ -222,26 +201,26 @@ function use_duihuanma(entity:GamePlayerEntity){
         //         if(entity.duihuanmainlist[1]==String(entity.player.userId*3+2023)&&entity.duihuanmainlist[2]==String(entity.player.name.length)&&entity.duihuanmainlist[5]==String(month+day)&&entity.duihuanmainlist[6]==String(hour)&&parseInt(entity.duihuanmainlist[8])/3%1==0){
         //             if(((parseInt(entity.duihuanmainlist[3])-99)/2)%9==parseInt(entity.duihuanmainlist[4])){
         //                 if(minute-parseInt(entity.duihuanmainlist[7])<=5){
-        //                     dialog(`系统`,`兑换成功！\n获得${(parseInt(entity.duihuanmainlist[3])-99)/4}经验`,entity);
+        //                     dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: (parseInt(entity.duihuanmainlist[3])-99)/4}),entity);
         //                     entity.exp+=(parseInt(entity.duihuanmainlist[3])-99)/4;
         //                     entity.used_duihuanma.push(entity.duihuanma);
         //                     savePlayer(entity);
         //                 }
         //                 else{
-        //                     dialog(`错误`,`此兑换码已过期`,entity)
+        //                     dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.dhm_expired', {lng: entity.lang}),entity)
         //                 }
         //             }
         //             else{
-        //                 dialog(`错误`,`此兑换码不存在`,entity)
+        //                 dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.dhm_not_exist', {lng: entity.lang}),entity)
         //             }
         //         }
         //         else{
-        //             dialog(`错误`,`此兑换码不存在`,entity)
+        //             dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.dhm_not_exist', {lng: entity.lang}),entity)
         //         }
         //     }
         // }
         if(entity.duihuanma=='苦力怕'){
-            dialog(`系统`,`兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用`,entity)
+            dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_creeper', {lng: entity.lang}),entity)
             if(entity.skins.includes('苦力怕')==false){
                 entity.skins.push('苦力怕');
             }
@@ -249,7 +228,7 @@ function use_duihuanma(entity:GamePlayerEntity){
             savePlayer(entity)
         }
         else if(entity.duihuanma=='史蒂夫'){
-            dialog(`系统`,`兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用`,entity)
+            dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_steve', {lng: entity.lang}),entity)
             if(entity.skins.includes('史蒂夫')==false){
                 entity.skins.push('史蒂夫');
             }
@@ -257,32 +236,32 @@ function use_duihuanma(entity:GamePlayerEntity){
             savePlayer(entity)
         }
         else if(entity.duihuanma=='新图限时福利'){
-            dialog(`系统`,`兑换成功，获得100经验`,entity)
+            dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: 100}),entity)
             entity.exp+=100 
             entity.used_duihuanma.push(entity.duihuanma);
             savePlayer(entity)
         }
         // else if(entity.duihuanma=='旧版福利'){
-        //     dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*1000`,entity)
+        //     dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: 1000}),entity)
         //     entity.exp+=1000
         //     entity.used_duihuanma.push(entity.duihuanma);
         //     savePlayer(entity)
         // }
         // else if(entity.duihuanma=='壹周年'){
-        //     dialog(`系统`,`欢迎来到全新的毕业生跑酷！已自动领取经验*3650`,entity)
+        //     dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: 3650}),entity)
         //     entity.exp+=3650
         //     entity.used_duihuanma.push(entity.duihuanma);
         //     savePlayer(entity)
         // }
         // else if(entity.duihuanma=='记忆碎片1'){
-        //     dialog(`系统`,`获得经验*100`,entity)
+        //     dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: 100}),entity)
         //     entity.exp+=100
         //     entity.used_duihuanma.push(entity.duihuanma);
         //     savePlayer(entity)
         // }
-        // else{
-        //     dialog(`错误`,`兑换码不存在`,entity)     
-        // }
+        else{
+            dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.dhm_not_exist', {lng: entity.lang}),entity)     
+        }
     }
     catch(e){
         return
@@ -292,7 +271,7 @@ function use_duihuanma(entity:GamePlayerEntity){
 var Storage = storage.getGroupStorage('cundang'); // 获取数据库，名称为 cundang
 
 const CorrespondingName = { // 在此添加排行榜对应的单位和名称（无名称 则表示不显示名称）
-    'exp': ['经验', '无名称'],
+    'exp': [i18n.t('leaderboard.exp_unit'), '无名称'],
     'fastest_time': ['', '无名称'],
 };
 
@@ -406,10 +385,10 @@ async function loadPlayer(entity:GamePlayerEntity) { // 读档
     var data = await Storage.get(entity.player.userId); // 获取数据
     if (data) { // 如果数据存在
         Object.assign(entity, data.value);
-        entity.player.directMessage('已为您读取数据！');
+        entity.player.directMessage(i18n.t('directmsgs.data_loaded', { lng: entity.lang }));
     } else { // 如果数据不存在
         await Storage.set(entity.player.userId, getPlayerData(entity));
-        entity.player.directMessage('已为您创建数据！');
+        entity.player.directMessage(i18n.t('directmsgs.data_created', { lng: entity.lang }));
         const date = new Date(Date.now());
         const year = date.getFullYear()
         const month = date.getMonth() + 1;
@@ -424,6 +403,26 @@ async function loadPlayer(entity:GamePlayerEntity) { // 读档
             minute: minute
         }
     };
+    if(entity.lang==undefined){
+        let lang = await entity.player.dialog({
+            type: GameDialogType.SELECT,
+            title: i18n.t('language.select_title', { lng: 'zh-CN' }),
+            content: i18n.t('language.select_content', { lng: 'zh-CN' }),
+            options: [i18n.t('language.chinese', { lng: 'zh-CN' }), i18n.t('language.english', { lng: 'zh-CN' })]
+        });
+        if(!lang || lang.value === null){ 
+            entity.lang = 'zh-CN'
+            entity.player.directMessage(i18n.t('language.default_selected', { lng: 'zh-CN' }))
+        }
+        else if(lang.value==i18n.t('language.chinese', { lng: 'zh-CN' })){
+            entity.lang = 'zh-CN'
+            entity.player.directMessage(i18n.t('language.chinese_selected', { lng: 'zh-CN' }))
+        }
+        else if(lang.value==i18n.t('language.english', { lng: 'zh-CN' })){
+            entity.lang = 'en'
+            entity.player.directMessage(i18n.t('language.english_selected', { lng: 'en' }))
+        }
+    }
 };
 
 /**
@@ -472,30 +471,27 @@ async function leaderBoard(type:string) { // 排行榜
     };
     const key = type as keyof typeof CorrespondingName;
     return list.filter(value => value[1] !== undefined).map((value, num) => // 将列表里的所有项依次替换成字符串
-        `第${num + 1}名 | ${value[0]} | ${value[1]} ${CorrespondingName[key][0]}${CorrespondingName[key][1] !== '无名称' ? CorrespondingName[key][1] : ''}`
+        i18n.t('leaderboard.rank_format', { 
+            lng: 'zh-CN',
+            rank: num + 1, 
+            name: value[0], 
+            value: value[1], 
+            unit: CorrespondingName[key][0],
+            name_display: CorrespondingName[key][1] !== '无名称' ? CorrespondingName[key][1] : ''
+        })
 ).join('\n');
 };
 
 world.onPlayerJoin(async({ entity }) => {
-    log(`加入`,entity)
-    dialog_with_button(entity, '欢迎', `
-${entity.player.name}，欢迎来到黑白维度！
-跑酷分为两个维度：黑与白。
-黑维度的场景以黑色为主题色，白维度的场景以白色为主题色。玩家按下E键或左（A）键即可黑→白或白→黑。
-黑、白维度的地形不同，按下E键或左（A）键切换维度后与两维度原点的相对位置不变
-你需要在黑、白维度之间灵活切换，完成跑酷
-鸣谢名单：
-1. 尧（383025200313334）
-2. 严肃的力士甲虫-fC7（13151057）
-3. 乘风的小晚（50477944）
-4. 坦率的血翼蝠5801（12823830）`,['知道了'])
     await loadPlayer(entity); // 载入玩家数据
+    log(i18n.t('logs.join', { lng: entity.lang }),entity)
+    dialog_with_button(entity, i18n.t('dialogs.welcome', {lng: entity.lang}),i18n.t('dialogs.joinwelcome', {lng: entity.lang, name: entity.player.name }),[i18n.t('tutorial.know', { lng: entity.lang })])
     if(entity.fastest_time==undefined){
         entity.fastest_time = 0; // 如果没有最快通关时间，则设置为0
     }
     if(entity.canplay==false){
         entity.player.cancelDialogs()
-        dialog(`封禁`,`你已被封禁，无法进入游戏！10秒后自动踢出\n如有疑问请联系管理员`,entity)
+        dialog(i18n.t('dialogs.ban', {lng:entity.lang}),i18n.t('dialogs.baninfo', {lng:entity.lang}),entity)
         await sleep(10000)
         entity.player.kick()
         return
@@ -514,30 +510,15 @@ ${entity.player.name}，欢迎来到黑白维度！
     if(entity.adminlevel>=2||adminpro.includes(entity.player.name)){
         remoteChannel.sendClientEvent(entity, {type:'command',args:'opencmd'})
     }
-    world.say(`欢迎${entity.player_title=='玩家'?' ':' ['+entity.player_title+'] '}${entity.player.name} 加入黑白维度！\n当前在线：${world.querySelectorAll('player').length}人`)
+    world.say(i18n.t('chat.welcome_join', { 
+        lng: entity.lang,
+        title: entity.player_title=='玩家'?' ':i18n.t('chat.title_prefix', {lng: entity.lang, title: entity.player_title}),
+        name: entity.player.name,
+        online_count: world.querySelectorAll('player').length
+    }))
     entity.position.set(entity.leave_x,entity.leave_y,entity.leave_z)
     entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
     remoteChannel.sendClientEvent(entity, { type: 'basicinfo', args: [entity.player.name, entity.player_title, entity.player.avatar] });
-    if(entity.lang==undefined){
-        let lang = await entity.player.dialog({
-            type: GameDialogType.SELECT,
-            title: '🌐选择语言/Choose a language',
-            content: '🌐选择语言/Choose a language',
-            options: ['中文', 'English']
-        });
-        if(!lang || lang.value === null){ 
-            entity.lang = 'zh-CN'
-            entity.player.directMessage('本游戏的默认语言为简体中文')
-        }
-        else if(lang.value=='中文'){
-            entity.lang = 'zh-CN'
-            entity.player.directMessage('已选择简体中文')
-        }
-        else if(lang.value=='English'){
-            entity.lang = 'en'
-            entity.player.directMessage('Successfully selected English')
-        }
-    }
 });
 world.onPlayerLeave(async({ entity }) => {
     await savePlayer(entity); // 保存玩家数据
@@ -548,19 +529,53 @@ world.onPress(async({button,entity})=>{
     if(button==='action1'){
         const result = await entity.player.dialog({
             type: GameDialogType.SELECT,
-            title: '游戏菜单',
-            content:`你有${entity.exp}经验\n你已用时${entity.time}秒\n`+ `你的血量：`+entity.hp+`/`+entity.maxHp+`\n你的坐标：`+entity.position,
-            options:['兑换码','数据相关','经验排行榜','时间排行榜','关于gameUi','皮肤库','商店','背包','重来','脱离卡点','切换人称','bug反馈','禁言玩家说话','✨用爱，发电！','管理员工具']
+            title: i18n.t('dialogs.menu.menu', {lng: entity.lang}),
+            content: i18n.t('dialogs.menu.basicinfo', {lng: entity.lang, exp:entity.exp, time:entity.time, hp: entity.hp, maxhp: entity.maxHp, position: entity.position}),
+            options:[i18n.t('menu_options.language', {lng: entity.lang}),
+                i18n.t('dialogs.menu.redemption_code', {lng: entity.lang}),
+                i18n.t('dialogs.menu.data', {lng: entity.lang}),
+                i18n.t('dialogs.menu.leaderboard.exp', {lng: entity.lang}),
+                i18n.t('dialogs.menu.leaderboard.time', {lng: entity.lang}),
+                i18n.t('dialogs.menu.gameui', {lng: entity.lang}),
+                i18n.t('dialogs.menu.skin', {lng: entity.lang}),
+                i18n.t('menu_options.shop', {lng: entity.lang}),
+                i18n.t('menu_options.backpack', {lng: entity.lang}),
+                i18n.t('menu_options.restart', {lng: entity.lang}),
+                i18n.t('menu_options.uncrouch', {lng: entity.lang}),
+                i18n.t('menu_options.switch_view', {lng: entity.lang}),
+                i18n.t('menu_options.bug_report', {lng: entity.lang}),
+                i18n.t('menu_options.mute_chat', {lng: entity.lang}),
+                i18n.t('menu_options.donate', {lng: entity.lang}),
+                i18n.t('menu_options.admin_tools', {lng: entity.lang})]
         });
         if(!result || result.value === null){ 
             return; 
         }
-        else if(result.value=='✨用爱，发电！'){
+        else if(result.value==i18n.t('menu_options.language', {lng: entity.lang})){
+            const result = await entity.player.dialog({
+                type: GameDialogType.SELECT,
+                title: i18n.t('language.select_title', {lng: entity.lang}),
+                content: i18n.t('language.select_content', {lng: entity.lang}),
+                options: [i18n.t('language.chinese', {lng: entity.lang}), i18n.t('language.english', {lng: entity.lang})]
+            });
+            if(!result || result.value === null){ 
+                return; 
+            }
+            else if(result.value==i18n.t('language.chinese', {lng: entity.lang})){
+                entity.lang = 'zh-CN'
+                entity.player.directMessage(i18n.t('language.chinese_selected', {lng: entity.lang}))
+            }
+            else if(result.value==i18n.t('language.english', {lng: entity.lang})){
+                entity.lang = 'en'
+                entity.player.directMessage(i18n.t('language.english_selected', {lng: entity.lang}))
+            }
+        }
+        else if(result.value==i18n.t('menu_options.donate', {lng: entity.lang})){
             entity.player.link(`https://afdian.com/a/azkbbys`, {isConfirm: false, isNewTab: true})
         }
         else if(result.value=='选择附图'){
             entity.position.set(97,40,74);
-            dialog(`系统`,`你已进入附图选择区域，与dream互动即可选择附图，要退出请右键点击“脱离卡点”`,entity)
+            dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.attachment_select_info', {lng: entity.lang}),entity)
         }
         // else if(result.value=='��音乐��'){
         //     const result = await entity.player.dialog({
@@ -582,21 +597,21 @@ world.onPress(async({button,entity})=>{
         //         entity.player.sound('audio/夜、萤火虫和你.mp3')
         //     }
         // }
-        else if(result.value=='关于gameUi'){
+        else if(result.value==i18n.t('dialogs.menu.gameui', {lng: entity.lang})){
             const result = await entity.player.dialog({
                 type: GameDialogType.SELECT,
                 title: 'gameUi',
-                content:`选择你要进行的操作`,
-                options:['取消操作','关闭gameUi','开启gameUi','刷新gameUi大小']
+                content:i18n.t('dialogs.gameui.content', {lng: entity.lang}),
+                options:[i18n.t('dialogs.gameui.cancel', {lng: entity.lang}), i18n.t('dialogs.gameui.close', {lng: entity.lang}), i18n.t('dialogs.gameui.open', {lng: entity.lang}), i18n.t('dialogs.gameui.refresh', {lng: entity.lang})]
             });
             if(!result || result.value === null){ 
                 return; 
             }
-            else if(result.value=='关闭gameUi'){
+            else if(result.value==i18n.t('dialogs.gameui.close', {lng: entity.lang})){
                 remoteChannel.sendClientEvent(entity, {type:'command',args:'close'})
-                entity.player.directMessage(`已关闭`)
+                entity.player.directMessage(i18n.t('directmsgs.closed', {lng: entity.lang}))
             }
-            else if(result.value=='开启gameUi'){
+            else if(result.value==i18n.t('dialogs.gameui.open', {lng: entity.lang})){
                 remoteChannel.sendClientEvent(entity, {
                     type:'command',
                     args:'open'
@@ -609,22 +624,22 @@ world.onPress(async({button,entity})=>{
                         player_title:entity.player_title
                     }
                 })
-                entity.player.directMessage('开启成功')
+                entity.player.directMessage(i18n.t('directmsgs.opened', {lng: entity.lang}))
             }
-            else if(result.value=='刷新gameUi大小'){
+            else if(result.value==i18n.t('dialogs.gameui.refresh', {lng: entity.lang})){
                 remoteChannel.sendClientEvent(entity, {
                     type: '刷新大小',
                     args: null
                 })
-                entity.player.directMessage(`当前暂不支持刷新，请刷新网页即可`)
+                entity.player.directMessage(i18n.t('directmsgs.refresh_not_supported', {lng: entity.lang}))
             }
         }
-        else if(result.value=='兑换码'){
+        else if(result.value==i18n.t('dialogs.menu.redemption_code', {lng: entity.lang})){
             entity.duihuanma = await entity.player.dialog({
                 type: GameDialogType.INPUT,
-                title: '兑换',
-                content: `输入你所获得的兑换码\n兑换码可以在Q群763919859获得！`,
-                confirmText: '确认',
+                title: i18n.t('dialogs.redemption.title', {lng: entity.lang}),
+                content: i18n.t('dialogs.redemption.content', {lng: entity.lang}),
+                confirmText: i18n.t('dialogs.confirm', {lng: entity.lang}),
             })as string;
             if(!entity.duihuanma || entity.duihuanma === null){ 
                 entity.player.link(`http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Atg_SCPUyp2d8yAAxjaozzjFH3eu198J&authKey=ohyqS%2FYbJ%2F3C%2BkzrFVQSS7wJoeifKFxeo8SNr4KsX7fey6sx%2Fy%2FX7JEF%2Bvtkryd1&noverify=0&group_code=763919859`, {isConfirm: false, isNewTab: true})
@@ -633,56 +648,56 @@ world.onPress(async({button,entity})=>{
                 use_duihuanma(entity)
             }
         }
-        else if(result.value=='数据相关'){
+        else if(result.value==i18n.t('dialogs.menu.data', {lng: entity.lang})){
             const result = await entity.player.dialog({
                 type: GameDialogType.SELECT,
-                title: 'sql相关',
-                content:`这里是有关Storage的功能，请选择：`,
-                options:['✔存档','❌删档']
+                title: i18n.t('dialogs.storage.title', {lng: entity.lang}),
+                content:i18n.t('dialogs.storage.content', {lng: entity.lang}),
+                options:[i18n.t('dialogs.storage.save', {lng: entity.lang}), i18n.t('dialogs.storage.delete', {lng: entity.lang})]
             });
             if(!result || result.value === null){ 
                 return; 
             }
-            else if(result.value=='✔存档'){
+            else if(result.value==i18n.t('dialogs.storage.save', {lng: entity.lang})){
                 savePlayer(entity);
-                dialog(`系统`,`存档成功！\n每次踩到存档点会自动进行所有数据的保存`,entity)
+                dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.storage.save_success', {lng: entity.lang}),entity)
             }
-            else if(result.value=='❌删档'){
+            else if(result.value==i18n.t('dialogs.storage.delete', {lng: entity.lang})){
                 const result = await entity.player.dialog({
                     type: GameDialogType.SELECT,
-                    title: '你确定要删档吗？',
-                    content:`你确定要删档吗？\n删档后一切数据将消失！\n不能反悔！`,
-                    options:['不确定','算了','没想好','不删','删了吧']
+                    title: i18n.t('dialogs.storage.delete_confirm_title', {lng: entity.lang}),
+                    content:i18n.t('dialogs.storage.delete_confirm_content', {lng: entity.lang}),
+                    options:[i18n.t('dialogs.storage.delete_cancel1', {lng: entity.lang}), i18n.t('dialogs.storage.delete_cancel2', {lng: entity.lang}), i18n.t('dialogs.storage.delete_cancel3', {lng: entity.lang}), i18n.t('dialogs.storage.delete_cancel4', {lng: entity.lang}), i18n.t('dialogs.storage.delete_confirm', {lng: entity.lang})]
                 });
-                if(result?.value=='删了吧'){
+                if(result?.value==i18n.t('dialogs.storage.delete_confirm', {lng: entity.lang})){
                     Object.assign(entity, savedData);
                     savePlayer(entity);
                     entity.player.kick();
                 }
             }
         }
-        else if(result.value=='经验排行榜'){
+        else if(result.value==i18n.t('dialogs.menu.leaderboard.exp', {lng: entity.lang})){
             await entity.player.dialog({
                 type: GameDialogType.SELECT,
-                title: '排行',
+                title: i18n.t('leaderboard.title', {lng: entity.lang}),
                 content: await leaderBoard('exp'),
-                options: ['确认']
+                options: [i18n.t('dialogs.confirm', {lng: entity.lang})]
             });
         }
-        else if(result.value=='时间排行榜'){
-            await dialog_with_button(entity, '排行', `注意：为了保证正确排序，10000-排行榜显示数据为真实用时`, ['我已知晓'])
+        else if(result.value==i18n.t('dialogs.menu.leaderboard.time', {lng: entity.lang})){
+            await dialog_with_button(entity, i18n.t('leaderboard.title', {lng: entity.lang}), i18n.t('leaderboard.time_note', {lng: entity.lang}), [i18n.t('dialogs.acknowledge', {lng: entity.lang})])
             await entity.player.dialog({
                 type: GameDialogType.SELECT,
-                title: '排行',
+                title: i18n.t('leaderboard.title', {lng: entity.lang}),
                 content: await leaderBoard('fastest_time'),
-                options: ['确认']
+                options: [i18n.t('dialogs.confirm', {lng: entity.lang})]
             });
         }
-        else if(result.value=='皮肤库'){
+        else if(result.value==i18n.t('dialogs.menu.skin', {lng: entity.lang})){
             const result = await entity.player.dialog({
                 type: GameDialogType.SELECT,
-                title: '选择皮肤',
-                content:`请选择要使用的皮肤`,
+                title: i18n.t('dialogs.skin.title', {lng: entity.lang}),
+                content:i18n.t('dialogs.skin.content', {lng: entity.lang}),
                 options:entity.skins
             });
             if(!result || result.value === null){ 
@@ -698,191 +713,191 @@ world.onPress(async({button,entity})=>{
                 entity.usingskin = '原版'
             }
             savePlayer(entity)
-            entity.player.directMessage('切换成功')
+            entity.player.directMessage(i18n.t('directmsgs.switch_success', {lng: entity.lang}))
         }
-        else if(result.value=='商店'){
+        else if(result.value==i18n.t('menu_options.shop', {lng: entity.lang})){
             const result = await entity.player.dialog({
                 type: GameDialogType.SELECT,
-                title: '你要买点啥？',
-                content:`你要买点啥？\n你有${entity.exp}经验\n说明：名称（价格）（备注）`,
-                options:['退出',
-                '永久绿色粒子效果（150exp）（全图同步）',
-                '永久苦力怕皮肤（500exp）（全图同步）（鬼知道作者把皮肤做成了啥样）',
-                '永久史蒂夫皮肤（500exp）（全图同步）（还原度还是可以的吧）',
-                '一次性飞行特权（70exp）（开启飞行权限，仅能在一个地图使用！有效期：2s）',
-                '一次性飞行变速器（5exp）（更改飞行速度，仅能在一个地图使用！使用前提：已经开启飞行）',
-                '缩小药水（70exp）（一次性，将角色大小缩小50%，不可叠加使用）',
-                '还原药水（1exp）（一次性，将角色大小还原',
-                '放大药水（70exp）（一次性，将角色大小增大50%，不可叠加使用）']
+                title: i18n.t('dialogs.shop.title', {lng: entity.lang}),
+                content:i18n.t('dialogs.shop.content', {lng: entity.lang, exp: entity.exp}),
+                options:[i18n.t('dialogs.exit', {lng: entity.lang}),
+                i18n.t('dialogs.shop.green_particle', {lng: entity.lang}),
+                i18n.t('dialogs.shop.creeper_skin', {lng: entity.lang}),
+                i18n.t('dialogs.shop.steve_skin', {lng: entity.lang}),
+                i18n.t('dialogs.shop.fly_privilege', {lng: entity.lang}),
+                i18n.t('dialogs.shop.fly_speed', {lng: entity.lang}),
+                i18n.t('dialogs.shop.shrink_potion', {lng: entity.lang}),
+                i18n.t('dialogs.shop.restore_potion', {lng: entity.lang}),
+                i18n.t('dialogs.shop.enlarge_potion', {lng: entity.lang})]
             });
             if(!result || result.value === null){ 
                 return; 
             }
-            else if(result.value=='永久绿色粒子效果（150exp）（全图同步）'){
+            else if(result.value==i18n.t('dialogs.shop.green_particle', {lng: entity.lang})){
                 if(entity.exp>=150){
                     entity.exp-=150;
                     entity.greenlzxg=true;
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已自动使用，刷新后生效`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_particle', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够！`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='永久苦力怕皮肤（500exp）（全图同步）（鬼知道作者把皮肤做成了啥样）'){
+            else if(result.value==i18n.t('dialogs.shop.creeper_skin', {lng: entity.lang})){
                 if(entity.exp>=500&&entity.skins.includes('苦力怕')==false){
                     entity.exp-=500;
                     entity.skins.push('苦力怕')
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入皮肤库，可右键点击“皮肤库”使用`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_skin', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够或已拥有皮肤`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp_or_owned', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='永久史蒂夫皮肤（500exp）（全图同步）（还原度还是可以的吧）'){
+            else if(result.value==i18n.t('dialogs.shop.steve_skin', {lng: entity.lang})){
                 if(entity.exp>=500&&entity.skins.includes('史蒂夫')==false){
                     entity.exp-=500;
                     entity.skins.push('史蒂夫')
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入皮肤库，可右键点击“皮肤库”使用`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_skin', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够或已拥有皮肤`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp_or_owned', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='一次性飞行特权（70exp）（开启飞行权限，仅能在一个地图使用！有效期：2s）'){
+            else if(result.value==i18n.t('dialogs.shop.fly_privilege', {lng: entity.lang})){
                 if(entity.exp>=70){
                     entity.exp-=70;
-                    entity.bag.push('一次性飞行特权')
+                    entity.bag.push(i18n.t('items.fly_privilege', {lng: entity.lang}))
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包；感谢@严肃的力士甲虫-fC7（13151057）反馈的bug`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_backpack', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够！`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='一次性飞行变速器（5exp）（更改飞行速度，仅能在一个地图使用！使用前提：已经开启飞行）'){
+            else if(result.value==i18n.t('dialogs.shop.fly_speed', {lng: entity.lang})){
                 if(entity.exp>=5){
                     entity.exp-=5;
-                    entity.bag.push('一次性飞行变速器')
+                    entity.bag.push(i18n.t('items.fly_speed', {lng: entity.lang}))
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_backpack', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够！`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='缩小药水（70exp）（一次性，将角色大小缩小50%，不可叠加使用）'){
+            else if(result.value==i18n.t('dialogs.shop.shrink_potion', {lng: entity.lang})){
                 if(entity.exp>=70){
                     entity.exp-=70;
-                    entity.bag.push('一次性缩小药水')
+                    entity.bag.push(i18n.t('items.shrink_potion', {lng: entity.lang}))
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_backpack', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够！`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='还原药水（1exp）（一次性，将角色大小还原'){
+            else if(result.value==i18n.t('dialogs.shop.restore_potion', {lng: entity.lang})){
                 if(entity.exp>=1){
                     entity.exp-=1;
-                    entity.bag.push('一次性还原药水')
+                    entity.bag.push(i18n.t('items.restore_potion', {lng: entity.lang}))
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_backpack', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够！`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp', {lng: entity.lang}),entity)
                 }
             }
-            else if(result.value=='放大药水（70exp）（一次性，将角色大小增大50%，不可叠加使用）'){
+            else if(result.value==i18n.t('dialogs.shop.enlarge_potion', {lng: entity.lang})){
                 if(entity.exp>=70){
                     entity.exp-=70;
-                    entity.bag.push('一次性放大药水')
+                    entity.bag.push(i18n.t('items.enlarge_potion', {lng: entity.lang}))
                     savePlayer(entity);
-                    entity.player.directMessage(`购买成功，已放入背包`)
+                    entity.player.directMessage(i18n.t('directmsgs.purchase_success_backpack', {lng: entity.lang}))
                 }
                 else{
-                    dialog(`错误`,`经验不够！`,entity)
+                    dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.shop.not_enough_exp', {lng: entity.lang}),entity)
                 }
             }
         }
-        else if(result.value=='背包'){
+        else if(result.value==i18n.t('menu_options.backpack', {lng: entity.lang})){
             const result = await entity.player.dialog({
                 type: GameDialogType.SELECT,
-                title: '你要使用啥？',
-                content:`你要使用啥？\n警告：点击后立即使用无确认\n退出请点X`,
+                title: i18n.t('dialogs.backpack.title', {lng: entity.lang}),
+                content:i18n.t('dialogs.backpack.content', {lng: entity.lang}),
                 options:entity.bag
             });
             if(!result || result.value === null){ 
                 return; 
             }
-            else if(result.value=='一次性飞行特权'){
+            else if(result.value==i18n.t('items.fly_privilege', {lng: entity.lang})){
                 entity.player.canFly=true;
-                let index = entity.bag.indexOf('一次性飞行特权');
+                let index = entity.bag.indexOf(i18n.t('items.fly_privilege', {lng: entity.lang}));
                 if (index !== -1) {
                     entity.bag.splice(index, 1);
                 }
                 savePlayer(entity)
                 entity.player.canFly=true;
-                entity.player.directMessage('使用成功，2s后降落');
+                entity.player.directMessage(i18n.t('directmsgs.fly_privilege_used', {lng: entity.lang}));
                 await sleep(2000);
                 entity.player.canFly=false;
             }
-            else if(result.value=='一次性飞行变速器'){
-                let index = entity.bag.indexOf('一次性飞行变速器');
+            else if(result.value==i18n.t('items.fly_speed', {lng: entity.lang})){
+                let index = entity.bag.indexOf(i18n.t('items.fly_speed', {lng: entity.lang}));
                 if (index !== -1) {
                     entity.bag.splice(index, 1);
                 }
                 const flyspeed:string = await entity.player.dialog({
                     type: GameDialogType.INPUT,
-                    title: '自定义飞行速度',
-                    content: `输入飞行速度，不要试探服务器极限`,
-                    confirmText: '确认',
+                    title: i18n.t('dialogs.fly_speed.title', {lng: entity.lang}),
+                    content: i18n.t('dialogs.fly_speed.content', {lng: entity.lang}),
+                    confirmText: i18n.t('dialogs.confirm', {lng: entity.lang}),
                 })as string;
                 entity.player.flySpeed=parseInt(flyspeed)
                 savePlayer(entity)
-                entity.player.directMessage('使用成功')
+                entity.player.directMessage(i18n.t('directmsgs.fly_speed_used', {lng: entity.lang}))
             }
-            else if(result.value=='一次性缩小药水'){
-                let index = entity.bag.indexOf('一次性缩小药水');
+            else if(result.value==i18n.t('items.shrink_potion', {lng: entity.lang})){
+                let index = entity.bag.indexOf(i18n.t('items.shrink_potion', {lng: entity.lang}));
                 if (index !== -1) {
                     entity.bag.splice(index, 1);
                 }
                 entity.player.scale=0.5
                 savePlayer(entity)
-                entity.player.directMessage('使用成功')
+                entity.player.directMessage(i18n.t('directmsgs.potion_used', {lng: entity.lang}))
             }
-            else if(result.value=='一次性还原药水'){
-                let index = entity.bag.indexOf('一次性还原药水');
+            else if(result.value==i18n.t('items.restore_potion', {lng: entity.lang})){
+                let index = entity.bag.indexOf(i18n.t('items.restore_potion', {lng: entity.lang}));
                 if (index !== -1) {
                     entity.bag.splice(index, 1);
                 }
                 entity.player.scale=1
                 savePlayer(entity)
-                entity.player.directMessage('使用成功')
+                entity.player.directMessage(i18n.t('directmsgs.potion_used', {lng: entity.lang}))
             }
-            else if(result.value=='一次性放大药水'){
-                let index = entity.bag.indexOf('一次性放大药水');
+            else if(result.value==i18n.t('items.enlarge_potion', {lng: entity.lang})){
+                let index = entity.bag.indexOf(i18n.t('items.enlarge_potion', {lng: entity.lang}));
                 if (index !== -1) {
                     entity.bag.splice(index, 1);
                 }
                 entity.player.scale=1.5
                 savePlayer(entity)
-                entity.player.directMessage('使用成功')
+                entity.player.directMessage(i18n.t('directmsgs.potion_used', {lng: entity.lang}))
             }
-            else if(result.value=='无限飞行羽翼'){
+            else if(result.value==i18n.t('items.infinite_fly', {lng: entity.lang})){
                 entity.player.canFly=true;
-                entity.player.directMessage('使用成功')
+                entity.player.directMessage(i18n.t('directmsgs.infinite_fly_used', {lng: entity.lang}))
             }
         }
-        else if(result.value=='重来'){
+        else if(result.value==i18n.t('menu_options.restart', {lng: entity.lang})){
             if(entity.canplay==false){
-                dialog(`系统`,`你在封禁中，不能出来`,entity)
+                dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.restart_banned', {lng: entity.lang}),entity)
             }
             else{
                 entity.player.spectator=false;
-                entity.player.directMessage(`重新开始，已重置计时器！`)
+                entity.player.directMessage(i18n.t('directmsgs.restart_success', {lng: entity.lang}))
                 entity.victory = false
                 entity.player.canFly=false
                 entity.time = 0
@@ -893,19 +908,19 @@ world.onPress(async({button,entity})=>{
                 // entity.ingjf=false;
             }
         }
-        else if(result.value=='脱离卡点'){
+        else if(result.value==i18n.t('menu_options.uncrouch', {lng: entity.lang})){
             if(entity.canplay==false){
-                dialog(`系统`,`你在封禁中，不能出来`,entity)
+                dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.uncrouch_banned', {lng: entity.lang}),entity)
             }
             else{
                 entity.player.forceRespawn()
                 // entity.ingjf=false;
-                entity.player.directMessage('脱离成功！')
+                entity.player.directMessage(i18n.t('directmsgs.uncrouch_success', {lng: entity.lang}))
             }
         }
         // else if(result.value=='进入/离开挂机房'){
         //     if(entity.canplay==false){
-        //         dialog(`系统`,`你在封禁中，不能出来`,entity)
+        //         dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.restart_banned', {lng: entity.lang}),entity)
         //     }
         //     else{
         //         if(entity.ingjf==true){
@@ -922,7 +937,7 @@ world.onPress(async({button,entity})=>{
         //     if(entity.fsqting==false){
         //         const fsqt = world.querySelector('#俯视全图')
         //         entity.player.cameraEntity=fsqt
-        //         entity.player.directMessage('正在俯视全图，再次点击按钮可退出')
+        //         entity.player.directMessage(i18n.t('directmsgs.fly_enabled', {lng: entity.lang}))
         //         entity.fsqting=true
         //     }
         //     else{
@@ -930,25 +945,25 @@ world.onPress(async({button,entity})=>{
         //         entity.fsqting=false
         //     }
         // }
-        else if(result.value=='切换人称'){
+        else if(result.value==i18n.t('menu_options.switch_view', {lng: entity.lang})){
             if (entity.player.cameraMode === GameCameraMode.FOLLOW) {
                 entity.player.cameraMode = GameCameraMode.FPS
-                entity.player.directMessage(`切换成功`)
+                entity.player.directMessage(i18n.t('directmsgs.switch_success', {lng: entity.lang}))
             }
             else {
                 entity.player.cameraMode = GameCameraMode.FOLLOW
-                entity.player.directMessage(`切换成功`)
+                entity.player.directMessage(i18n.t('directmsgs.switch_success', {lng: entity.lang}))
             }
         }
-        else if(result.value=='bug反馈'){
-            dialog(`作者`,`反馈问题请发在评论区，也可以发作者邮箱oyroyroyr@163.com，如果采纳会赠送地图绿色粒子特效`,entity)
+        else if(result.value==i18n.t('menu_options.bug_report', {lng: entity.lang})){
+            dialog(i18n.t('dialogs.author', {lng: entity.lang}),i18n.t('dialogs.bug_report', {lng: entity.lang}),entity)
         }
-        else if(result.value=='禁言玩家说话'){
+        else if(result.value==i18n.t('menu_options.mute_chat', {lng: entity.lang})){
             const result = await entity.player.dialog({
                 type: GameDialogType.INPUT,
-                title: '禁言玩家说话',
-                content: `你想要说啥`,
-                confirmText: '“警告！非禁言玩家尽量不要使用！”',
+                title: i18n.t('dialogs.mute_chat.title', {lng: entity.lang}),
+                content: i18n.t('dialogs.mute_chat.content', {lng: entity.lang}),
+                confirmText: i18n.t('dialogs.mute_chat.warning', {lng: entity.lang}),
             });
             if(!result || result === null){
                 return; 
@@ -957,47 +972,58 @@ world.onPress(async({button,entity})=>{
                 world.say(entity.player.name+'：'+result)
             }
         }
-        else if(result.value=='管理员工具'){
+        else if(result.value==i18n.t('menu_options.admin_tools', {lng: entity.lang})){
             if(admin.includes(entity.player.name)||entity.adminlevel>0||adminpro.includes(entity.player.name)){
                 const result = await entity.player.dialog({
                     type: GameDialogType.SELECT,
-                    title: '管理员工具',
-                    content: `选择你需要使用的工具`,
-                    options:['管理员命令文档','查看日志','创建临时聊天频道','销毁临时聊天频道','飞行','降落','开启/关闭穿墙','切换bgm','玩家传送器','传送至某玩家','计时器','广播公告']
+                    title: i18n.t('dialogs.admin_tools.title', {lng: entity.lang}),
+                    content: i18n.t('dialogs.admin_tools.content', {lng: entity.lang}),
+                    options:[i18n.t('dialogs.admin_tools.doc', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.view_logs', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.create_chat', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.destroy_chat', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.fly', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.land', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.noclip', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.switch_bgm', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.teleport_player', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.teleport_to_player', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.timer', {lng: entity.lang}),
+                    i18n.t('dialogs.admin_tools.broadcast', {lng: entity.lang})]
                 });
                 if(!result || result.value === null){ 
                     return; 
                 }
-                else if(result.value=='管理员命令文档'){
+                else if(result.value==i18n.t('dialogs.admin_tools.doc', {lng: entity.lang})){
                     entity.player.link(`https://azkbbys.gitbook.io/azkbbys/docs/bysrunpro/bysrunpro-admin-code-tutorial`, {isConfirm: false, isNewTab: true})
                 }
-                else if(result.value=='查看日志'){
+                else if(result.value==i18n.t('dialogs.admin_tools.view_logs', {lng: entity.lang})){
                     entity.player.dialog({
                         type: GameDialogType.SELECT,
-                        title: '日志',
-                        content:`日志内容：\n${logs.join('\n')}`,
-                        options:['关闭']
+                        title: i18n.t('dialogs.admin_tools.logs_title', {lng: entity.lang}),
+                        content:i18n.t('dialogs.admin_tools.logs_content', {lng: entity.lang, logs: logs.join('\n')}),
+                        options:[i18n.t('dialogs.close', {lng: entity.lang})]
                     })
                 }
-                else if(result.value=='创建临时聊天频道'){
+                else if(result.value==i18n.t('dialogs.admin_tools.create_chat', {lng: entity.lang})){
                     const result = await entity.player.dialog({
                         type: GameDialogType.INPUT,
-                        title: '创建临时聊天频道',
-                        content: `输入所有要加入的人的id，空格分割`,
-                        confirmText: '确认',
+                        title: i18n.t('dialogs.admin_tools.create_chat_title', {lng: entity.lang}),
+                        content: i18n.t('dialogs.admin_tools.create_chat_content', {lng: entity.lang}),
+                        confirmText: i18n.t('dialogs.confirm', {lng: entity.lang}),
                     });
                     if(!result || result === null){ 
                         return; 
                     }
                     else{
-                        entity.player.directMessage(`创建成功！${result.split(' ')}。ID为${await world.createTempChat(result.split(' '))}`)
+                        entity.player.directMessage(i18n.t('directmsgs.temp_chat_created', {lng: entity.lang, users: result.split(' '), id: await world.createTempChat(result.split(' '))}))
                     }
                 }
-                else if(result.value=='销毁临时聊天频道'){
+                else if(result.value==i18n.t('dialogs.admin_tools.destroy_chat', {lng: entity.lang})){
                     const result = await entity.player.dialog({
                         type: GameDialogType.SELECT,
-                        title: '选择',
-                        content:`请选择你要销毁的临时聊天频道`,
+                        title: i18n.t('dialogs.admin_tools.destroy_chat_title', {lng: entity.lang}),
+                        content:i18n.t('dialogs.admin_tools.destroy_chat_content', {lng: entity.lang}),
                         options:await world.getTempChats()
                     });
                     if(!result || result.value === null){ 
@@ -1005,19 +1031,19 @@ world.onPress(async({button,entity})=>{
                     }
                     else{
                         world.destroyTempChat([result.value])
-                        entity.player.directMessage(`销毁成功！${result.value}`)
+                        entity.player.directMessage(i18n.t('directmsgs.temp_chat_destroyed', {lng: entity.lang, id: result.value}))
                     }
                 }
-                else if(result.value=='飞行'){
+                else if(result.value==i18n.t('dialogs.admin_tools.fly', {lng: entity.lang})){
                     entity.player.canFly=true
-                    entity.player.directMessage('您可以飞行了')
+                    entity.player.directMessage(i18n.t('directmsgs.fly_enabled', {lng: entity.lang}))
                 }
-                else if(result.value=='降落'){
+                else if(result.value==i18n.t('dialogs.admin_tools.land', {lng: entity.lang})){
                     entity.player.canFly=false
-                    entity.player.directMessage('降落成功')
+                    entity.player.directMessage(i18n.t('directmsgs.fly_disabled', {lng: entity.lang}))
                     const allWearables = entity.player.wearables();
                 }
-                else if(result.value=='开启/关闭穿墙'){
+                else if(result.value==i18n.t('dialogs.admin_tools.noclip', {lng: entity.lang})){
                     if(entity.player.spectator==false){
                         entity.player.spectator=true
                     }
@@ -1025,7 +1051,7 @@ world.onPress(async({button,entity})=>{
                         entity.player.spectator=false
                     }
                 }
-                else if(result.value=='玩家传送器'){
+                else if(result.value==i18n.t('dialogs.admin_tools.teleport_player', {lng: entity.lang})){
                     const playernamelist : string[] = []
                     world.querySelectorAll('player').forEach((e)=>{
                         if(e.player.name!=entity.player.name)
@@ -1033,8 +1059,8 @@ world.onPress(async({button,entity})=>{
                     })
                     const result = await entity.player.dialog({
                         type: GameDialogType.SELECT,
-                        title: '传送至某玩家',
-                        content: `你要传送谁到你的位置`,
+                        title: i18n.t('dialogs.admin_tools.teleport_player_title', {lng: entity.lang}),
+                        content: i18n.t('dialogs.admin_tools.teleport_player_content', {lng: entity.lang}),
                         options:playernamelist
                     });
                     if(!result || result.value === null){ 
@@ -1046,12 +1072,12 @@ world.onPress(async({button,entity})=>{
                                 e.position.x=entity.position.x
                                 e.position.y=entity.position.y
                                 e.position.z=entity.position.z
-                                entity.player.directMessage('传送成功！')
+                                entity.player.directMessage(i18n.t('directmsgs.teleport_success', {lng: entity.lang}))
                             };
                         };
                     }
                 }
-                else if(result.value=='传送至某玩家'){
+                else if(result.value==i18n.t('dialogs.admin_tools.teleport_to_player', {lng: entity.lang})){
                     const playernamelist : string[] = []
                     world.querySelectorAll('player').forEach((e)=>{
                         if(e.player.name!=entity.player.name)
@@ -1059,8 +1085,8 @@ world.onPress(async({button,entity})=>{
                     })
                     const result = await entity.player.dialog({
                         type: GameDialogType.SELECT,
-                        title: '传送至某玩家',
-                        content: `你要传送你到谁的位置`,
+                        title: i18n.t('dialogs.admin_tools.teleport_to_player_title', {lng: entity.lang}),
+                        content: i18n.t('dialogs.admin_tools.teleport_to_player_content', {lng: entity.lang}),
                         options:playernamelist
                     });
                     if(!result || result.value === null){ 
@@ -1072,17 +1098,17 @@ world.onPress(async({button,entity})=>{
                                 entity.position.x=e.position.x
                                 entity.position.y=e.position.y
                                 entity.position.z=e.position.z
-                                entity.player.directMessage('传送成功！')
+                                entity.player.directMessage(i18n.t('directmsgs.teleport_success', {lng: entity.lang}))
                             };
                         };
                     }
                 }
-                else if(result.value=='计时器'){
+                else if(result.value==i18n.t('dialogs.admin_tools.timer', {lng: entity.lang})){
                     const result = await entity.player.dialog({
                         type: GameDialogType.INPUT,
-                        title: '计时器',
-                        content: `你想计时多久`,
-                        confirmText: '“确定”',
+                        title: i18n.t('dialogs.admin_tools.timer_title', {lng: entity.lang}),
+                        content: i18n.t('dialogs.admin_tools.timer_content', {lng: entity.lang}),
+                        confirmText: i18n.t('dialogs.confirm', {lng: entity.lang}),
                     });
                     console.log(entity.count)
                     if(entity.count=true){
@@ -1093,21 +1119,21 @@ world.onPress(async({button,entity})=>{
                             s++
                             if(s>=60){;m++;s=0}
                             if(m>=60){;h++;m=0}
-                            if(h>=3){;entity.player.directMessage('计时最多3小时');return;}
+                            if(h>=3){;entity.player.directMessage(i18n.t('directmsgs.timer_max', {lng: entity.lang}));return;}
                             entity.player.directMessage(h+':'+m+':'+s)
                             await sleep(1000)
                         }
                     }
                     else{
-                        entity.player.directMessage('计时器关闭！')
+                        entity.player.directMessage(i18n.t('directmsgs.timer_stopped', {lng: entity.lang}))
                     }
                 }
-                else if(result.value=='广播公告'){
+                else if(result.value==i18n.t('dialogs.admin_tools.broadcast', {lng: entity.lang})){
                     const result = await entity.player.dialog({
                         type: GameDialogType.INPUT,
-                        title: '广播公告',
-                        content: `输入广播内容`,
-                        confirmText: '确认广播',
+                        title: i18n.t('dialogs.admin_tools.broadcast_title', {lng: entity.lang}),
+                        content: i18n.t('dialogs.admin_tools.broadcast_content', {lng: entity.lang}),
+                        confirmText: i18n.t('dialogs.admin_tools.broadcast_confirm', {lng: entity.lang}),
                     }) as string;
                     world.say(result)
                 }
@@ -1117,8 +1143,8 @@ world.onPress(async({button,entity})=>{
     else if(button=='action0'){
         entity.dimension==1?entity.position.x+=64:entity.position.x-=64
         entity.dimension==1?entity.dimension=2:entity.dimension=1
-        entity.player.directMessage(`切换维度成功`)
-        // log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
+        entity.player.directMessage(i18n.t('directmsgs.dimension_switched', {lng: entity.lang}))
+        // log(i18n.t('logs.dimension_switch', {lng: entity.lang, dimension: entity.dimension==1?i18n.t('dimension.black', {lng: entity.lang}):i18n.t('dimension.white', {lng: entity.lang})}),entity)
     }
 })
 
@@ -1130,7 +1156,7 @@ world.onPlayerJoin(({entity})=>{
         }
         if(voxels.getVoxelId(entity.position.x,entity.position.y-(entity.player.scale==1?2:1),entity.position.z)==170&&entity.victory==false&&entity.player.spectator==false){
             entity.player.forceRespawn()
-            entity.player.directMessage(`重生`)
+            entity.player.directMessage(i18n.t('directmsgs.respawn', {lng: entity.lang}))
         }
         if(voxels.getVoxelId(entity.position.x,entity.position.y-(entity.player.scale==1?2:1),entity.position.z)==679&&entity.victory==false&&entity.player.spectator==false){
             entity.velocity.y=1
@@ -1145,7 +1171,7 @@ world.onPlayerJoin(({entity})=>{
         else{
             entity.dimension=2
         }
-        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?'黑':'白',entity.time,lastmsg,entity.adminlevel,entity.exp] });
+        remoteChannel.sendClientEvent(entity, { type: 'tick', args: [entity.dimension==1?i18n.t('dimension.black', {lng: entity.lang}):i18n.t('dimension.white', {lng: entity.lang}),entity.time,lastmsg,entity.adminlevel,entity.exp] });
     })
 })
 world.onVoxelContact(({ entity, voxel, x, y, z, axis }) => {
@@ -1160,7 +1186,7 @@ world.onFluidEnter(({entity, tick, voxel}) => {
     const voxelName = voxels.name(voxel)
     if (voxelName=='strawberry_juice'){
         entity.player?.forceRespawn()??''
-        entity.player?.directMessage(`你落入了草莓酱！`)??''
+        entity.player?.directMessage(i18n.t('directmsgs.strawberry_juice', {lng: entity.lang}))??''
     }
 })
 
@@ -1195,7 +1221,7 @@ points.forEach((e)=>{
         entity.z=e.position.z;
         entity.cundang_dimension = other.dimension;
         savePlayer(other as GamePlayerEntity);
-        entity.player.directMessage('存档成功，经验+1！');
+        entity.player.directMessage(i18n.t('directmsgs.save_success', {lng: entity.lang}));
         if(entity.victory==false){
             entity.exp+=1;
         }
@@ -1207,25 +1233,25 @@ next_points.forEach((e)=>{
     e.onEntityContact(({other})=>{
         if(!other.player)return;
         const entity = other as GamePlayerEntity
-        entity.player.directMessage(`进入下一关`)
+        entity.player.directMessage(i18n.t('directmsgs.next_level', {lng: entity.lang}))
         entity.position.set(3,entity.position.y,e.position.z+8)
-        log(`进入下一关`,entity)
+        log(i18n.t('logs.next_level', {lng: entity.lang}),entity)
     })
 })
 const upstairs = world.querySelectorAll('.上楼')[0]
 upstairs.onEntityContact(({other})=>{
     if(!other.player)return;
     const entity = other as GamePlayerEntity
-    entity.player.directMessage(`进入下一关`)
+    entity.player.directMessage(i18n.t('directmsgs.next_level', {lng: entity.lang}))
     entity.position.set(3,upstairs.position.y+=44,4)
-    log(`进入下一关`,entity)
+    log(i18n.t('logs.next_level', {lng: entity.lang}),entity)
 })
 const retime = world.querySelector('#时间重置') as GameEntity
 retime.onEntityContact(({other})=>{
     if(!other.player)return;
     const entity = other as GamePlayerEntity
     entity.time=0
-    entity.player.directMessage(`开始计时`)
+    entity.player.directMessage(i18n.t('directmsgs.timer_start', {lng: entity.lang}))
 })
 const switch_dimension= world.querySelector('#切换') as GameEntity
 switch_dimension.enableInteract=true
@@ -1234,8 +1260,8 @@ switch_dimension.interactRadius=100000000
 switch_dimension.onInteract(({entity})=>{
     entity.dimension==1?entity.position.x+=64:entity.position.x-=64
     entity.dimension==1?entity.dimension=2:entity.dimension=1
-    entity.player.directMessage(`切换维度成功`)
-    log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
+    entity.player.directMessage(i18n.t('directmsgs.dimension_switched', {lng: entity.lang}))
+    log(i18n.t('logs.dimension_switch', {lng: entity.lang, dimension: entity.dimension==1?i18n.t('dimension.black', {lng: entity.lang}):i18n.t('dimension.white', {lng: entity.lang})}),entity)
 })
 const win= world.querySelector('#终点') as GameEntity
 // win.enableInteract=true
@@ -1243,13 +1269,13 @@ const win= world.querySelector('#终点') as GameEntity
 // win.interactRadius=3
 // win.onInteract(({entity})=>{
 //     if(entity.victory==true)return
-//     world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
+//     world.say(i18n.t('chat.victory', {lng: entity.lang, name: entity.player.name, time: entity.time}))
 //     entity.victory = true
 //     entity.player.spectator=true
 //     entity.player.color = new GameRGBColor(0, 1, 0)
 //     entity.exp+=100
-//     dialog_with_button(entity, `恭喜`, `恭喜你到达终点！\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验`, ['确定'])
-//     log(`到达终点，用时${entity.time}`)
+//     dialog_with_button(entity, i18n.t('dialogs.congratulations', {lng: entity.lang}), i18n.t('dialogs.victory_message', {lng: entity.lang, time: entity.time}), [i18n.t('dialogs.confirm', {lng: entity.lang})])
+//     log(i18n.t('logs.victory', {lng: entity.lang, time: entity.time}))
 // })
 win.onEntityContact(({other})=>{
     if(!other.player)return;
@@ -1258,15 +1284,15 @@ win.onEntityContact(({other})=>{
     if(entity.adminlevel>=1&&entity.time<=350){
         entity.adminlevel=0
         savePlayer(entity)
-        dialog_with_button(entity, ``, `滥用管理权限，你已不再是管理员`, ['知道了'])
+        dialog_with_button(entity, ``, i18n.t('dialogs.admin_abuse', {lng: entity.lang}), [i18n.t('tutorial.know', {lng: entity.lang})])
         return
     }else if(entity.time<=350){
         entity.player.spawnPoint.set(savedData.x,savedData.y,savedData.z)
         entity.player.forceRespawn()
-        dialog_with_button(entity, ``, `过关这么快是不是开了？不算！`, ['知道了'])
+        dialog_with_button(entity, ``, i18n.t('dialogs.suspicious_time', {lng: entity.lang}), [i18n.t('tutorial.know', {lng: entity.lang})])
         return
     }
-    world.say(`恭喜${entity.player.name} 到达终点，用时${entity.time}秒`)
+    world.say(i18n.t('chat.victory', {lng: entity.lang, name: entity.player.name, time: entity.time}))
     entity.victory = true
     entity.player.spectator=true
     entity.player.color = new GameRGBColor(0, 1, 0)
@@ -1279,8 +1305,8 @@ win.onEntityContact(({other})=>{
         entity.fastest_time = 10000 - entity.time
     }
     savePlayer(entity)
-    dialog_with_button(entity, `恭喜`, `恭喜你到达终点！可在右键菜单查看时间排行\n用时${entity.time}秒\n你已获得飞行穿墙权限与100经验\n只有时间小于10000秒才会计入排行！\n感谢@尧（383025200313334）反馈的bug`, ['确定'])
-    log(`到达终点，用时${entity.time}`,entity)
+    dialog_with_button(entity, i18n.t('dialogs.congratulations', {lng: entity.lang}), i18n.t('dialogs.victory_message', {lng: entity.lang, time: entity.time}), [i18n.t('dialogs.confirm', {lng: entity.lang})])
+    log(i18n.t('logs.victory', {lng: entity.lang, time: entity.time}),entity)
 })
 // 粒子效果
 const particle_greenCrystal = {
@@ -1367,46 +1393,46 @@ world.onPlayerPurchaseSuccess(({tick, userId, productId, orderId})=>{
     if(productId==383036030006633){
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
-                world.say(`${e.player.name} 购买了一次性绿色粒子效果体验！`)
-                log(`购买了一次性绿色粒子效果体验`,e)
+                world.say(i18n.t('chat.purchase_green_particle', {lng: e.lang, name: e.player.name}))
+                log(i18n.t('logs.purchase_green_particle', {lng: e.lang}),e)
                 Object.assign(e, particle_greenCrystal)
-                dialog(`提示`,`购买成功！粒子效果已生效`,e)
+                dialog(i18n.t('dialogs.system', {lng: e.lang}),i18n.t('dialogs.purchase_success', {lng: e.lang}),e)
             }
         })
     }
     else if(productId==383030300586724){
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
-                world.say(`${e.player.name} 购买了永久绿色粒子效果！`)
-                log(`购买了永久绿色粒子效果`,e)
+                world.say(i18n.t('chat.purchase_permanent_green_particle', {lng: e.lang, name: e.player.name}))
+                log(i18n.t('logs.purchase_permanent_green_particle', {lng: e.lang}),e)
                 e.greenlzxg=true;
-                dialog(`提示`,`购买成功！请手动点击保存后重进地图，粒子效果就会生效啦~`,e)
+                dialog(i18n.t('dialogs.system', {lng: e.lang}),i18n.t('dialogs.purchase_permanent_success', {lng: e.lang}),e)
             }
         })
     }
     else if(productId==383030715822999){
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
-                world.say(`${e.player.name} 购买了200经验！`)
-                log(`购买了200经验`,e)
+                world.say(i18n.t('chat.purchase_exp', {lng: e.lang, name: e.player.name, exp: 200}))
+                log(i18n.t('logs.purchase_exp', {lng: e.lang, exp: 200}),e)
                 e.exp+=200;
-                dialog(`提示`,`购买成功！`,e)
+                dialog(i18n.t('dialogs.system', {lng: e.lang}),i18n.t('dialogs.purchase_success', {lng: e.lang}),e)
             }
         })
     }
     else if(productId==383030715823005){
         world.querySelectorAll('player').forEach((e)=>{
             if(e.player.userId==userId){
-                world.say(`${e.player.name} 购买了500经验！`)
+                world.say(i18n.t('chat.purchase_exp', {lng: e.lang, name: e.player.name, exp: 500}))
                 e.exp+=500;
-                log(`购买了500经验`,e)
-                dialog(`提示`,`购买成功！`,e)
+                log(i18n.t('logs.purchase_exp', {lng: e.lang, exp: 500}),e)
+                dialog(i18n.t('dialogs.system', {lng: e.lang}),i18n.t('dialogs.purchase_success', {lng: e.lang}),e)
             }
         })
     }
     world.querySelectorAll('player').forEach((e)=>{
         if(e.player.userId==userId){
-            dialog(`提示`,`请自行点击保存，否则数据丢失作者不负责任`,e)
+            dialog(i18n.t('dialogs.system', {lng: e.lang}),i18n.t('dialogs.save_reminder', {lng: e.lang}),e)
         }
     })
 })
@@ -1424,6 +1450,6 @@ remoteChannel.onServerEvent(({entity, args, tick})=>{
 // 消息预览
 world.onChat(({entity, message})=>{
     if(message.startsWith('$'))return
-    world.say(`${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player?.name??'undefined'}：` + message)
-    lastmsg = `${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player?.name??'undefined'}：` + message
+    world.say(`${entity.player_title=='玩家'?'':i18n.t('chat.title_prefix', {lng: entity.lang, title: entity.player_title})}${entity.player?.name??'undefined'}：` + message)
+    lastmsg = `${entity.player_title=='玩家'?'':i18n.t('chat.title_prefix', {lng: entity.lang, title: entity.player_title})}${entity.player?.name??'undefined'}：` + message
 })

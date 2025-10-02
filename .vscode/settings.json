@@ -64,7 +64,8 @@
   "explorer.autoReveal": true,
   "i18n-ally.sourceLanguage": "zh-CN",
   "i18n-ally.localesPaths": ["i18n/res"],
-  "i18n-ally.pathMatcher": "{locale}/{namespace}.json"
+  "i18n-ally.pathMatcher": "{locale}/{namespace}.json",
+  "i18n-ally.keystyle": "nested"
   // "files.autoSave": "afterDelay",
   // "files.autoSaveDelay": 1000
 }
