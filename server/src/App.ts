@@ -1,4 +1,5 @@
 console.clear()
+import i18n from "@root/i18n";
 // 变量等
 var admin:string[] = []
 var adminpro:string[] = ['阿兹卡班毕业生','奶油a','羽岚.龍族[原]:Aoken','烤得酥脆的笨鼠','蓝鱼I恒星']
@@ -18,6 +19,7 @@ for(let x=0;x<=127;x++){
 // 函数
 function init_player_ablity(entity:GamePlayerEntity){
     entity.player.jumpPower = 0.9
+    entity.player.doubleJumpPower = 0.9
     entity.player.enableDoubleJump = true
     entity.player.walkSpeed = 0.22
     entity.player.runSpeed = 0.4
@@ -69,6 +71,11 @@ function check_player(entity:GamePlayerEntity){
         entity.player.crouchSpeed = 0;
         entity.player.crouchAcceleration = 0;
     }
+    else if(24<=entity.position.z&&entity.position.z<=32&&40<=entity.position.y&&entity.position.y<=80&&entity.player.spectator==false){
+        init_player_ablity(entity)
+        entity.player.jumpPower=0.7
+        entity.player.doubleJumpPower=0.7
+    }
     else{
         init_player_ablity(entity)
     }
@@ -96,7 +103,7 @@ function reminder(entity:GamePlayerEntity){
     if(entity.position.y<=30){
         if(entity.position.z<=8){
             dialog_with_button(entity,
-                '教程',
+                i18n.t('tutorial', { lng: entity.lang }),
 `关卡：教程1
 hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教程
 这个跑酷并不是一个普通的跑酷，在这个跑酷中，世界被分为了两个维度：黑与白。维度由四周墙体的颜色决定，电脑端按下E键即可切换维度。切换前后在两个维度中的相对位置不变。
@@ -105,7 +112,7 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
         }
         else if(entity.position.z<=16){
             dialog_with_button(entity,
-                '教程',
+                i18n.t('tutorial', { lng: entity.lang }),
 `关卡：教程2
 现在，你已经知道了如何切换维度。
 我要告诉你：两个维度中的地形可能不同！比如这个关卡正是如此。
@@ -114,7 +121,7 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
         }
         else if(entity.position.z<=24){
             dialog_with_button(entity,
-                '教程',
+                i18n.t('tutorial', { lng: entity.lang }),
 `关卡：教程3
 在这个关卡中，出现了新的东西——草莓酱！碰到它你就知道会发生什么了）））
 合理切换维度过关！`,
@@ -122,7 +129,7 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
         }
         else if(entity.position.z<=32){
             dialog_with_button(entity,
-                '教程',
+                i18n.t('tutorial', { lng: entity.lang }),
 `关卡：1
 看来你应该掌握了这个游戏的玩法，接下来就要靠你自己摸索辣！
 如果你觉得这个地图不错，记得点赞收藏哦~`,
@@ -165,7 +172,7 @@ hi there~${entity.player.name}，欢迎来到黑白跑酷！这里是新手教�
     else if(entity.position.y<=79){
         if(entity.position.z<=8){
             dialog_with_button(entity,
-            '教程',
+            i18n.t('tutorial', { lng: entity.lang }),
 `关卡：15
 新的东西出现辣：跳板！
 蓝色跳板可以让你跳高；紫色跳板可以让你跳更高！`,
@@ -186,14 +193,14 @@ function reborn(entity:GamePlayerEntity){
     entity.player.forceRespawn()
     entity.dimension=entity.cundang_dimension
 }
-async function dialog(title,content,entity){
+async function dialog(title:string,content:string,entity:GamePlayerEntity){
     const result = await entity.player.dialog({
         type: GameDialogType.TEXT,
         title: title,
         content: content,
     });
 }
-function use_duihuanma(entity){
+function use_duihuanma(entity:GamePlayerEntity){
     if(entity.used_duihuanma.includes(entity.duihuanma)==true){
         dialog(`错误`,`这个兑换码已经使用过了`,entity)
         return
@@ -322,6 +329,7 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     cundang_dimension: 1,//1:黑 2:白
     time: 0,
     fastest_time: 0, // 最快通关时间
+    lang: undefined,
 };
 
 /**
@@ -329,7 +337,7 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
  * 
  * @param {GameEntity} entity
  */
-function initPlayer(entity) { // 初始化玩家数据
+function initPlayer(entity:GamePlayerEntity) { // 初始化玩家数据
     Object.assign(entity, savedData);
     Object.assign(entity, unsavedData);
 };
@@ -339,20 +347,32 @@ function initPlayer(entity) { // 初始化玩家数据
  * 
  * @param {GameEntity} entity
  */
-function getPlayerData(entity) { // 获取玩家数据
-    var data = { 'name': entity.player.name };
-    for (let i in savedData) { // 遍历savedData，获取玩家当前数据
-        data[i] = entity[i];
-    };
+/**
+ * 获取玩家数据
+ * 
+ * @param {GamePlayerEntity} entity - 玩家实体
+ * @returns {Object} 包含玩家数据的对象
+ */
+function getPlayerData(entity: GamePlayerEntity): Record<string, any> {
+    const data: Record<string, any> = { 'name': entity.player.name };
+    
+    for (const key in savedData) {
+        if (Object.prototype.hasOwnProperty.call(savedData, key)) {
+            if (Object.prototype.hasOwnProperty.call(entity, key)) {
+                data[key] = (entity as any)[key];
+            }
+        }
+    }
+    
     return data;
-};
+}
 
 /**
  * 存档
  * 
  * @param {GameEntity} entity
  */
-async function savePlayer(entity) { // 存档
+async function savePlayer(entity:GamePlayerEntity) { // 存档
     if(entity.victory==false){
         entity.leave_x = entity.position.x;
         entity.leave_y = entity.position.y;
@@ -368,11 +388,11 @@ async function savePlayer(entity) { // 存档
  * 
  * @param {GameEntity} entity
  */
-async function deletePlayer(entity) { // 删档
+async function deletePlayer(entity:GamePlayerEntity) { // 删档
     entity.save = false
     await Storage.remove(entity.player.userId); // 删除玩家数据存档
 };
-async function deletePlayerByUserid(userid) { // 通过userid删档
+async function deletePlayerByUserid(userid:string) { // 通过userid删档
     await Storage.remove(userid); // 删除玩家数据存档
 };
 
@@ -381,7 +401,7 @@ async function deletePlayerByUserid(userid) { // 通过userid删档
  * 
  * @param {GameEntity} entity
  */
-async function loadPlayer(entity) { // 读档
+async function loadPlayer(entity:GamePlayerEntity) { // 读档
     initPlayer(entity);
     var data = await Storage.get(entity.player.userId); // 获取数据
     if (data) { // 如果数据存在
@@ -417,35 +437,43 @@ async function deleteAllData() { // 清档
     try {
         while (true) {
             for (let sqlData of sqlDataList.getCurrentPage()) { // 遍历获取数据
-                await Storage.remove(sqlData.key)
+                await Storage.remove(sqlData?.key as string)
             }
             if (sqlDataList.isLastPage) break; // 如果已经是最后一页，退出循环
             await sqlDataList.nextPage(); // 下一页
         };
     } catch (e) {}
 };
-
+interface PlayerData {
+    name: string;
+    [key: string]: any; // 允许其他动态属性
+}
 /**
  * 显示排行榜
  * 
  * @param {string} type
  */
-async function leaderBoard(type) { // 排行榜
-    var list = [];
+
+async function leaderBoard(type:string) { // 排行榜
+    var list: any[] = [];
     var sqlDataList = await Storage.list({ // 将数据库内的所有数据分页
         cursor: 0
     });
     while (true) {
         for (let sqlData of sqlDataList.getCurrentPage()) { // 遍历获取数据
-            list.includes([sqlData.value['name'], sqlData.value[type]]) ? null : list.push([sqlData.value['name'], sqlData.value[type]]);
+            const playerData = sqlData?.value as PlayerData;
+            if (!list.some(item => item[0] === playerData.name && item[1] === playerData[type])) {
+                list.push([playerData.name, playerData[type]]);
+            }
         }
         list = list.sort((a, b) => b[1] - a[1]).slice(0, 100);
         if (sqlDataList.isLastPage) break; // 如果已经是最后一页，退出循环
         await sqlDataList.nextPage(); // 下一页
     };
+    const key = type as keyof typeof CorrespondingName;
     return list.filter(value => value[1] !== undefined).map((value, num) => // 将列表里的所有项依次替换成字符串
-        `第${num + 1}名 | ${value[0]} | ${value[1]} ${CorrespondingName[type][0]}${CorrespondingName[type][1] != '无名称' ? CorrespondingName[type][1] : ''}`
-    ).join('\n');
+        `第${num + 1}名 | ${value[0]} | ${value[1]} ${CorrespondingName[key][0]}${CorrespondingName[key][1] !== '无名称' ? CorrespondingName[key][1] : ''}`
+).join('\n');
 };
 
 world.onPlayerJoin(async({ entity }) => {
@@ -490,6 +518,26 @@ ${entity.player.name}，欢迎来到黑白维度！
     entity.position.set(entity.leave_x,entity.leave_y,entity.leave_z)
     entity.player.spawnPoint.set(entity.x,entity.y,entity.z)
     remoteChannel.sendClientEvent(entity, { type: 'basicinfo', args: [entity.player.name, entity.player_title, entity.player.avatar] });
+    if(entity.lang==undefined){
+        let lang = await entity.player.dialog({
+            type: GameDialogType.SELECT,
+            title: '🌐选择语言/Choose a language',
+            content: '🌐选择语言/Choose a language',
+            options: ['中文', 'English']
+        });
+        if(!lang || lang.value === null){ 
+            entity.lang = 'zh-CN'
+            entity.player.directMessage('本游戏的默认语言为简体中文')
+        }
+        else if(lang.value=='中文'){
+            entity.lang = 'zh-CN'
+            entity.player.directMessage('已选择简体中文')
+        }
+        else if(lang.value=='English'){
+            entity.lang = 'en'
+            entity.player.directMessage('Successfully selected English')
+        }
+    }
 });
 world.onPlayerLeave(async({ entity }) => {
     await savePlayer(entity); // 保存玩家数据
@@ -577,7 +625,7 @@ world.onPress(async({button,entity})=>{
                 title: '兑换',
                 content: `输入你所获得的兑换码\n兑换码可以在Q群763919859获得！`,
                 confirmText: '确认',
-            });
+            })as string;
             if(!entity.duihuanma || entity.duihuanma === null){ 
                 entity.player.link(`http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Atg_SCPUyp2d8yAAxjaozzjFH3eu198J&authKey=ohyqS%2FYbJ%2F3C%2BkzrFVQSS7wJoeifKFxeo8SNr4KsX7fey6sx%2Fy%2FX7JEF%2Bvtkryd1&noverify=0&group_code=763919859`, {isConfirm: false, isNewTab: true})
             }
@@ -606,7 +654,7 @@ world.onPress(async({button,entity})=>{
                     content:`你确定要删档吗？\n删档后一切数据将消失！\n不能反悔！`,
                     options:['不确定','算了','没想好','不删','删了吧']
                 });
-                if(result.value=='删了吧'){
+                if(result?.value=='删了吧'){
                     Object.assign(entity, savedData);
                     savePlayer(entity);
                     entity.player.kick();
@@ -791,7 +839,7 @@ world.onPress(async({button,entity})=>{
                     title: '自定义飞行速度',
                     content: `输入飞行速度，不要试探服务器极限`,
                     confirmText: '确认',
-                });
+                })as string;
                 entity.player.flySpeed=parseInt(flyspeed)
                 savePlayer(entity)
                 entity.player.directMessage('使用成功')
@@ -978,7 +1026,7 @@ world.onPress(async({button,entity})=>{
                     }
                 }
                 else if(result.value=='玩家传送器'){
-                    const playernamelist = []
+                    const playernamelist : string[] = []
                     world.querySelectorAll('player').forEach((e)=>{
                         if(e.player.name!=entity.player.name)
                         playernamelist.push(e.player.name)
@@ -1004,7 +1052,7 @@ world.onPress(async({button,entity})=>{
                     }
                 }
                 else if(result.value=='传送至某玩家'){
-                    const playernamelist = []
+                    const playernamelist : string[] = []
                     world.querySelectorAll('player').forEach((e)=>{
                         if(e.player.name!=entity.player.name)
                         playernamelist.push(e.player.name)
@@ -1060,7 +1108,7 @@ world.onPress(async({button,entity})=>{
                         title: '广播公告',
                         content: `输入广播内容`,
                         confirmText: '确认广播',
-                    });
+                    }) as string;
                     world.say(result)
                 }
             }
@@ -1111,14 +1159,14 @@ world.onVoxelContact(({ entity, voxel, x, y, z, axis }) => {
 world.onFluidEnter(({entity, tick, voxel}) => {
     const voxelName = voxels.name(voxel)
     if (voxelName=='strawberry_juice'){
-        entity.player.forceRespawn()
-        entity.player.directMessage(`你落入了草莓酱！`)
+        entity.player?.forceRespawn()??''
+        entity.player?.directMessage(`你落入了草莓酱！`)??''
     }
 })
 
 // 管理员代码
 world.onChat(({ entity, message }) => {
-    if(adminpro.includes(entity.player.name)||entity.adminlevel>1){
+    if(adminpro.includes(entity.player?.name??'undefined')||entity.adminlevel>1){
         if (message.startsWith('$')) {
             try {
                 world.say('<~ ' + eval(message.slice(1)))
@@ -1146,7 +1194,7 @@ points.forEach((e)=>{
         entity.y=e.position.y+2.5;
         entity.z=e.position.z;
         entity.cundang_dimension = other.dimension;
-        savePlayer(other);
+        savePlayer(other as GamePlayerEntity);
         entity.player.directMessage('存档成功，经验+1！');
         if(entity.victory==false){
             entity.exp+=1;
@@ -1172,14 +1220,14 @@ upstairs.onEntityContact(({other})=>{
     entity.position.set(3,upstairs.position.y+=44,4)
     log(`进入下一关`,entity)
 })
-const retime = world.querySelector('#时间重置')
+const retime = world.querySelector('#时间重置') as GameEntity
 retime.onEntityContact(({other})=>{
     if(!other.player)return;
     const entity = other as GamePlayerEntity
     entity.time=0
     entity.player.directMessage(`开始计时`)
 })
-const switch_dimension= world.querySelector('#切换')
+const switch_dimension= world.querySelector('#切换') as GameEntity
 switch_dimension.enableInteract=true
 switch_dimension.interactHint=''
 switch_dimension.interactRadius=100000000
@@ -1189,7 +1237,7 @@ switch_dimension.onInteract(({entity})=>{
     entity.player.directMessage(`切换维度成功`)
     log(`切换维度至 ${entity.dimension==1?'黑':'白'}`,entity)
 })
-const win= world.querySelector('#终点')
+const win= world.querySelector('#终点') as GameEntity
 // win.enableInteract=true
 // win.interactHint='终点'
 // win.interactRadius=3
@@ -1306,7 +1354,7 @@ world.onPlayerJoin(async({entity})=>{
     // 检测网址中是否含有兑换码，如含有则使用
     var playerurl_string = entity.player.url;
     var playerurl  = new URL(playerurl_string);
-    entity.duihuanma = playerurl.searchParams.get('code')
+    entity.duihuanma = playerurl.searchParams.get('code') as string
     use_duihuanma(entity)
     // 更换皮肤
     if(entity.usingskin!='原版'){
@@ -1376,6 +1424,6 @@ remoteChannel.onServerEvent(({entity, args, tick})=>{
 // 消息预览
 world.onChat(({entity, message})=>{
     if(message.startsWith('$'))return
-    world.say(`${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player.name}：` + message)
-    lastmsg = `${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player.name}：` + message
+    world.say(`${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player?.name??'undefined'}：` + message)
+    lastmsg = `${entity.player_title=='玩家'?'':'['+entity.player_title+'] '}${entity.player?.name??'undefined'}：` + message
 })

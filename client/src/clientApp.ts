@@ -1,5 +1,15 @@
-const ui_screen = UiScreen.getAllScreen().find((obj) => obj.name === "screen");
-const bg = ui_screen.findChildByName("bg");
+// import i18n from "@root/i18n";
+
+// // 当前i18n配置已支持语言自动切换，客户端下默认会跟随用户浏览器语言设置。例如，若用户浏览器语言为 zh-CN，则界面将显示为简体中文。
+// console.log("(client)：", i18n.t("welcome_game"));
+// console.log("(client)：", i18n.t("welcome_ap"));
+// console.log(
+//   "(client)：",
+//   i18n.t("navigator.language", { language: navigator.language })
+// );
+
+const ui_screen = UiScreen.getAllScreen().find((obj) => obj.name === "screen") as UiBox;
+const bg = ui_screen.findChildByName("bg") as UiBox;
 const uiScale = UiScale.create();
 uiScale.scale = screenWidth / 1800; // 按宽度进行缩放，预设渲染分辨率x值为 1366px
 ui_screen.uiScale = uiScale;
@@ -16,7 +26,7 @@ const text13 = bg.findChildByName('text-13')as UiText
 const img1 = bg.findChildByName('image-1')as UiImage
 const zxcommand = command.findChildByName('image-2')as UiImage
 const cmdneirong = command.findChildByName('commandinput')as UiInput
-async function sendandclear(cmdneirong, zxcommand, ok) {
+async function sendandclear(cmdneirong:UiInput, zxcommand:UiImage, ok:UiText) {
     zxcommand.visible = false;
     ok.visible = false;
     remoteChannel.sendServerEvent({
@@ -28,20 +38,20 @@ async function sendandclear(cmdneirong, zxcommand, ok) {
     zxcommand.visible = true;
     ok.visible = true;
 }
-async function hide(object, y) {
-    while (object.position.offset.y > y + 1) {
-        object.position.offset.y += (y - object.position.offset.y) / 50;
-        await sleep(1);
-    }
-    object.position.offset.y = y;
-}
-async function show(object, y) {
-    while (object.position.offset.y < y - 1) {
-        object.position.offset.y += (y - object.position.offset.y) / 50;
-        await sleep(1);
-    }
-    object.position.offset.y = y;
-}
+// async function hide(object, y) {
+//     while (object.position.offset.y > y + 1) {
+//         object.position.offset.y += (y - object.position.offset.y) / 50;
+//         await sleep(1);
+//     }
+//     object.position.offset.y = y;
+// }
+// async function show(object, y) {
+//     while (object.position.offset.y < y - 1) {
+//         object.position.offset.y += (y - object.position.offset.y) / 50;
+//         await sleep(1);
+//     }
+//     object.position.offset.y = y;
+// }
 arrow.events.on("pointerdown", async () => {
     if (arrow.position.offset.y > 0) {
         while (arrow.position.offset.y > 1) {
@@ -71,7 +81,9 @@ arrow.events.on("pointerdown", async () => {
     }
 });
 zxcommand.events.on("pointerdown", () => {
-    sendandclear(cmdneirong, zxcommand, ui_screen.findChildByName('command').findChildByName('text-9'));
+    let temp1 = ui_screen.findChildByName('command') as UiBox;
+    let temp2 = temp1.findChildByName('text-9') as UiText;
+    sendandclear(cmdneirong, zxcommand, temp2);
 });
 remoteChannel.events.on("client", (arg) => {
     if (arg.type == 'command') {

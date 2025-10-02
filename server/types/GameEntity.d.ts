@@ -35,4 +35,5 @@ declare interface GameEntity extends GameEntity {
     cundang_dimension: number;
     time: 0;
     fastest_time: number;
+    lang: "zh-CN" | "en" | undefined;
 };

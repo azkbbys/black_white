@@ -8,7 +8,8 @@
                 },
                 "client": {
                     "entry": "src/clientApp.ts",
-                    "development": true
+                    "development": true,
+                    "uiIndexPrefix": ""
                 },
                 "developmentAll": null,
                 "jsUpdate": true
@@ -16,7 +17,6 @@
         },
         "map": {
             "id": "100484678",
-            "editHash": "db9444eb9e70d130dad2",
             "playHash": "ccc703535814cdd6756a"
         },
         "outputAndUpdate": [

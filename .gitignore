@@ -1,7 +1,9 @@
 node_modules/
 **/.log/
 **/dist/
-.env.*
+.env
 **/GameAPI.d.ts
 **/ClientAPI.d.ts
 **/GameAssets.d.ts
+client/UiIndex/screens
+client/UiIndex/*.ts
