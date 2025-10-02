@@ -1,0 +1,250 @@
+{
+    "tutorial": {
+        "tutorial": "Tutorial",
+        "know": "I know",
+        "tutorial1": "Level: Tutorial 1 \nhi there ~ {{name}}, welcome to Black & White! This is a tutorial for beginners \nThis parkour is not an ordinary parkour, in which the world is divided into two dimensions: black and white. The dimension is determined by the color of the surrounding walls, and the computer can switch dimensions by pressing the E key. The relative positions in the two dimensions are unchanged before and after switching. \nTry switching dimensions now! ",
+        "tutorial2": "Level: Tutorial 2\nNow, you already know how to switch dimensions.\nKeep in mind, the terrain can be different in the two dimensions! This level is a perfect example.\nNow, switch dimensions and figure out how to clear the level!",
+        "tutorial3": "Level: Tutorial 3\nIn this level, something new appears—Strawberry Jam! You'll find out what happens when you touch it ))))\nSwitch dimensions wisely to clear the level!"
+    },
+    "level_reminder": {
+        "reminder": "reminder",
+        "level1": "Level: 1\nIt seems you should have mastered the gameplay by now. The rest is up to you to explore!\nIf you think this map is good, remember to like and favorite it~",
+        "level2": "Level: 2\nThis level... seems... you can't jump?!",
+        "level7": "Level: 7\nThat's right!!! This level is another special one.\nIn this level, your movement speed is crazy fast!\nWhat's that? You said you can sneak? Sorry, but your sneaking speed is ZERO.\nAnd of course, to prevent you from taking a leap of faith, jumping is also disabled~\nThanks to @坦率的血翼蝠5801 (12823830) for reporting the exploit spot!",
+        "level8": "Level: 8\nSomeone pulled off a tricky move here! In this level, when you're in the \"Black\" dimension, everything is normal. But when you're in the \"White\" dimension, the direction keys are reversed!",
+        "level10": "Level: 10\nCredits: Creative Contribution - 乘风的小晚 (50477944)\nCombining elements from previous levels 2 & 3: Speed Boost + White Dimension Reversal + No Jumping + No Sneaking",
+        "level15": "Level: 15\nSomething new has appeared: Launch Pads!\nThe blue launch pad gives you a high jump; the purple one makes you jump even higher!"
+    },
+    "directmsgs": {
+        "respawn": "Respawned",
+        "data_loaded": "Data loaded for you!",
+        "data_created": "Data created for you!",
+        "save_success": "Save successful, +1 exp!",
+        "next_level": "Entering next level",
+        "timer_start": "Timer started",
+        "dimension_switched": "Dimension switched successfully",
+        "strawberry_juice": "You fell into strawberry juice!",
+        "closed": "Closed",
+        "opened": "Opened successfully",
+        "refresh_not_supported": "Refresh is not currently supported, please refresh the webpage",
+        "switch_success": "Switch successful",
+        "purchase_success_particle": "Purchase successful, automatically used, effective after refresh",
+        "purchase_success_skin": "Purchase successful, added to skin library, right-click \"Skin Library\" to use",
+        "purchase_success_backpack": "Purchase successful, added to backpack",
+        "fly_privilege_used": "Used successfully, landing in 2s",
+        "fly_speed_used": "Used successfully",
+        "potion_used": "Used successfully",
+        "infinite_fly_used": "Used successfully",
+        "restart_success": "Restarted, timer reset!",
+        "uncrouch_success": "Uncrouched successfully!",
+        "teleport_success": "Teleported successfully!",
+        "timer_max": "Timer maximum 3 hours",
+        "timer_stopped": "Timer stopped!",
+        "temp_chat_created": "Created successfully! {{users}}. ID is {{id}}",
+        "temp_chat_destroyed": "Destroyed successfully! {{id}}",
+        "fly_enabled": "You can fly now",
+        "fly_disabled": "Landed successfully"
+    },
+    "dialogs": {
+        "welcome": "welcome",
+        "joinwelcome": "{{name}}, welcome to the Black & White!\nThe parkour is divided into two dimensions: Black and White.\nThe Black Dimension features a black-themed scene, while the White Dimension features a white-themed scene. Press the E key or left (A) key to switch between Black → White or White → Black.\nThe terrain in the Black and White Dimensions is different. After switching dimensions by pressing E or left (A), your relative position to the origin points of both dimensions remains unchanged.\nYou'll need to flexibly switch between the Black and White Dimensions to complete the parkour.\nCredits:\n1. 尧 (383025200313334)\n2. 严肃的力士甲虫-fC7 (13151057)\n3. 乘风的小晚 (50477944)\n4. 坦率的血翼蝠5801 (12823830)",
+        "error": "ERROR",
+        "dhm_already_used": "This redemption code has already been used.",
+        "dhm_success_creeper": "Redemption successful, obtained skin: Creeper\nRight-click skin library to use",
+        "dhm_success_steve": "Redemption successful, obtained skin: Steve\nRight-click skin library to use",
+        "dhm_success_exp": "Redemption successful, obtained {{exp}} exp",
+        "dhm_not_exist": "Redemption code does not exist",
+        "ban": "BANNED",
+        "baninfo": "You were banned from this server! 10 seconds later you will be kicked out. If you have any questions, please contact the administrator.",
+        "system": "System",
+        "author": "Author",
+        "bug_report": "Please report issues in the comments section, or email the author at oyroyroyr@163.com. If adopted, you will receive map green particle effects as a gift.",
+        "attachment_select_info": "You have entered the attachment selection area. Interact with dream to select attachments. To exit, right-click \"Uncrouch\"",
+        "confirm": "Confirm",
+        "acknowledge": "I acknowledge",
+        "close": "Close",
+        "exit": "Exit",
+        "congratulations": "Congratulations",
+        "victory_message": "Congratulations on reaching the finish line! You can check the time leaderboard in the right-click menu\nTime used: {{time}} seconds\nYou have obtained flight and noclip permissions plus 100 exp\nOnly times less than 10000 seconds will be recorded in the leaderboard!\nThanks to @尧 (383025200313334) for reporting the bug",
+        "admin_abuse": "Abusing admin privileges, you are no longer an admin",
+        "suspicious_time": "Finished so quickly, are you cheating? Doesn't count!",
+        "save_reminder": "Please save manually, otherwise the author is not responsible for data loss",
+        "purchase_success": "Purchase successful!",
+        "purchase_permanent_success": "Purchase successful! Please manually save and re-enter the map for the particle effects to take effect~",
+        "menu": {
+            "menu": "menu",
+            "basicinfo": "You have {{exp}} exp\nYou have used {{time}} seconds\nYour HP: {{hp}}/{{maxhp}}\nYour coordinates: {{position}}",
+            "redemption_code": "Redemption code",
+            "data": "data",
+            "leaderboard": {
+                "exp": "leaderboard-exp",
+                "time": "leaderboard-time"
+            },
+            "gameui": "ui",
+            "skin": "skins"
+        },
+        "redemption": {
+            "title": "Redemption",
+            "content": "Enter the redemption code you obtained\nRedemption codes can be obtained in QQ group 763919859!"
+        },
+        "storage": {
+            "title": "SQL Related",
+            "content": "Here are the Storage related functions, please choose:",
+            "save": "✔Save",
+            "delete": "❌Delete Data",
+            "delete_confirm_title": "Are you sure you want to delete your data?",
+            "delete_confirm_content": "Are you sure you want to delete your data?\nAll data will disappear after deletion!\nNo regrets!",
+            "delete_cancel1": "Not sure",
+            "delete_cancel2": "Forget it",
+            "delete_cancel3": "Haven't decided",
+            "delete_cancel4": "Don't delete",
+            "delete_confirm": "Delete it",
+            "save_success": "Save successful!\nAll data will be automatically saved every time you step on a save point"
+        },
+        "gameui": {
+            "content": "Select the operation you want to perform",
+            "cancel": "Cancel operation",
+            "close": "Close gameUi",
+            "open": "Open gameUi",
+            "refresh": "Refresh gameUi size"
+        },
+        "skin": {
+            "title": "Select Skin",
+            "content": "Please select the skin to use"
+        },
+        "shop": {
+            "title": "What do you want to buy?",
+            "content": "What do you want to buy?\nYou have {{exp}} exp\nDescription: Name (Price) (Remarks)",
+            "green_particle": "Permanent Green Particle Effect (150exp) (Sync across all maps)",
+            "creeper_skin": "Permanent Creeper Skin (500exp) (Sync across all maps) (Who knows what the author made the skin look like)",
+            "steve_skin": "Permanent Steve Skin (500exp) (Sync across all maps) (The restoration is pretty good, right?)",
+            "fly_privilege": "One-time Flight Privilege (70exp) (Enable flight, can only be used in one map! Valid for: 2s)",
+            "fly_speed": "One-time Flight Speed Changer (5exp) (Change flight speed, can only be used in one map! Prerequisite: Flight already enabled)",
+            "shrink_potion": "Shrink Potion (70exp) (One-time, reduces character size by 50%, cannot stack)",
+            "restore_potion": "Restore Potion (1exp) (One-time, restores character size)",
+            "enlarge_potion": "Enlarge Potion (70exp) (One-time, increases character size by 50%, cannot stack)",
+            "not_enough_exp": "Not enough exp!",
+            "not_enough_exp_or_owned": "Not enough exp or already own the skin"
+        },
+        "backpack": {
+            "title": "What do you want to use?",
+            "content": "What do you want to use?\nWarning: Click to use immediately without confirmation\nClick X to exit"
+        },
+        "fly_speed": {
+            "title": "Custom Flight Speed",
+            "content": "Enter flight speed, don't test server limits"
+        },
+        "mute_chat": {
+            "title": "Mute Player Chat",
+            "content": "What do you want to say",
+            "warning": "\"Warning! Non-muted players should try not to use this!\""
+        },
+        "admin_tools": {
+            "title": "Admin Tools",
+            "content": "Select the tool you need to use",
+            "doc": "Admin Command Documentation",
+            "view_logs": "View Logs",
+            "create_chat": "Create Temporary Chat Channel",
+            "destroy_chat": "Destroy Temporary Chat Channel",
+            "fly": "Fly",
+            "land": "Land",
+            "noclip": "Enable/Disable Noclip",
+            "switch_bgm": "Switch BGM",
+            "teleport_player": "Player Teleporter",
+            "teleport_to_player": "Teleport to Player",
+            "timer": "Timer",
+            "broadcast": "Broadcast Announcement",
+            "logs_title": "Logs",
+            "logs_content": "Log content:\n{{logs}}",
+            "create_chat_title": "Create Temporary Chat Channel",
+            "create_chat_content": "Enter all user IDs to join, separated by spaces",
+            "destroy_chat_title": "Select",
+            "destroy_chat_content": "Please select the temporary chat channel you want to destroy",
+            "teleport_player_title": "Teleport to Player",
+            "teleport_player_content": "Who do you want to teleport to your position",
+            "teleport_to_player_title": "Teleport to Player",
+            "teleport_to_player_content": "Who do you want to teleport yourself to",
+            "timer_title": "Timer",
+            "timer_content": "How long do you want to time",
+            "broadcast_title": "Broadcast Announcement",
+            "broadcast_content": "Enter broadcast content",
+            "broadcast_confirm": "Confirm Broadcast"
+        },
+        "restart_banned": "You are banned and cannot come out",
+        "uncrouch_banned": "You are banned and cannot come out"
+    },
+    "language": {
+        "select_title": "🌐Select Language/Choose a language",
+        "select_content": "🌐Select Language/Choose a language",
+        "chinese": "中文",
+        "english": "English",
+        "default_selected": "The default language for this game is Simplified Chinese",
+        "chinese_selected": "Simplified Chinese selected",
+        "english_selected": "Successfully selected English"
+    },
+    "menu_options": {
+        "language": "🌐Language/languages",
+        "shop": "Shop",
+        "backpack": "Backpack",
+        "restart": "Restart",
+        "uncrouch": "Uncrouch",
+        "switch_view": "Switch View",
+        "bug_report": "Bug Report",
+        "mute_chat": "Mute Chat",
+        "donate": "✨Support with Love!",
+        "admin_tools": "Admin Tools",
+        "attachment_select": "Select Attachment"
+    },
+    "player_titles": {
+        "player": "Player",
+        "admin": "Admin",
+        "senior_admin": "Senior Admin"
+    },
+    "skins": {
+        "default": "Default Skin",
+        "default_using": "Default"
+    },
+    "items": {
+        "fly_privilege": "One-time Flight Privilege",
+        "fly_speed": "One-time Flight Speed Changer",
+        "shrink_potion": "One-time Shrink Potion",
+        "restore_potion": "One-time Restore Potion",
+        "enlarge_potion": "One-time Enlarge Potion",
+        "infinite_fly": "Infinite Flight Wings"
+    },
+    "leaderboard": {
+        "title": "Ranking",
+        "exp_unit": "exp",
+        "time_note": "Note: To ensure correct sorting, 10000 - leaderboard display data is the actual time used",
+        "rank_format": "Rank {{rank}} | {{name}} | {{value}} {{unit}}{{name_display}}"
+    },
+    "dimension": {
+        "black": "Black",
+        "white": "White"
+    },
+    "chat": {
+        "welcome_join": "Welcome{{title}}{{name}} to Black & White Dimensions!\nCurrent online: {{online_count}} players",
+        "victory": "Congratulations {{name}} for reaching the finish line, time used: {{time}} seconds",
+        "title_prefix": " [{{title}}] ",
+        "purchase_green_particle": "{{name}} purchased one-time green particle effect experience!",
+        "purchase_permanent_green_particle": "{{name}} purchased permanent green particle effect!",
+        "purchase_exp": "{{name}} purchased {{exp}} exp!"
+    },
+    "logs": {
+        "join": "Joined",
+        "next_level": "Entered next level",
+        "victory": "Reached finish line, time used: {{time}}",
+        "dimension_switch": "Switched dimension to {{dimension}}",
+        "purchase_green_particle": "Purchased one-time green particle effect experience",
+        "purchase_permanent_green_particle": "Purchased permanent green particle effect",
+        "purchase_exp": "Purchased {{exp}} exp"
+    },
+    "client" : {
+        "dimension" : "dimension:",
+        "only_storage_included" : "(onlystorageincluded)",
+        "time" : "time:",
+        "message" : "messages:",
+        "adminlevel" : "Admin Level:",
+        "exp" : "exp:"
+    }
+}

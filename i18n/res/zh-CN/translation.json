@@ -1,0 +1,250 @@
+{
+    "tutorial": {
+        "tutorial": "教程",
+        "know": "知道了",
+        "tutorial1": "关卡：教程1\nhi there~{{name}}，欢迎来到黑白跑酷！这里是新手教程\n这个跑酷并不是一个普通的跑酷，在这个跑酷中，世界被分为了两个维度：黑与白。维度由四周墙体的颜色决定，电脑端按下E键即可切换维度。切换前后在两个维度中的相对位置不变。\n现在就试试切换维度吧！",
+        "tutorial2": "关卡：教程2\n现在，你已经知道了如何切换维度。\n要知道，两个维度中的地形可能不同！比如这个关卡正是如此。\n现在，切换维度，思考一下如何过关吧！",
+        "tutorial3": "关卡：教程3\n在这个关卡中，出现了新的东西——草莓酱！碰到它你就知道会发生什么了）））\n合理切换维度过关！"
+    },
+    "level_reminder": {
+        "reminder": "提示",
+        "level1": "关卡：1\n看来你应该掌握了这个游戏的玩法，接下来就要靠你自己摸索辣！\n如果你觉得这个地图不错，记得点赞收藏哦~",
+        "level2": "关卡：2\n这个关卡...似乎...不能跳跃？！",
+        "level7": "关卡：7\n没错！！！这个关卡又是特殊关卡\n在本关你的移动速度快的飞起！\n什么你说你可以潜行？不好意思你潜行速度是0\n当然，为了防止你信仰之跃，跳跃自然也是禁用了哒~\n感谢@坦率的血翼蝠5801（12823830）反馈的偷鸡点位！",
+        "level8": "关卡：8\n你羽整了个花活，在这个关卡，当处在\"黑\"维度时正常，处在\"白\"维度时方向键反向！",
+        "level10": "关卡：10\n鸣谢：创意贡献：乘风的小晚（50477944）\n结合前2、3关：加速+白反向+禁跳+禁潜行",
+        "level15": "关卡：15\n新的东西出现辣：跳板！\n蓝色跳板可以让你跳高；紫色跳板可以让你跳更高！"
+    },
+    "directmsgs": {
+        "respawn": "重生",
+        "data_loaded": "已为您读取数据！",
+        "data_created": "已为您创建数据！",
+        "save_success": "存档成功，经验+1！",
+        "next_level": "进入下一关",
+        "timer_start": "开始计时",
+        "dimension_switched": "切换维度成功",
+        "strawberry_juice": "你落入了草莓酱！",
+        "closed": "已关闭",
+        "opened": "开启成功",
+        "refresh_not_supported": "当前暂不支持刷新，请刷新网页即可",
+        "switch_success": "切换成功",
+        "purchase_success_particle": "购买成功，已自动使用，刷新后生效",
+        "purchase_success_skin": "购买成功，已放入皮肤库，可右键点击\"皮肤库\"使用",
+        "purchase_success_backpack": "购买成功，已放入背包",
+        "fly_privilege_used": "使用成功，2s后降落",
+        "fly_speed_used": "使用成功",
+        "potion_used": "使用成功",
+        "infinite_fly_used": "使用成功",
+        "restart_success": "重新开始，已重置计时器！",
+        "uncrouch_success": "脱离成功！",
+        "teleport_success": "传送成功！",
+        "timer_max": "计时最多3小时",
+        "timer_stopped": "计时器关闭！",
+        "temp_chat_created": "创建成功！{{users}}。ID为{{id}}",
+        "temp_chat_destroyed": "销毁成功！{{id}}",
+        "fly_enabled": "您可以飞行了",
+        "fly_disabled": "降落成功"
+    },
+    "dialogs": {
+        "welcome": "欢迎",
+        "joinwelcome": "{{name}}，欢迎来到黑白维度！\n跑酷分为两个维度：黑与白。\n黑维度的场景以黑色为主题色，白维度的场景以白色为主题色。玩家按下E键或左（A）键即可黑→白或白→黑。\n黑、白维度的地形不同，按下E键或左（A）键切换维度后与两维度原点的相对位置不变\n你需要在黑、白维度之间灵活切换，完成跑酷\n鸣谢名单：\n1. 尧（383025200313334）\n2. 严肃的力士甲虫-fC7（13151057）\n3. 乘风的小晚（50477944）\n4. 坦率的血翼蝠5801（12823830）",
+        "error": "错误",
+        "dhm_already_used": "这个兑换码已经使用过了",
+        "dhm_success_creeper": "兑换成功，获得皮肤：苦力怕\n右键皮肤库里可以使用",
+        "dhm_success_steve": "兑换成功，获得皮肤：史蒂夫\n右键皮肤库里可以使用",
+        "dhm_success_exp": "兑换成功，获得{{exp}}经验",
+        "dhm_not_exist": "兑换码不存在",
+        "ban": "封禁",
+        "baninfo": "你已被封禁，无法进入游戏！10秒后自动踢出\n如有疑问请联系管理员",
+        "system": "系统",
+        "author": "作者",
+        "bug_report": "反馈问题请发在评论区，也可以发作者邮箱oyroyroyr@163.com，如果采纳会赠送地图绿色粒子特效",
+        "attachment_select_info": "你已进入附图选择区域，与dream互动即可选择附图，要退出请右键点击\"脱离卡点\"",
+        "confirm": "确认",
+        "acknowledge": "我已知晓",
+        "close": "关闭",
+        "exit": "退出",
+        "congratulations": "恭喜",
+        "victory_message": "恭喜你到达终点！可在右键菜单查看时间排行\n用时{{time}}秒\n你已获得飞行穿墙权限与100经验\n只有时间小于10000秒才会计入排行！\n感谢@尧（383025200313334）反馈的bug",
+        "admin_abuse": "滥用管理权限，你已不再是管理员",
+        "suspicious_time": "过关这么快是不是开了？不算！",
+        "save_reminder": "请自行点击保存，否则数据丢失作者不负责任",
+        "purchase_success": "购买成功！",
+        "purchase_permanent_success": "购买成功！请手动点击保存后重进地图，粒子效果就会生效啦~",
+        "menu": {
+            "menu": "菜单",
+            "basicinfo": "你有{{exp}}经验\n你已用时{{time}}秒\n你的血量：{{hp}}/{{maxhp}}\n你的坐标：{{position}}",
+            "redemption_code": "兑换码",
+            "data": "数据相关",
+            "leaderboard": {
+                "exp": "经验排行榜",
+                "time": "时间排行榜"
+            },
+            "gameui": "关于界面",
+            "skin": "皮肤库"
+        },
+        "redemption": {
+            "title": "兑换",
+            "content": "输入你所获得的兑换码\n兑换码可以在Q群763919859获得！"
+        },
+        "storage": {
+            "title": "sql相关",
+            "content": "这里是有关Storage的功能，请选择：",
+            "save": "✔存档",
+            "delete": "❌删档",
+            "delete_confirm_title": "你确定要删档吗？",
+            "delete_confirm_content": "你确定要删档吗？\n删档后一切数据将消失！\n不能反悔！",
+            "delete_cancel1": "不确定",
+            "delete_cancel2": "算了",
+            "delete_cancel3": "没想好",
+            "delete_cancel4": "不删",
+            "delete_confirm": "删了吧",
+            "save_success": "存档成功！\n每次踩到存档点会自动进行所有数据的保存"
+        },
+        "gameui": {
+            "content": "选择你要进行的操作",
+            "cancel": "取消操作",
+            "close": "关闭gameUi",
+            "open": "开启gameUi",
+            "refresh": "刷新gameUi大小"
+        },
+        "skin": {
+            "title": "选择皮肤",
+            "content": "请选择要使用的皮肤"
+        },
+        "shop": {
+            "title": "你要买点啥？",
+            "content": "你要买点啥？\n你有{{exp}}经验\n说明：名称（价格）（备注）",
+            "green_particle": "永久绿色粒子效果（150exp）（全图同步）",
+            "creeper_skin": "永久苦力怕皮肤（500exp）（全图同步）（鬼知道作者把皮肤做成了啥样）",
+            "steve_skin": "永久史蒂夫皮肤（500exp）（全图同步）（还原度还是可以的吧）",
+            "fly_privilege": "一次性飞行特权（70exp）（开启飞行权限，仅能在一个地图使用！有效期：2s）",
+            "fly_speed": "一次性飞行变速器（5exp）（更改飞行速度，仅能在一个地图使用！使用前提：已经开启飞行）",
+            "shrink_potion": "缩小药水（70exp）（一次性，将角色大小缩小50%，不可叠加使用）",
+            "restore_potion": "还原药水（1exp）（一次性，将角色大小还原",
+            "enlarge_potion": "放大药水（70exp）（一次性，将角色大小增大50%，不可叠加使用）",
+            "not_enough_exp": "经验不够！",
+            "not_enough_exp_or_owned": "经验不够或已拥有皮肤"
+        },
+        "backpack": {
+            "title": "你要使用啥？",
+            "content": "你要使用啥？\n警告：点击后立即使用无确认\n退出请点X"
+        },
+        "fly_speed": {
+            "title": "自定义飞行速度",
+            "content": "输入飞行速度，不要试探服务器极限"
+        },
+        "mute_chat": {
+            "title": "禁言玩家说话",
+            "content": "你想要说啥",
+            "warning": "“警告！非禁言玩家尽量不要使用！”"
+        },
+        "admin_tools": {
+            "title": "管理员工具",
+            "content": "选择你需要使用的工具",
+            "doc": "管理员命令文档",
+            "view_logs": "查看日志",
+            "create_chat": "创建临时聊天频道",
+            "destroy_chat": "销毁临时聊天频道",
+            "fly": "飞行",
+            "land": "降落",
+            "noclip": "开启/关闭穿墙",
+            "switch_bgm": "切换bgm",
+            "teleport_player": "玩家传送器",
+            "teleport_to_player": "传送至某玩家",
+            "timer": "计时器",
+            "broadcast": "广播公告",
+            "logs_title": "日志",
+            "logs_content": "日志内容：\n{{logs}}",
+            "create_chat_title": "创建临时聊天频道",
+            "create_chat_content": "输入所有要加入的人的id，空格分割",
+            "destroy_chat_title": "选择",
+            "destroy_chat_content": "请选择你要销毁的临时聊天频道",
+            "teleport_player_title": "传送至某玩家",
+            "teleport_player_content": "你要传送谁到你的位置",
+            "teleport_to_player_title": "传送至某玩家",
+            "teleport_to_player_content": "你要传送你到谁的位置",
+            "timer_title": "计时器",
+            "timer_content": "你想计时多久",
+            "broadcast_title": "广播公告",
+            "broadcast_content": "输入广播内容",
+            "broadcast_confirm": "确认广播"
+        },
+        "restart_banned": "你在封禁中，不能出来",
+        "uncrouch_banned": "你在封禁中，不能出来"
+    },
+    "language": {
+        "select_title": "🌐选择语言/Choose a language",
+        "select_content": "🌐选择语言/Choose a language",
+        "chinese": "中文",
+        "english": "English",
+        "default_selected": "本游戏的默认语言为简体中文",
+        "chinese_selected": "已选择简体中文",
+        "english_selected": "Successfully selected English"
+    },
+    "menu_options": {
+        "language": "🌐语言/languages",
+        "shop": "商店",
+        "backpack": "背包",
+        "restart": "重来",
+        "uncrouch": "脱离卡点",
+        "switch_view": "切换人称",
+        "bug_report": "bug反馈",
+        "mute_chat": "禁言玩家说话",
+        "donate": "✨用爱，发电！",
+        "admin_tools": "管理员工具",
+        "attachment_select": "选择附图"
+    },
+    "player_titles": {
+        "player": "玩家",
+        "admin": "管理员",
+        "senior_admin": "高级管理员"
+    },
+    "skins": {
+        "default": "原版皮肤",
+        "default_using": "原版"
+    },
+    "items": {
+        "fly_privilege": "一次性飞行特权",
+        "fly_speed": "一次性飞行变速器",
+        "shrink_potion": "一次性缩小药水",
+        "restore_potion": "一次性还原药水",
+        "enlarge_potion": "一次性放大药水",
+        "infinite_fly": "无限飞行羽翼"
+    },
+    "leaderboard": {
+        "title": "排行",
+        "exp_unit": "经验",
+        "time_note": "注意：为了保证正确排序，10000-排行榜显示数据为真实用时",
+        "rank_format": "第{{rank}}名 | {{name}} | {{value}} {{unit}}{{name_display}}"
+    },
+    "dimension": {
+        "black": "黑",
+        "white": "白"
+    },
+    "chat": {
+        "welcome_join": "欢迎{{title}}{{name}} 加入黑白维度！\n当前在线：{{online_count}}人",
+        "victory": "恭喜{{name}} 到达终点，用时{{time}}秒",
+        "title_prefix": " [{{title}}] ",
+        "purchase_green_particle": "{{name}} 购买了一次性绿色粒子效果体验！",
+        "purchase_permanent_green_particle": "{{name}} 购买了永久绿色粒子效果！",
+        "purchase_exp": "{{name}} 购买了{{exp}}经验！"
+    },
+    "logs": {
+        "join": "加入",
+        "next_level": "进入下一关",
+        "victory": "到达终点，用时{{time}}",
+        "dimension_switch": "切换维度至 {{dimension}}",
+        "purchase_green_particle": "购买了一次性绿色粒子效果体验",
+        "purchase_permanent_green_particle": "购买了永久绿色粒子效果",
+        "purchase_exp": "购买了{{exp}}经验"
+    },
+    "client" : {
+        "dimension" : "维度：",
+        "only_storage_included" : "(不包含代码管理员)",
+        "time" : "用时：",
+        "message" : "世界消息：",
+        "adminlevel" : "管理员等级（越高越好）：",
+        "exp" : "经验："
+    }
+}
