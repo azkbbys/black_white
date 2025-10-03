@@ -985,7 +985,7 @@ world.onPress(async({button,entity})=>{
                     i18n.t('dialogs.admin_tools.fly', {lng: entity.lang}),
                     i18n.t('dialogs.admin_tools.land', {lng: entity.lang}),
                     i18n.t('dialogs.admin_tools.noclip', {lng: entity.lang}),
-                    i18n.t('dialogs.admin_tools.switch_bgm', {lng: entity.lang}),
+                    /*i18n.t('dialogs.admin_tools.switch_bgm', {lng: entity.lang}),*/
                     i18n.t('dialogs.admin_tools.teleport_player', {lng: entity.lang}),
                     i18n.t('dialogs.admin_tools.teleport_to_player', {lng: entity.lang}),
                     i18n.t('dialogs.admin_tools.timer', {lng: entity.lang}),

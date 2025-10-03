@@ -108,7 +108,12 @@ remoteChannel.events.on("client", (arg) => {
     }
     else if (arg.type == 'basicinfo') {
         text1.textContent = arg.args[0];
-        text2.textContent = arg.args[1];
+        if(['玩家','管理员', '高级管理员'].includes(arg.args[1])){
+            text2.textContent = i18n.t(`player_title.${arg.args[1] as string}`, { defaultValue: '' });
+        }
+        else{
+            text2.textContent = arg.args[1] as string;
+        }
         img1.image = arg.args[2];
     }
     else if (arg.type == 'tick') {

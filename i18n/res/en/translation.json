@@ -241,10 +241,15 @@
     },
     "client" : {
         "dimension" : "dimension:",
-        "only_storage_included" : "(onlystorageincluded)",
+        "only_storage_included" : "(only storage)",
         "time" : "time:",
         "message" : "messages:",
         "adminlevel" : "Admin Level:",
         "exp" : "exp:"
+    },
+    "player_title" : {
+        "玩家" : "Player",
+        "管理员" : "Admin",
+        "高级管理员" : "Senior Admin"
     }
 }
