@@ -174,8 +174,8 @@
         "uncrouch_banned": "You are banned and cannot come out"
     },
     "language": {
-        "select_title": "🌐Select Language/Choose a language",
-        "select_content": "🌐Select Language/Choose a language",
+        "select_title": "🌐选择语言/Choose a language",
+        "select_content": "🌐选择语言/Choose a language",
         "chinese": "中文",
         "english": "English",
         "default_selected": "The default language for this game is Simplified Chinese",
@@ -183,7 +183,7 @@
         "english_selected": "Successfully selected English"
     },
     "menu_options": {
-        "language": "🌐Language/languages",
+        "language": "🌐语言/languages",
         "shop": "Shop",
         "backpack": "Backpack",
         "restart": "Restart",
@@ -241,15 +241,11 @@
     },
     "client" : {
         "dimension" : "dimension:",
-        "only_storage_included" : "(only storage)",
+        "only_storage_included" : "(onlystorageincluded)",
         "time" : "time:",
         "message" : "messages:",
         "adminlevel" : "Admin Level:",
         "exp" : "exp:"
     },
-    "player_title" : {
-        "玩家" : "Player",
-        "管理员" : "Admin",
-        "高级管理员" : "Senior Admin"
-    }
+    "lang" : "en"
 }
