@@ -180,6 +180,7 @@ async function dialog(title:string,content:string,entity:GamePlayerEntity){
     });
 }
 function use_duihuanma(entity:GamePlayerEntity){
+    if(entity.duihuanma==null||entity.duihuanma==undefined||entity.duihuanma=='') return;
     if(entity.used_duihuanma.includes(entity.duihuanma)==true){
         dialog(i18n.t('dialogs.error', {lng: entity.lang}),i18n.t('dialogs.dhm_already_used', {lng : entity.lang }),entity)
         return
@@ -235,9 +236,9 @@ function use_duihuanma(entity:GamePlayerEntity){
             entity.used_duihuanma.push(entity.duihuanma);
             savePlayer(entity)
         }
-        else if(entity.duihuanma=='新图限时福利'){
-            dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: 100}),entity)
-            entity.exp+=100 
+        else if(entity.duihuanma=='首页福利'){
+            dialog(i18n.t('dialogs.system', {lng: entity.lang}),i18n.t('dialogs.dhm_success_exp', {lng: entity.lang, exp: 166}),entity)
+            entity.exp+=166
             entity.used_duihuanma.push(entity.duihuanma);
             savePlayer(entity)
         }
@@ -308,7 +309,7 @@ const savedData = { // 玩家初始需要保存的数据，可增添或删除
     cundang_dimension: 1,//1:黑 2:白
     time: 0,
     fastest_time: 0, // 最快通关时间
-    lang: undefined,
+    /*lang: undefined,*/
 };
 
 /**
@@ -403,7 +404,7 @@ async function loadPlayer(entity:GamePlayerEntity) { // 读档
             minute: minute
         }
     };
-    if(entity.lang==undefined){
+    /*if(entity.lang==undefined){
         let lang = await entity.player.dialog({
             type: GameDialogType.SELECT,
             title: i18n.t('language.select_title', { lng: 'zh-CN' }),
@@ -422,7 +423,7 @@ async function loadPlayer(entity:GamePlayerEntity) { // 读档
             entity.lang = 'en'
             entity.player.directMessage(i18n.t('language.english_selected', { lng: 'en' }))
         }
-    }
+    }*/
 };
 
 /**
@@ -531,7 +532,7 @@ world.onPress(async({button,entity})=>{
             type: GameDialogType.SELECT,
             title: i18n.t('dialogs.menu.menu', {lng: entity.lang}),
             content: i18n.t('dialogs.menu.basicinfo', {lng: entity.lang, exp:entity.exp, time:entity.time, hp: entity.hp, maxhp: entity.maxHp, position: entity.position}),
-            options:[i18n.t('menu_options.language', {lng: entity.lang}),
+            options:[/*i18n.t('menu_options.language', {lng: entity.lang}),*/
                 i18n.t('dialogs.menu.redemption_code', {lng: entity.lang}),
                 i18n.t('dialogs.menu.data', {lng: entity.lang}),
                 i18n.t('dialogs.menu.leaderboard.exp', {lng: entity.lang}),
@@ -1445,6 +1446,10 @@ remoteChannel.onServerEvent(({entity, args, tick})=>{
         catch (err) {
             world.say('<~ ' + err)
         }
+    }
+    else if(args.type=='lang'){
+        console.log('收到客户端语言：' + args.lang)
+        entity.lang=args.lang
     }
 })
 // 消息预览
